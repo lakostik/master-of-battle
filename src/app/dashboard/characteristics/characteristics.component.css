@@ -1,0 +1,137 @@
+
+.characteristics {position: relative;margin-bottom: 20px;}
+.stats-blok {
+  color: #fff;
+  width: 100vw;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+h3 {
+  color: gold;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 0 20px;
+  border-bottom: 1px solid;
+  width: calc(100% - 80px);
+}
+.points {
+  position: absolute;
+  right: 30px;
+  background: #ffd700e0;
+  color: #333;
+  top: 1px;
+  width: 28px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  font-size: 18px;
+}
+.stats-blok > div {
+  width: calc((100% / 3) - 20px);
+  display: inline-flex;
+  position: relative;
+  /*padding-top: 20px;*/
+}
+.stats-blok > div> span:first-child {
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  min-height: 50px;
+  border-radius: 10%;
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, .5); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  /* background: #26404e; */
+  position: relative;
+  z-index: 2;
+  /*border: 1px solid rgba(0,0,0,0.5);*/
+}
+.stats-blok > div> span:nth-child(2) {
+  width: 34px;
+  min-width: 34px;
+  height: 28px;
+  min-height: 28px;
+  border-radius: 4px;
+  background: #333440;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  top: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  left: -5px;
+}
+.str {}
+.str > span:first-child {
+  color: #cccc32;
+}
+.agi {}
+.agi > span:first-child {
+  color: #53c353;
+}
+.vit {}
+.vit > span:first-child {
+  color: #ca3838;
+  /*background: #ccc;*/
+}
+.int {}
+.int > span:first-child {
+  color: #cc932b;
+  /*background: #ccc;*/
+}
+.ene {}
+.ene > span:first-child {
+  color: #d150d1;
+  /*background: #ccc;*/
+}
+.men {}
+.men > span:first-child {
+  color: #5656e1;
+}
+.stats-blok span:last-child {
+  position: absolute;
+  /*top: 20px;*/
+  left: 47px;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.up-icon {
+  color: #53c353;
+  animation: up-to-down 2s infinite;
+}
+
+@keyframes up-to-down {
+  0% {transform: translateY(0)}
+  40% {transform: translateY(-3px)}
+  100% {transform: translateY(0px)}
+}
+
+.chr-field {
+  margin-bottom: 10px;
+}
+.chr-f-name {
+  color: #cc932b;
+  padding: 5px 20px;
+  font-weight: 300;
+  letter-spacing: .5px;
+}
+.chr-f-opt {
+  padding: 2px 20px;
+  color: #fff;
+  font-weight: 200;
+  letter-spacing: .5px;
+}
+.chr-f-opt span:last-child {
+  font-weight: 300;
+  padding-left: 6px;
+}

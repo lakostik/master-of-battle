@@ -1,0 +1,88 @@
+
+<div class="container shop">
+  <div class="header-nav">
+    <span class="back-btn" (click)="back()"><i class="fa-solid fa-chevron-left"></i></span>
+    <h3>{{title}}</h3>
+    <div class="user-kar">{{user.kar}} kar</div>
+  </div>
+  <div class="shop-items-blok">
+    <div class="shop-items-nav">
+      <span (click)="sortType('weapons')">Weapons</span>
+      <span (click)="sortType('armor')">Armor</span>
+      <span (click)="sortType('boots')">boots</span>
+      <span (click)="sortType('pants')">pants</span>
+      <span (click)="sortType('gloves')">gloves</span>
+      <span (click)="sortType('helm')">helm</span>
+      <span (click)="sortType('shield')">shield</span>
+      <span (click)="sortType('ring')">ring</span>
+      <span (click)="sortType('earrings')">earrings</span>
+      <span (click)="sortType('necklaces')">necklaces</span>
+      <span (click)="sortType('')">all</span>
+    </div>
+    <div class="shop-items-content">
+      <div *ngFor="let item of filterData" class="shop-item">
+        <div class="item-img">
+          <div class="{{(item.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="{{item.klas}}">{{item.klas}}</span>
+        </div>
+        <div class="item-text">
+          <div class="s-item-name">{{item.name}}</div>
+          <div class="item-base" *ngIf="item?.atk"><span>Attack: </span><span> {{item.atk}}</span></div>
+          <div class="item-base" *ngIf="item?.def"><span>Defence: </span><span> {{item.def}}</span></div>
+          <div class="item-opt">
+            <ng-container *ngIf="item.klas == 'agi'">
+              <div>Evasion: {{item.bonus}}%</div>
+              <div>Accuracy: {{item.bonus}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'ene'">
+              <div>Elemental damage: {{item.bonus - 2}}%</div>
+              <div>Defuff chance: {{item.bonus - 2}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'str'">
+              <div>Extra damage: {{item.bonus}}%</div>
+<!--              <div>Accuracy: {{item.bonus}}%</div>-->
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'vit'">
+              <div>Hit points: {{item.bonus}}%</div>
+              <div>Resist damage: {{item.bonus - 2}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'men'">
+              <div>Debuff resistant: {{item.bonus -2}}%</div>
+              <div>Mana point: {{item.bonus}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'int'">
+              <div>Critical chance: {{item.bonus}}%</div>
+              <div>Critical resist: {{item.bonus}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'res'">
+              <div>Accuracy: {{item.bonus - 2}}%</div>
+              <div>Critical resist: {{item.bonus -2}}%</div>
+              <div>Debuff resistant: {{item.bonus -2}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'atk'">
+              <div>Damage: {{item.bonus}}%</div>
+              <div>Hit point: {{item.bonus}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'def'">
+              <div>Defence: {{item.bonus}}%</div>
+              <div>Hit point: {{item.bonus}}%</div>
+            </ng-container>
+            <ng-container *ngIf="item.klas == 'mag'">
+              <div>Magic damage: {{item.bonus}}</div>
+              <div>Hit point: {{item.bonus - 3}}%</div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="item-price">
+          <button (click)="buyItem(item)" class="circle-btn"><i class="fa-solid fa-sack-dollar"></i></button>
+          <div>
+            <span>{{item.price}}</span>
+            <span>kar</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

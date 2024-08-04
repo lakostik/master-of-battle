@@ -1,0 +1,121 @@
+<div class="container characteristics">
+  <h3>Stats</h3>
+  <div *ngIf="user?.user_spec[0]?.points" class="points">{{user?.user_spec[0]?.points}}</div>
+  <div class="chr-blok">
+    <div class="stats-blok">
+      <div class="str" (click)="addStat('str')">
+        <span><i class="fa-solid fa-hand-fist"></i></span>
+        <span>{{user?.user_spec[0]?.str}}</span>
+        <span class="up-icon" *ngIf="user?.user_spec[0]?.points"><i class="fa-solid fa-caret-up"></i></span>
+        <span>Str</span>
+      </div>
+      <div class="vit" (click)="addStat('vit')">
+        <span><i class="fa-solid fa-heart"></i></span>
+        <span>{{user?.user_spec[0]?.vit}}</span>
+        <span class="up-icon" *ngIf="user?.user_spec[0]?.points"><i class="fa-solid fa-caret-up"></i></span>
+        <span>Vit</span>
+      </div>
+      <div class="agi" (click)="addStat('agi')">
+        <span><i class="fa-solid fa-wind"></i></span>
+        <span>{{user?.user_spec[0]?.agi}}</span>
+        <span class="up-icon" *ngIf="user?.user_spec[0]?.points"><i class="fa-solid fa-caret-up"></i></span>
+        <span>Agi</span>
+      </div>
+      <div class="ene" (click)="addStat('ene')">
+        <span><i class="fa-solid fa-meteor"></i></span>
+        <span>{{user?.user_spec[0]?.ene}}</span>
+        <span class="up-icon" *ngIf="user?.user_spec[0]?.points"><i class="fa-solid fa-caret-up"></i></span>
+        <span>Ene</span>
+      </div>
+      <div class="men" (click)="addStat('men')">
+        <span><i class="fa-solid fa-hat-wizard"></i></span>
+        <span>{{user?.user_spec[0]?.men}}</span>
+        <span class="up-icon" *ngIf="user?.user_spec[0]?.points"><i class="fa-solid fa-caret-up"></i></span>
+        <span>Men</span>
+      </div>
+      <div class="int" (click)="addStat('int')">
+        <span><i class="fa-solid fa-explosion"></i></span>
+        <span>{{user?.user_spec[0]?.int}}</span>
+        <span class="up-icon" *ngIf="user?.user_spec[0]?.points"><i class="fa-solid fa-caret-up"></i></span>
+        <span>Int</span>
+      </div>
+    </div>
+    <div *ngIf="charShowBnt" style="display: flex;justify-content: center;">
+      <button class="cancel-btn" (click)="cancelChr()">Cancel</button>
+      <button class="save-btn" (click)="saveChr()">Save</button>
+    </div>
+  </div>
+  <h3>Characteristic</h3>
+  <div class="chr-blok">
+    <div class="chr-field">
+      <div class="chr-f-name">Strength {{user?.user_spec[0]?.str}}</div>
+      <div class="chr-f-opt">
+        <span>Damage:</span>
+        <span>{{user.user_spec[0]?.str}} - {{user.user_spec[0]?.str * 2}}</span>
+      </div>
+      <div class="chr-f-opt">
+        <span>Extra damage:</span>
+        <span>{{user.user_spec[0]?.str}} %</span>
+      </div>
+    </div>
+    <div class="chr-field">
+      <div class="chr-f-name">Vitality {{user.user_spec[0]?.vit}}</div>
+      <div class="chr-f-opt">
+        <span>Hit point:</span>
+        <span>{{user.user_spec[0]?.vit * 10}}</span>
+      </div>
+      <div class="chr-f-opt">
+        <span>Resist damage:</span>
+        <span>{{user.user_spec[0]?.vit}} %</span>
+      </div>
+    </div>
+    <div class="chr-field">
+      <div class="chr-f-name">Agility {{user.user_spec[0]?.agi}}</div>
+      <div class="chr-f-opt">
+        <span>Evasion:</span>
+        <span>{{user.user_spec[0]?.agi * 7}}</span>
+      </div>
+      <div class="chr-f-opt">
+        <span>Accuracy:</span>
+        <span>{{user.user_spec[0]?.agi * 5}}</span>
+      </div>
+    </div>
+    <div class="chr-field">
+      <div class="chr-f-name">Energy {{user.user_spec[0]?.ene}}</div>
+      <div class="chr-f-opt">
+        <span>Elemental damage:</span>
+        <span>{{user.user_spec[0]?.ene}}</span>
+      </div>
+      <div class="chr-f-opt">
+        <span>Debuff chance:</span>
+        <span>{{user.user_spec[0]?.ene}} %</span>
+      </div>
+    </div>
+    <div class="chr-field">
+      <div class="chr-f-name">Meditation {{user.user_spec[0]?.men}}</div>
+      <div class="chr-f-opt">
+        <span>Manna points:</span>
+        <span>{{user.user_spec[0]?.men * 10}}</span>
+      </div>
+      <div class="chr-f-opt">
+        <span>Debuff resistant:</span>
+        <span>{{user.user_spec[0]?.men}} %</span>
+      </div>
+    </div>
+    <div class="chr-field">
+      <div class="chr-f-name">Intuition {{user.user_spec[0]?.int}}</div>
+      <div class="chr-f-opt">
+        <span>Critical change:</span>
+        <span>{{user.user_spec[0]?.int * 7}}</span>
+      </div>
+      <div class="chr-f-opt">
+        <span>Critical resistant:</span>
+        <span>{{user.user_spec[0]?.int * 5}}</span>
+      </div>
+      <div class="chr-f-opt">
+        <span>Critical damage:</span>
+        <span>{{user.user_spec[0]?.int * 6}} %</span>
+      </div>
+    </div>
+  </div>
+</div>

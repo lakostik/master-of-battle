@@ -1,0 +1,30 @@
+<div class="container" *ngIf="user?.user_id"  >
+  <div class="user-header">
+    <div class="user-img" (click)="userInfoPage()">
+      <img *ngIf="user?.photo_url" [src]="user?.photo_url">
+      <img *ngIf="!user?.photo_url" src="./assets/img/free-avatar.png">
+    </div>
+    <div class="user-detail">
+      <div class="user-name">
+        <span>{{user?.username}}</span>
+        <span *ngIf="!user?.username">{{user?.first_name}} {{user?.last_name}}</span>
+        <span class="money">{{user?.kar}} kar</span>
+      </div>
+      <div class="user-exp">
+        <span class="user-lvl">lvl: {{user?.user_exp[0]?.curr_lvl}}</span>
+        <div class="exp-blok">
+          <span class="exp-count" [style.width.%]="expWidth"></span>
+        </div>
+        <div class="exp-text">Exp: {{user?.user_exp[0]?.exp}} / {{userNextLevel.exp}}</div>
+      </div>
+    </div>
+
+  </div>
+  <app-equip></app-equip>
+  <app-nav-button></app-nav-button>
+<!--  <app-characteristics [user]="user"></app-characteristics>-->
+</div>
+<div class="spinner-global">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
+

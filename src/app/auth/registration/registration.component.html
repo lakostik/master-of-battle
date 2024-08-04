@@ -1,0 +1,30 @@
+<div class="container">
+  <div [ngClass]="{'active': step == 1}" class="cart">
+    <div class="personal-data">
+      <span>
+        <img src="https://img.icons8.com/?size=100&id=dZKLPRVMXAcT&format=png&color=000000">
+      </span>
+      <h2>Hello {{userFirstName}} - {{userLastName}}</h2>
+      <p>Id - {{userId}}</p>
+
+      <div class="buttons btn-blok">
+        <button (click)="createUser()"> Registration</button>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{'active': step == 2}" class="cart">
+    <div class="form-field">
+      <input class="input-text" [(ngModel)]="nikname" (ngModelChange)="usernameError = ''" placeholder="nikname" maxlength="15">
+      <span *ngIf="usernameError" class="error-field">{{usernameError}}</span>
+    </div>
+    <div class="form-field">
+      <input [(ngModel)]="gender" value="male" type="radio" id="btn-male">
+      <label for="btn-male">Male</label>
+      <input [(ngModel)]="gender" value="female" type="radio" id="btn-female">
+      <label for="btn-female">Female</label>
+    </div>
+    <div class="form-field">
+      <button (click)="updateUser()">Save</button>
+    </div>
+  </div>
+</div>

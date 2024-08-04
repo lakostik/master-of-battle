@@ -1,0 +1,78 @@
+<div class="container inventar">
+  <div class="header-nav">
+    <span class="back-btn" (click)="back()"><i class="fa-solid fa-chevron-left"></i></span>
+    <h3>{{title}}</h3>
+    <div class="user-kar">{{user.kar}} kar</div>
+  </div>
+  <div class="inv-content">
+      <div class="inv_item" *ngFor="let item of itemsData">
+        <div class="item-left">
+          <div class="item-img">
+            <div class="{{(item.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+            <span class="item-lvl">{{item.level + 0}}</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <div class="item-name" *ngIf="item.name">{{item.name}}</div>
+          <div class="item-def-atk" *ngIf="item.defence">Defence: {{item.defence}}</div>
+          <div class="item-base-opt" *ngIf="item.klas == 'agi'">
+            <div>Evasion: {{item.bonus}}%</div>
+            <div>Accuracy: {{item.bonus}}%</div>
+          </div>
+          <div class="item-base-opt" *ngIf="item.klas == 'ene'">
+            <div>Elemental damage: {{item.bonus - 2}}%</div>
+            <div>Defuff chance: {{item.bonus - 2}}%</div>
+          </div>
+          <div class="item-base-opt" *ngIf="item.klas == 'str'">
+            <div>Extra damage: {{item.bonus}}%</div>
+          </div>
+          <div class="item-base-opt"*ngIf="item.klas == 'vit'">
+            <div>Hit points: {{item.bonus}}%</div>
+            <div>Resist damage: {{item.bonus - 2}}%</div>
+          </div>
+          <div class="item-base-opt" *ngIf="item.klas == 'men'">
+            <div>Debuff resistant: {{item.bonus -2}}%</div>
+            <div>Mana point: {{item.bonus}}%</div>
+          </div>
+          <div class="item-base-opt" *ngIf="item.klas == 'int'">
+            <div>Critical chance: {{item.bonus}}%</div>
+            <div>Critical resist: {{item.bonus}}%</div>
+          </div>
+          <div class="item-base-opt" *ngIf="item.klas == 'res'">
+            <div>Accuracy: {{item.bonus - 2}}%</div>
+            <div>Critical resist: {{item.bonus -2}}%</div>
+            <div>Debuff resistant: {{item.bonus -2}}%</div>
+          </div>
+          <div class="other-opt" *ngIf="item.str">STR: {{item.str}}</div>
+          <div class="other-opt" *ngIf="item.agi">AGI: {{item.agi}}</div>
+          <div class="other-opt" *ngIf="item.int">INT: {{item.int}}</div>
+          <div class="other-opt" *ngIf="item.vit">VIT: {{item.vit}}</div>
+          <div class="other-opt" *ngIf="item.ene">ENE: {{item.ene}}</div>
+          <div class="other-opt" *ngIf="item.men">MEN: {{item.men}}</div>
+          <div class="other-opt" *ngIf="item.hp">HP: {{item.hp}}</div>
+          <div class="other-opt" *ngIf="item.mp">MP: {{item.mp}}</div>
+          <div class="other-opt" *ngIf="item.damage_resistant">Damage resist: {{item.damage_resistant}}</div>
+          <div class="other-opt" *ngIf="item.debuff_change">Debuff chance: {{item.debuff_change}}</div>
+          <div class="other-opt" *ngIf="item.debuff_resistant">Debuff resist: {{item.debuff_resistant}}</div>
+          <div class="other-opt" *ngIf="item.attack">Attack: {{item.attack}}</div>
+          <div class="other-opt" *ngIf="item.evasion">Evasion: {{item.evasion}}</div>
+          <div class="other-opt" *ngIf="item.accuracy">Accuracy: {{item.accuracy}}</div>
+          <div class="other-opt" *ngIf="item.extra_damage">Extra damage: {{item.extra_damage}}</div>
+          <div class="other-opt" *ngIf="item.extra_defence">Extra defence: {{item.extra_defence}}</div>
+          <div class="other-opt" *ngIf="item.critical_chance">Critical chance: {{item.critical_chance}}</div>
+          <div class="other-opt" *ngIf="item.critical_damage">Critical damage: {{item.critical_damage}}</div>
+          <div class="other-opt" *ngIf="item.critical_resistant">Critical resist: {{item.critical_resistant}}</div>
+          <div class="other-opt opt-price" *ngIf="item.price">Price: {{item.price}}</div>
+          <div *ngIf="item.equipped" class="item-eq">equipped</div>
+<!--          <i class="fa-solid fa-star"></i>-->
+        </div>
+        <div class="item-bottom">
+          <button (click)="lvlUpItem(item)" [ngClass]="{'noactive': item.spinner}" class="lvl-btn btn"><i class="fa-solid fa-plus"></i> Up {{(item.level*2) + 3}}kar</button>
+          <button (click)="equipItem(item)" *ngIf="!item.equipped" class="gray-btn btn"><i class="fa-regular fa-circle-up"></i> equip</button>
+          <button (click)="equipItem(item)" *ngIf="!item.equipped" class="gray-btn btn"><i class="fa-regular fa-circle-up"></i> equip</button>
+          <button (click)="equipItem(item)" *ngIf="item.equipped" class="gray-btn btn"><i class="fa-regular fa-circle-down"></i> unequipped</button>
+          <button (click)="sellItem(item)" class="red-btn btn"><i class="fa-solid fa-hand-holding-dollar"></i> sell {{item.price - (item.level*3)}}</button>
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="user-eq">
+  <div class="user-effects">
+    <div class=""></div>
+    <div class=""></div>
+    <div class=""></div>
+  </div>
+  <div class="eq-blok" *ngIf="user?.user_id">
+    <div class="left-eq">
+      <div class="eq-helm equip">
+        <div class="item-img" *ngIf="helm?.name">
+          <div class="{{(helm?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{helm?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-armor equip">
+        <div class="item-img" *ngIf="armor?.name">
+          <div class="{{(armor?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{armor?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-weapon equip">
+        <div class="item-img" *ngIf="weapon?.name">
+          <div class="{{(weapon?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{weapon?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-gloves equip">
+        <div class="item-img" *ngIf="gloves?.name">
+          <div class="{{(gloves?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{gloves?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-pant equip">
+        <div class="item-img" *ngIf="pants?.name">
+          <div class="{{(pants?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{pants?.level + 0}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="center-eq">
+      <div class="hp-blok">
+        <span class="hp-count">HP {{user?.user_spec[0]?.vit * 10}} / {{user?.user_spec[0]?.vit * 10}}</span>
+        <div class="hp-line">
+          <span></span>
+        </div>
+      </div>
+      <div class="mp-blok">
+        <span class="mp-count">MP {{user?.user_spec[0]?.men * 10}} / {{user?.user_spec[0]?.men * 10}}</span>
+        <div class="mp-line">
+          <span></span>
+        </div>
+      </div>
+      <div class="avatar-img">
+        <img src="./assets/img/standartAva.jpg">
+      </div>
+      <!--          <div class="bottle-scroll">-->
+      <!--            <span></span>-->
+      <!--            <span></span>-->
+      <!--            <span></span>-->
+      <!--            <span></span>-->
+      <!--            <span></span>-->
+      <!--          </div>-->
+    </div>
+    <div class="right-eq">
+      <div class="eq-symbol equip">
+        <div class="item-img" *ngIf="symbol?.name">
+          <div class="{{(symbol?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{symbol?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-earrings equip">
+        <div class="item-img" *ngIf="earrings?.name">
+          <div class="{{(earrings?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{earrings?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-necklaces equip">
+        <div class="item-img" *ngIf="necklaces?.name">
+          <div class="{{(necklaces?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{necklaces?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-rings equip">
+          <span>
+            <div class="item-img" *ngIf="ring1?.name">
+              <div class="{{(ring1?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+              <span class="item-lvl">{{ring1?.level + 0}}</span>
+            </div>
+          </span>
+          <span>
+            <div class="item-img" *ngIf="ring2?.name">
+              <div class="{{(ring2?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+              <span class="item-lvl">{{ring2?.level + 0}}</span>
+            </div>
+          </span>
+      </div>
+      <div class="eq-weapon2 equip">
+        <div class="item-img" *ngIf="shield?.name">
+          <div class="{{(shield?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{shield?.level + 0}}</span>
+        </div>
+      </div>
+      <div class="eq-boots equip" #eqboots (click)="equipUp(eqboots)">
+        <div class="item-img" *ngIf="boots?.name">
+          <div class="{{(boots?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
+          <span class="item-lvl">{{boots?.level + 0}}</span>
+        </div>
+<!--        <div class="equipped">-->
+<!--          <img src="./assets/img/base-boots.jpg">-->
+<!--          <div class="item-options" >-->
+<!--            <div class="item-opt" *ngFor="let opt of boots.opt" [innerHTML]="opt | itemOpt"></div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+      </div>
+    </div>
+  </div>
+
+</div>

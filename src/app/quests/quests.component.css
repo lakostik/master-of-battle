@@ -1,0 +1,99 @@
+.quests {
+  background: url('/assets/img/quests3.jpg') no-repeat center center/cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+.quests-content {
+  margin-top: 20px;
+}
+.quest {
+  display: flex;
+  background: #35363f;
+  width: calc(100% - 20px);
+  margin: 10px auto;
+  border-radius: 10px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  position: relative;
+}
+.quest.ready:after {
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(1 177 1 / 15%);
+  position: absolute;
+  border-radius: 10px;
+  z-index: 2;
+}
+.qq-img {
+  width: 60px;
+  min-width: 60px;
+  height: 60px;
+  margin: 10px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+img {
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  margin: -5px;
+}
+.qq-name {
+  font-size: 14px;
+  color: #fff;
+  padding: 4px 0;
+  font-weight: 300;
+  width: 100%;
+}
+.qq-body {
+  width: calc(100% - 150px);
+  margin: 10px 0;
+}
+.qq-desc {
+  font-size: 13px;
+  padding: 4px 0;
+  font-weight: 100;
+  width: 100%;
+  color: #fff;
+}
+.qq-result {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  min-width: 80px;
+  min-height: 70px;
+  border-left: 1px solid rgba(213, 182, 149, 0.35);
+  flex-direction: column;
+}
+.qq-reward {
+  color: gold;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 4px 0;
+}
+.circle-btn {
+  background: #0000004a;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  font-weight: 100;
+  color: #d5b695;
+  border: 1px solid #d5b695;
+  transition: all 1s;
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, .5);
+}
+.time {
+  font-size: 12px;
+  font-weight: 100;
+  color: #fff;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
