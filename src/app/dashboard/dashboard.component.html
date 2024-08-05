@@ -1,5 +1,5 @@
-<div class="container" *ngIf="user?.user_id"  >
-  <div class="user-header">
+<div class="container" >
+  <div class="user-header" *ngIf="user?.user_id">
     <div class="user-img" (click)="userInfoPage()">
       <img *ngIf="user?.photo_url" [src]="user?.photo_url">
       <img *ngIf="!user?.photo_url" src="./assets/img/free-avatar.png">
@@ -24,7 +24,7 @@
   <app-nav-button></app-nav-button>
 <!--  <app-characteristics [user]="user"></app-characteristics>-->
 </div>
-<div class="spinner-global">
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="spinner-global" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
 </div>
 

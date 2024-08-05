@@ -11,7 +11,7 @@ import {QuestsComponent} from "./quests/quests.component";
 import {ShopComponent} from "./shop/shop.component";
 
 export const routes: Routes = [
-  {path: '', component: AppComponent, pathMatch: 'full'},
+  {path: 'home', component: AppComponent},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'lost', component: LostComponent},
@@ -21,4 +21,5 @@ export const routes: Routes = [
   {path: 'inventar', component: InventarComponent},
   {path: 'quests', component: QuestsComponent},
   {path: 'shop', component: ShopComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
