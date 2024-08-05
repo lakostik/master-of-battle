@@ -2,8 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule, Location } from '@angular/common';
 import {AuthService} from '../services/auth.service';
 import {SafeHtmlPipe} from "../pipe/safe-html.pipe";
-import {ApiService} from "../services/api.service";
-import moment from "moment";
+import moment from 'moment'
 import {forkJoin, from, take} from "rxjs";
 
 
@@ -23,9 +22,11 @@ export class QuestsComponent implements OnInit {
   quests:any[] = [];
   user: any;
 
+  constructor() {
+  }
+
   ngOnInit() {
     this.initQuests();
-
 
   }
 
