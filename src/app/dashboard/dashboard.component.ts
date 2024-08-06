@@ -37,11 +37,11 @@ export class DashboardComponent implements OnInit, OnDestroy{
     this.authService.currentUser.subscribe((data: any) => {
         if(data?.user_id){
           this.user = data;
-          console.log('dashboard', data)
           this.userLvl();
           this.isLoading = false;
+          console.log('dashboard', data, this.isLoading )
         }
-      }, error => this.isLoading = false);
+      });
     this.apiService.calcLvl();
   }
 
