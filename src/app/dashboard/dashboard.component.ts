@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy{
           this.userLvl();
           this.isLoading = false;
         }
-      });
+      }, error => this.isLoading = false);
     this.apiService.calcLvl();
   }
 
