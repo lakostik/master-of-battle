@@ -98,6 +98,7 @@ span.item-lvl {
   white-space: nowrap;
   font-weight: 300 !important;
   font-family: 'Roboto';
+  text-decoration: none;
 }
 .green-btn {
   color: #fff;

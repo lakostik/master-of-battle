@@ -5,6 +5,11 @@
     <div class="user-kar">{{user.kar}} kar</div>
   </div>
   <div class="inv-content">
+    <div *ngIf="itemsData" class="inv_item">
+      <span style="color: #fff;">Your inventory has no items. <br>You can buy them in the <br></span>
+      <a class="green-btn btn" (click)="router.navigate(['shop'])">Shop</a>
+    </div>
+
       <div class="inv_item" *ngFor="let item of itemsData">
         <div class="item-left">
           <div class="item-img">

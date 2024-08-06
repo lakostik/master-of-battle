@@ -72,6 +72,25 @@
               <div>Hit point: {{item.bonus - 3}}%</div>
             </ng-container>
           </div>
+          <div class="other-opt" *ngIf="item.hp">HP: {{item.hp}}</div>
+          <div class="other-opt" *ngIf="item.mp">MP: {{item.mp}}</div>
+          <div class="other-opt" *ngIf="item.str">STR: {{item.str}}</div>
+          <div class="other-opt" *ngIf="item.agi">AGI: {{item.agi}}</div>
+          <div class="other-opt" *ngIf="item.int">INT: {{item.int}}</div>
+          <div class="other-opt" *ngIf="item.ene">ENE: {{item.ene}}</div>
+          <div class="other-opt" *ngIf="item.men">MEN: {{item.men}}</div>
+          <div class="other-opt" *ngIf="item.vit">VIT: {{item.vit}}</div>
+          <div class="other-opt" *ngIf="item.damage_resistant">Damage resist: {{item.damage_resistant}}</div>
+          <div class="other-opt" *ngIf="item.debuff_change">Debuff chance: {{item.debuff_change}}</div>
+          <div class="other-opt" *ngIf="item.debuff_resistant">Debuff resist: {{item.debuff_resistant}}</div>
+          <div class="other-opt" *ngIf="item.attack">Attack: {{item.attack}}</div>
+          <div class="other-opt" *ngIf="item.evasion">Evasion: {{item.evasion}}</div>
+          <div class="other-opt" *ngIf="item.accuracy">Accuracy: {{item.accuracy}}</div>
+          <div class="other-opt" *ngIf="item.extra_damage">Extra damage: {{item.extra_damage}}</div>
+          <div class="other-opt" *ngIf="item.extra_defence">Extra defence: {{item.extra_defence}}</div>
+          <div class="other-opt" *ngIf="item.critical_chance">Critical chance: {{item.critical_chance}}</div>
+          <div class="other-opt" *ngIf="item.critical_damage">Critical damage: {{item.critical_damage}}</div>
+          <div class="other-opt" *ngIf="item.critical_resistant">Critical resist: {{item.critical_resistant}}</div>
         </div>
         <div class="item-price">
           <button (click)="buyItem(item)" class="circle-btn"><i class="fa-solid fa-sack-dollar"></i></button>

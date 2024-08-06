@@ -60,7 +60,6 @@ export class ApiService implements OnInit {
     let oldData = localStorage.getItem('user_exp');
     if(oldData){                              // перевірка чи є в локалСтореджі запис по досвіду
       let oldExp = JSON.parse(oldData);       // Розпашуємо його в обєкт
-      console.log(oldExp)
       if(oldExp.exp !== expData[0].exp) {     // перевірка чи старий ( записаний досвід ) відрізняється від того що прийшов
         localStorage.removeItem('user_exp');
         let experienceTable = this.lvlTable.value; // таблиця досвіду

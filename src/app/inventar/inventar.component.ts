@@ -18,6 +18,7 @@ export class InventarComponent implements OnInit{
     authService = inject(AuthService)
     user: any;
     itemsData: any;
+    router = inject(Router);
 
     ngOnInit() {
       this.authService.currentUser.subscribe((data: any) => {

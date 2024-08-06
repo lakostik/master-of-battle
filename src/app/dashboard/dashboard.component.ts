@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy{
           this.user = data;
           this.userLvl();
           this.isLoading = false;
-          console.log('dashboard', data, this.isLoading )
+          // console.log('dashboard', data, this.isLoading )
         }
       });
     this.apiService.calcLvl();
@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit, OnDestroy{
             this.userNextLevel = el;
           }
         });
-        console.log(this.userlevel, this.userNextLevel, this.user?.user_exp[0]?.exp)
         this.expWidth = (this.user?.user_exp[0]?.exp - this.userlevel.exp) / ((this.userNextLevel.exp - this.userlevel.exp) / 100 )
       });
 

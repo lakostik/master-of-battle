@@ -62,7 +62,16 @@ export class ShopComponent implements OnInit {
         'set': item.set,
         'name': item.name,
         'item_id': item.id,
-        'defence': item.def,
+        'defence': item.def ? item.def : null,
+        'attack': item.atk ? item.atk : null,
+        'hp': item.hp ? item.hp : null,
+        'mp': item.mp ? item.mp : null,
+        'str': item.str ? item.str : null,
+        'agi': item.agi ? item.agi : null,
+        'int': item.int ? item.int : null,
+        'vit': item.vit ? item.vit : null,
+        'ene': item.ene ? item.ene : null,
+        'men': item.men ? item.men : null
       }
       this.authService.createUserItems(opt).then(data => {
         console.log(data)

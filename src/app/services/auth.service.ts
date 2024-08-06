@@ -29,7 +29,7 @@ export class AuthService {
       this.currentUser.next(data);
     })
   }
-
+  // Get user
   async checkUserById(userId: number): Promise<any> {
     const { data, error } = await this.supabase
       .from('telegram_users')
@@ -41,37 +41,18 @@ export class AuthService {
     }
     return data.length ? data[0] : null;
   }
-
-  async getUserSpec(userId: number): Promise<any> {
-    const { data, error } = await this.supabase
-      .from('user_spec')
-      .select('*')
-      .eq('user_id', userId);
-    if (error) {
-      return null;
-    }
-    return data.length ? data[0] : null;
-  }
-
-  async createUserById(userId:number, username: string, first_name: string, last_name: string,photo_url: string, is_bot: boolean, city: number) {
+  // Create new User
+  async createUserById(opt: {}) {
     const { data, error } = await this.supabase
       .from('telegram_users')
-      .insert([
-        { user_id: userId,
-          username: username,
-          first_name: first_name,
-          last_name: last_name,
-          photo_url: photo_url,
-          is_bot: is_bot,
-          city: city}
-      ])
+      .insert(opt)
       .select()
     if (error) {
       return null;
     }
     return data.length ? data[0] : null;
   }
-
+  // Update User
   async patchUserData(userId:number, opt:{}){
     const {data, error} = await this.supabase
       .from('telegram_users')
@@ -80,6 +61,16 @@ export class AuthService {
       .select()
     if (error) {
       return error.message;
+    }
+    return data.length ? data[0] : null;
+  }
+  async getUserSpec(userId: number): Promise<any> {
+    const { data, error } = await this.supabase
+      .from('user_spec')
+      .select('*')
+      .eq('user_id', userId);
+    if (error) {
+      return null;
     }
     return data.length ? data[0] : null;
   }
@@ -95,7 +86,6 @@ export class AuthService {
           ene: 3,
           vit: 3,
           men: 3,
-          exp: 0,
           points: 3}
       ])
       .select()
@@ -161,6 +151,16 @@ export class AuthService {
       return error.message;
     }
     return data.length ? data : null;
+  }
+  async createUserQuests(opt: {}) {
+    const { data, error } = await this.supabase
+      .from('telegram_users')
+      .insert(opt)
+      .select()
+    if (error) {
+      return null;
+    }
+    return data.length ? data[0] : null;
   }
 
   async getQuestAction(userId: number, qqId: any): Promise<any> {

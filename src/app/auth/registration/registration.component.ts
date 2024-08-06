@@ -33,47 +33,31 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('registration page');
+
   }
 
   createUser(){
-    this.authService.createUserById(this.userId, '',
-    this.userFirstName,
-    this.userLastName,
-    '',
-    false, this.randomCity()).then(user => {
+    let opt = {
+      user_id: this.userId,
+      username: this.userId,
+      first_name: this.userFirstName,
+      last_name: this.userLastName,
+      photo_url: null,
+      is_bot: false
+    }
+    this.authService.createUserById(opt).then(user => {
       if(user) {
         this.user = user;
         this.authService.currentUser.next(user);
-        this.step = 2;
+        if(!user.user_spec[0]) this.authService.createUserSpec(this.userId).then()
+        if(!user.user_exp[0]) this.authService.createUserExp({user_id: this.userId, exp: 0, curr_lvl: 0, next_lvl: 1}).then()
+        if(!user.user_quests[0]) this.authService.createUserQuests({user_id: this.userId}).then()
+        this.router.navigate(['home']);
       } else {
         alert('User no created, please reload bot!')
       }
     })
-    this.authService.getUserSpec(this.userId).then((data) => {
-      if(data == null) {
-        this.authService.createUserSpec(this.userId).then()
-      }
-    })
 
-  }
-
-  updateUser(){
-    let opt = { gender: this.gender, username: this.nikname };
-    this.authService.patchUserData(this.userId, opt).then(user => {
-      this.usernameError = '';
-      if(user.username == this.nikname) {
-        this.authService.currentUser.next(user);
-        this.router.navigate(['/dashboard']);
-      } else {
-        this.usernameError = 'This nickname is already taken';
-      }
-
-    })
-  }
-
-  randomCity(){
-    return Math.floor(Math.random() * 4) + 1;
   }
 
 }
