@@ -17,11 +17,10 @@ export class AppComponent implements OnInit{
   constructor(
               private authService: AuthService,
               private router: Router) {
-
+    window?.Telegram?.WebApp.expand();
   }
 
   ngOnInit() {
-
     this.authService.checkUserById(+this.userId).then(user => {
       if (user) {
         this.authService.currentUser.next(user);

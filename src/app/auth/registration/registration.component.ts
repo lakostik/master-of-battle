@@ -3,6 +3,7 @@ import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormsModule} from "@angular/forms";
 import {CommonModule, JsonPipe} from "@angular/common";
+import {forkJoin, from} from "rxjs";
 
 
 @Component({
@@ -43,16 +44,19 @@ export class RegistrationComponent implements OnInit {
       first_name: this.userFirstName,
       last_name: this.userLastName,
       photo_url: null,
-      is_bot: false
+      is_bot: false,
+      kar: 0
     }
+
     this.authService.createUserById(opt).then(user => {
-      if(user) {
-        this.user = user;
-        this.authService.currentUser.next(user);
-        if(!user.user_spec[0]) this.authService.createUserSpec(this.userId).then()
-        if(!user.user_exp[0]) this.authService.createUserExp({user_id: this.userId, exp: 0, curr_lvl: 0, next_lvl: 1}).then()
-        if(!user.user_quests[0]) this.authService.createUserQuests({user_id: this.userId}).then()
-        this.router.navigate(['home']);
+      if(user.user_id) {
+        forkJoin({
+          createSpec: from(this.authService.createUserSpec(this.userId).then()),
+          createExp: from(this.authService.createUserExp({user_id: this.userId, exp: 0, curr_lvl: 0, next_lvl: 1})),
+          createQuests: from(this.authService.createUserQuests({user_id: this.userId}))
+        }).subscribe(() => {
+          this.router.navigate(['home']);
+        })
       } else {
         alert('User no created, please reload bot!')
       }
