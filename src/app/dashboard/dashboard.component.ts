@@ -27,11 +27,6 @@ export class DashboardComponent implements OnInit, OnDestroy{
   dataLevel = [];
   expWidth: number = 0;
 
-  constructor() {
-
-  }
-
-
   ngOnInit() {
     this.isLoading = true;
     this.authService.currentUser.subscribe((data: any) => {
