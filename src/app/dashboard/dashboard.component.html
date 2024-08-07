@@ -3,26 +3,36 @@
     <div class="user-img" (click)="userInfoPage()">
       <img *ngIf="user?.photo_url" [src]="user?.photo_url">
       <img *ngIf="!user?.photo_url" src="./assets/img/free-avatar.png">
+      <span class="user-lvl">{{user?.user_exp[0]?.curr_lvl}}</span>
     </div>
     <div class="user-detail">
       <div class="user-name">
-        <span>{{user?.username}}</span>
-        <span *ngIf="!user?.username">{{user?.first_name}} {{user?.last_name}}</span>
-        <span class="money">{{user?.kar}} kar</span>
+        <span class="nikname">{{user?.username}} <span (click)="readNik()"><i class="fa-regular fa-pen-to-square"></i></span></span>
       </div>
       <div class="user-exp">
-        <span class="user-lvl">lvl: {{user?.user_exp[0]?.curr_lvl}}</span>
         <div class="exp-blok">
           <span class="exp-count" [style.width.%]="expWidth"></span>
         </div>
         <div class="exp-text">Exp: {{user?.user_exp[0]?.exp}} / {{userNextLevel.exp}}</div>
+        <span class="money">{{user?.kar}} kar</span>
       </div>
     </div>
-
   </div>
   <app-equip></app-equip>
   <app-nav-button></app-nav-button>
 <!--  <app-characteristics [user]="user"></app-characteristics>-->
+<!--  <div class="sub-menu">-->
+<!--    <span><i class="fa-solid fa-people-group"></i></span>-->
+<!--    <span><i class="fa-solid fa-ranking-star"></i></span>-->
+<!--    <span><i class="fa-solid fa-image-portrait"></i></span>-->
+<!--  </div>-->
+</div>
+<div *ngIf="popUp" class="pop-up">
+    <span class="close-popup" (click)="closePopUp()"><i class="fa-solid fa-xmark"></i></span>
+    <div *ngIf="inputUserName" class="userName">
+      <input #username [value]="user?.username">
+      <button class="green-btn btn" (click)="saveUsername(username.value)">Save</button>
+    </div>
 </div>
 <div class="spinner-global" *ngIf="isLoading">
   <mat-spinner></mat-spinner>

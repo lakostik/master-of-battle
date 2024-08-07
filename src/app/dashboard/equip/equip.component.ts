@@ -18,6 +18,8 @@ export class EquipComponent implements OnInit{
 
   authService = inject(AuthService);
   user: any;
+  popUp = false;
+  popUpData: any;
 
   helm: any;
   armor: any;
@@ -43,9 +45,7 @@ export class EquipComponent implements OnInit{
   }
 
   filterEquipped(user: any){
-    console.log('start filter', user)
     user.user_items.filter((el: any) => {
-
       if(el.equipped) {
         if(el.type == 'helm') this.helm = el;
         if(el.type == 'armor') this.armor = el;
@@ -65,9 +65,15 @@ export class EquipComponent implements OnInit{
 
 
   equipUp(item: any){
-    item.toggleAttribute('data-show');
-    console.log(item);
-    return item
+    if(item) {
+      this.popUp = true;
+      this.popUpData = item;
+    }
+  }
+
+  closePopUp(){
+    this.popUp = false;
+    this.popUpData = null;
   }
 
 

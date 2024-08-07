@@ -23,10 +23,7 @@ export class RegistrationComponent implements OnInit {
   userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
 
   user:any;
-  step: number = 1;
-  nikname:string = '';
-  gender:string = 'male'
-  usernameError = '';
+  error:string = ''
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -58,7 +55,7 @@ export class RegistrationComponent implements OnInit {
           this.router.navigate(['home']);
         })
       } else {
-        alert('User no created, please reload bot!')
+        this.error = 'User no created, please reload bot!';
       }
     })
 

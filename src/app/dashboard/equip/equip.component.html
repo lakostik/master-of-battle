@@ -7,31 +7,31 @@
   <div class="eq-blok" *ngIf="user?.user_id">
     <div class="left-eq">
       <div class="eq-helm equip">
-        <div class="item-img" *ngIf="helm?.name">
+        <div class="item-img" *ngIf="helm?.name" (click)="equipUp(helm)">
           <div class="{{(helm?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{helm?.level + 0}}</span>
         </div>
       </div>
       <div class="eq-armor equip">
-        <div class="item-img" *ngIf="armor?.name">
+        <div class="item-img" *ngIf="armor?.name" (click)="equipUp(armor)">
           <div class="{{(armor?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{armor?.level + 0}}</span>
         </div>
       </div>
       <div class="eq-weapon equip">
-        <div class="item-img" *ngIf="weapon?.name">
+        <div class="item-img" *ngIf="weapon?.name" (click)="equipUp(weapon)">
           <div class="{{(weapon?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{weapon?.level + 0}}</span>
         </div>
       </div>
       <div class="eq-gloves equip">
-        <div class="item-img" *ngIf="gloves?.name">
+        <div class="item-img" *ngIf="gloves?.name" (click)="equipUp(gloves)">
           <div class="{{(gloves?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{gloves?.level + 0}}</span>
         </div>
       </div>
       <div class="eq-pant equip">
-        <div class="item-img" *ngIf="pants?.name">
+        <div class="item-img" *ngIf="pants?.name" (click)="equipUp(pants)">
           <div class="{{(pants?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{pants?.level + 0}}</span>
         </div>
@@ -63,44 +63,44 @@
     </div>
     <div class="right-eq">
       <div class="eq-symbol equip">
-        <div class="item-img" *ngIf="symbol?.name">
+        <div class="item-img" *ngIf="symbol?.name" (click)="equipUp(symbol)">
           <div class="{{(symbol?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{symbol?.level + 0}}</span>
         </div>
       </div>
       <div class="eq-earrings equip">
-        <div class="item-img" *ngIf="earrings?.name">
+        <div class="item-img" *ngIf="earrings?.name" (click)="equipUp(earrings)">
           <div class="{{(earrings?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{earrings?.level + 0}}</span>
         </div>
       </div>
       <div class="eq-necklaces equip">
-        <div class="item-img" *ngIf="necklaces?.name">
+        <div class="item-img" *ngIf="necklaces?.name" (click)="equipUp(necklaces)">
           <div class="{{(necklaces?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{necklaces?.level + 0}}</span>
         </div>
       </div>
       <div class="eq-rings equip">
           <span>
-            <div class="item-img" *ngIf="ring1?.name">
+            <div class="item-img" *ngIf="ring1?.name" (click)="equipUp(ring1)">
               <div class="{{(ring1?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
               <span class="item-lvl">{{ring1?.level + 0}}</span>
             </div>
           </span>
           <span>
-            <div class="item-img" *ngIf="ring2?.name">
+            <div class="item-img" *ngIf="ring2?.name" (click)="equipUp(ring2)">
               <div class="{{(ring2?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
               <span class="item-lvl">{{ring2?.level + 0}}</span>
             </div>
           </span>
       </div>
       <div class="eq-weapon2 equip">
-        <div class="item-img" *ngIf="shield?.name">
+        <div class="item-img" *ngIf="shield?.name" (click)="equipUp(shield)">
           <div class="{{(shield?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{shield?.level + 0}}</span>
         </div>
       </div>
-      <div class="eq-boots equip" #eqboots (click)="equipUp(eqboots)">
+      <div class="eq-boots equip" (click)="equipUp(boots)">
         <div class="item-img" *ngIf="boots?.name">
           <div class="{{(boots?.name.replaceAll(' ','_')).toLowerCase()}}"></div>
           <span class="item-lvl">{{boots?.level + 0}}</span>
@@ -108,5 +108,59 @@
       </div>
     </div>
   </div>
+  <div *ngIf="popUp" class="pop-up">
+    <span class="close-popup" (click)="closePopUp()"><i class="fa-solid fa-xmark"></i></span>
+    <div *ngIf="popUpData as item">
+      <div class="item-name" *ngIf="item.name">{{item.name}}</div>
+      <div class="item-def-atk" *ngIf="item.defence">Defence: {{item.defence}}</div>
+      <div class="item-base-opt" *ngIf="item.klas == 'agi'">
+        <div>Evasion: {{item.bonus}}%</div>
+        <div>Accuracy: {{item.bonus}}%</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.klas == 'ene'">
+        <div>Elemental damage: {{item.bonus - 2}}%</div>
+        <div>Defuff chance: {{item.bonus - 2}}%</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.klas == 'str'">
+        <div>Extra damage: {{item.bonus}}%</div>
+      </div>
+      <div class="item-base-opt"*ngIf="item.klas == 'vit'">
+        <div>Hit points: {{item.bonus}}%</div>
+        <div>Resist damage: {{item.bonus - 2}}%</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.klas == 'men'">
+        <div>Debuff resistant: {{item.bonus -2}}%</div>
+        <div>Mana point: {{item.bonus}}%</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.klas == 'int'">
+        <div>Critical chance: {{item.bonus}}%</div>
+        <div>Critical resist: {{item.bonus}}%</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.klas == 'res'">
+        <div>Accuracy: {{item.bonus - 2}}%</div>
+        <div>Critical resist: {{item.bonus -2}}%</div>
+        <div>Debuff resistant: {{item.bonus -2}}%</div>
+      </div>
+      <div class="other-opt" *ngIf="item.str">STR: {{item.str}}</div>
+      <div class="other-opt" *ngIf="item.agi">AGI: {{item.agi}}</div>
+      <div class="other-opt" *ngIf="item.int">INT: {{item.int}}</div>
+      <div class="other-opt" *ngIf="item.vit">VIT: {{item.vit}}</div>
+      <div class="other-opt" *ngIf="item.ene">ENE: {{item.ene}}</div>
+      <div class="other-opt" *ngIf="item.men">MEN: {{item.men}}</div>
+      <div class="other-opt" *ngIf="item.hp">HP: {{item.hp}}</div>
+      <div class="other-opt" *ngIf="item.mp">MP: {{item.mp}}</div>
+      <div class="other-opt" *ngIf="item.damage_resistant">Damage resist: {{item.damage_resistant}}</div>
+      <div class="other-opt" *ngIf="item.debuff_change">Debuff chance: {{item.debuff_change}}</div>
+      <div class="other-opt" *ngIf="item.debuff_resistant">Debuff resist: {{item.debuff_resistant}}</div>
+      <div class="other-opt" *ngIf="item.attack">Attack: {{item.attack}}</div>
+      <div class="other-opt" *ngIf="item.evasion">Evasion: {{item.evasion}}</div>
+      <div class="other-opt" *ngIf="item.accuracy">Accuracy: {{item.accuracy}}</div>
+      <div class="other-opt" *ngIf="item.extra_damage">Extra damage: {{item.extra_damage}}</div>
+      <div class="other-opt" *ngIf="item.extra_defence">Extra defence: {{item.extra_defence}}</div>
+      <div class="other-opt" *ngIf="item.critical_chance">Critical chance: {{item.critical_chance}}</div>
+      <div class="other-opt" *ngIf="item.critical_damage">Critical damage: {{item.critical_damage}}</div>
+      <div class="other-opt" *ngIf="item.critical_resistant">Critical resist: {{item.critical_resistant}}</div>
 
+    </div>
+  </div>
 </div>

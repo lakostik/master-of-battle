@@ -3,9 +3,10 @@
     <div class="personal-data">
       <h2>{{userFirstName}}<br>{{userLastName}}</h2>
       <p>{{userId}}</p>
-      <div class="buttons btn-blok">
+      <div *ngIf="!error" class="buttons btn-blok">
         <button class="blue-btn" (click)="createUser()">Registration</button>
       </div>
+      <div style="color: red" *ngIf="error">{{error}}</div>
     </div>
   </div>
 

@@ -1,6 +1,7 @@
 
 .user-eq {
   margin: 10px auto 20px;
+  position: relative;
 }
 .left-eq, .right-eq {
   display: flex;
@@ -256,4 +257,56 @@ img {
 .equip[data-show] .equipped > div {
     opacity: 1;
   transition: all .3s;
+}
+/*--- Pop Up ---*/
+.pop-up {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 195px;
+  background: #2c2d34;
+  padding: 15px;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  border: 1px solid #777;
+  box-shadow: 3px 3px 10px #222;
+  z-index: 2;
+}
+.close-popup {
+  color: #888;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  border-radius: 100%;
+  background: #333;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #777;
+}
+.item-name {
+  font-size: 15px;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: .5px;
+}
+.item-def-atk {
+  font-size: 12px;
+  font-weight: 300;
+  color: aqua;
+  letter-spacing: .5px;
+}
+.item-base-opt {
+  font-size: 12px;
+  font-weight: 300;
+  color: greenyellow;
+  letter-spacing: .5px;
+}
+.other-opt {
+  font-size: 12px;
+  color: #eee;
+  font-weight: 300;
+  letter-spacing: .5px;
 }

@@ -8,11 +8,12 @@ import {ApiService} from "../services/api.service";
 import {NavButtonComponent} from "./nav-button/nav-button.component";
 import {async, take} from "rxjs";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, EquipComponent, CharacteristicsComponent, NavButtonComponent, MatProgressSpinner],
+  imports: [CommonModule, EquipComponent, CharacteristicsComponent, NavButtonComponent, MatProgressSpinner, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -26,6 +27,8 @@ export class DashboardComponent implements OnInit, OnDestroy{
   userNextLevel:any;
   dataLevel = [];
   expWidth: number = 0;
+  popUp = false;
+  inputUserName = false;
 
   ngOnInit() {
     this.isLoading = true;
@@ -39,7 +42,6 @@ export class DashboardComponent implements OnInit, OnDestroy{
       });
     this.apiService.calcLvl();
   }
-
 
   userLvl(){
       this.apiService.lvlTable.subscribe((data: any) => {
@@ -63,6 +65,21 @@ export class DashboardComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     // if(this.user) this.user.destroy()
+  }
+
+  readNik() {
+    this.popUp = true;
+    this.inputUserName = true;
+  }
+  saveUsername(name: any){
+    this.authService.patchUserData(this.user.user_id, {username: name}).then(() => {
+      this.popUp = false;
+      this.inputUserName = false;
+    })
+  }
+  closePopUp() {
+    this.popUp = false;
+    this.inputUserName = false;
   }
 
 
