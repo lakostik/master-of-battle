@@ -1,12 +1,24 @@
 .container {
-  background: #303241;
+  /*background: #303241;*/
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+.container:before {
+  content: '';
+  position: absolute;
+  top:-10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: url("./../../../assets/img/registration.jpg") no-repeat center/cover transparent;
+  filter: blur(2px) brightness(.5) grayscale(.5);
 }
 .cart {
-  border: 1px solid #333;
+  border: 1px solid #75767a;
   border-radius: 20px;
-  background: #303241;
-  box-shadow:  45px 45px 90px #1b1d25,
-  -45px -45px 90px #45485d;
+  background: #2b2d3b;
+  box-shadow: 20px 20px 60px #181a2a, -20px -20px 60px #4c4e64;
   position: absolute;
   left: 40px;
   top: 50%;
@@ -17,15 +29,21 @@
 h2, p {
   text-align: center;
   color: #fff;
+  margin: 15px 0;
+  font-weight: 300;
+  letter-spacing: .5px;
 }
-
+h2 {
+  line-height: 35px;
+}
+.buttons {display: flex; align-items: center; justify-content: center; margin: 20px auto;}
 .blue-btn {
   border-radius: 20px;
   background: linear-gradient(145deg, #315da4, #294e8a);
-  box-shadow:  3px 3px 7px #1c345c,
-  -3px -3px 7px #407ad6;
-  padding: 6px 15px;
+  border: 1px solid #21375a;
+  padding: 12px 35px;
   color: #ffffff;
   font-weight: 300;
   font-family: "Roboto", sans-serif;
+  letter-spacing: .5px;
 }

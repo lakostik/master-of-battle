@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import { environment } from './../environments/environment';
-import {ApiService} from "./services/api.service";
 import {AuthService} from "./services/auth.service";
 
 @Component({
@@ -12,11 +10,11 @@ import {AuthService} from "./services/auth.service";
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
-  title = 'game-start-two';
+  title = 'Master of Battle';
 
   userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id ? window?.Telegram?.WebApp?.initDataUnsafe?.user?.id : 1392895447;
 
-  constructor(private apiServices: ApiService,
+  constructor(
               private authService: AuthService,
               private router: Router) {
 
