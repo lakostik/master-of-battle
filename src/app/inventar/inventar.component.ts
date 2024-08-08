@@ -23,6 +23,8 @@ export class InventarComponent implements OnInit{
     itemsData: any;
     router = inject(Router);
     errorMess = '';
+    popUp = false;
+    popUpData: any;
 
     ngOnInit() {
       this.authService.currentUser.subscribe((data: any) => {
@@ -41,7 +43,6 @@ export class InventarComponent implements OnInit{
         }
         return 0;
       });
-      console.log(this.itemsData)
     }
 
     sellItem(item: any){
@@ -59,9 +60,15 @@ export class InventarComponent implements OnInit{
         if(el.type == item.type && el.id !== item.id) {
           this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false}).then();
         }
+        if(item.type == 'shield'){
+          if(el.type == 'weapon' && el.slot == 2) {
+            this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false, 'slot': null}).then();
+          }
+        }
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped}).then(() => {
-        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then(()=>{
+        this.authService.checkUserById(this.user.user_id).then((data) => {
+          this.authService.currentUser.next(data)
           item.spinner = false;
         })
       })
@@ -79,10 +86,15 @@ export class InventarComponent implements OnInit{
           if(el.slot == slot) {
             this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false, 'slot': null}).then();
           }
+        } else if(el.type == 'shield' && el.id !== item.id) {
+          if(slot == 2) {
+            this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false, 'slot': null}).then();
+          }
         }
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped, 'slot': slot}).then(()=> {
-        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then(()=>{
+        this.authService.checkUserById(this.user.user_id).then((data) => {
+          this.authService.currentUser.next(data)
           item.spinner = false;
         })
       });
@@ -95,7 +107,8 @@ export class InventarComponent implements OnInit{
         if(this.user.user_exp[0].curr_lvl > item.level) {
           let opt = Object.assign({}, this.addRandomOpt(item));
           opt.price += (item.level*2) + 3;
-          opt.defence += 2;
+          if(opt.defence != null) opt.defence += 2;
+          if(opt.attack != null) opt.attack += 2;
           if((opt.level+1) % 10 === 0) {
             if(opt.klas == 'atk' || opt.klas == 'def') {
               opt.bonus += 2
@@ -114,10 +127,11 @@ export class InventarComponent implements OnInit{
             console.log(data)
           })
         } else {
+          this.popUp = true;
           this.errorMess = 'The maximum allowable item level at your level'
           item.spinner = false
         }
-      } else { this.errorMess = 'You don`t have money'; item.spinner = false}
+      } else { this.popUp = true; this.errorMess = 'You don`t have money'; item.spinner = false}
     }
 
     addRandomOpt(item: any) {
@@ -137,6 +151,11 @@ export class InventarComponent implements OnInit{
       } else { item[randomKey] += 5; }
 
       return item
+    }
+
+    closePopUp(){
+        this.popUp = false;
+        this.errorMess = '';
     }
 
     back(){

@@ -52,7 +52,10 @@ export class EquipComponent implements OnInit{
         if(el.type == 'pants') this.pants = el;
         if(el.type == 'gloves') this.gloves = el;
         if(el.type == 'boots') this.boots = el;
-        if(el.type == 'weapon') this.weapon = el;
+        if(el.type == 'weapon') {
+          if(el.slot == 1) this.weapon = el;
+          else if(el.slot == 2) this.shield = el;
+        }
         if(el.type == 'symbol') this.symbol = el;
         if(el.type == 'shield') this.shield = el;
         if(el.type == 'earrings') this.earrings = el;

@@ -101,6 +101,7 @@ span.item-lvl {
   font-weight: 300 !important;
   font-family: 'Roboto';
   text-decoration: none;
+  font-size: 13px;
 }
 .green-btn {
   color: #fff;
@@ -111,8 +112,8 @@ span.item-lvl {
 }
 .yellow-btn {
   color: #fff;
-  background-color: #17a2b8;
-  border: 1px solid #17a2b8;
+  background-color: darkgoldenrod;
+  border: 1px solid #333;
   text-transform: capitalize;
   letter-spacing: 1px;
 }
@@ -185,4 +186,56 @@ span.item-lvl {
 @keyframes rotate {
   0% {transform: rotate(20deg)}
 100% {transform: rotate(360deg)}
+}
+
+.select-equip {position: relative;}
+.green-btn + div {
+  position: absolute;
+  bottom: 35px;
+  display: flex;
+  transform: translateX(-50%);
+  left: 50%;
+}
+.green-btn + div .btn {margin: 0 5px;}
+
+
+/*--- Pop Up ---*/
+.pop-up {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  background: rgba(0,0,0,.65);
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+.pop-up-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  background: #2c2d34;
+  padding: 15px;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  border: 1px solid #777;
+  box-shadow: 3px 3px 10px #222;
+  z-index: 2;
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: .5px;
+}
+.close-popup {
+  color: #888;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  border-radius: 100%;
+  background: #333;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #777;
 }

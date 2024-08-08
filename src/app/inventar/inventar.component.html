@@ -20,6 +20,7 @@
         <div class="item-right">
           <div class="item-name" *ngIf="item.name">{{item.name}}</div>
           <div class="item-def-atk" *ngIf="item.defence">Defence: {{item.defence}}</div>
+          <div class="item-def-atk" *ngIf="item.attack">Attack: {{item.attack}}</div>
           <div class="item-base-opt" *ngIf="item.klas == 'agi'">
             <div>Evasion: {{item.bonus}}%</div>
             <div>Accuracy: {{item.bonus}}%</div>
@@ -59,7 +60,6 @@
           <div class="other-opt" *ngIf="item.damage_resistant">Damage resist: {{item.damage_resistant}}</div>
           <div class="other-opt" *ngIf="item.debuff_change">Debuff chance: {{item.debuff_change}}</div>
           <div class="other-opt" *ngIf="item.debuff_resistant">Debuff resist: {{item.debuff_resistant}}</div>
-          <div class="other-opt" *ngIf="item.attack">Attack: {{item.attack}}</div>
           <div class="other-opt" *ngIf="item.evasion">Evasion: {{item.evasion}}</div>
           <div class="other-opt" *ngIf="item.accuracy">Accuracy: {{item.accuracy}}</div>
           <div class="other-opt" *ngIf="item.extra_damage">Extra damage: {{item.extra_damage}}</div>
@@ -72,17 +72,17 @@
 <!--          <i class="fa-solid fa-star"></i>-->
         </div>
         <div class="item-bottom">
-          <button (click)="lvlUpItem(item)" [ngClass]="{'noactive': item.spinner}" class="lvl-btn btn"><i class="fa-regular fa-circle-up"></i> Up {{(item.level*2) + 3}}kar</button>
+          <button (click)="lvlUpItem(item)" [ngClass]="{'noactive': item.spinner}" class="lvl-btn btn"><i class="fa-solid fa-plus"></i> Up {{(item.level*2) + 3}}kar</button>
           <span [ngClass]="{'ring': item.type == 'ring', 'weapon': item.type == 'weapon'}" >
-            <button (click)="equipItem(item)" *ngIf="!item.equipped" class="gray-btn btn"><i class="fa-solid fa-plus"></i> equip</button>
+            <button (click)="equipItem(item)" *ngIf="!item.equipped" class="gray-btn btn"><i class="fa-regular fa-circle-up"></i> equip</button>
           </span>
           <ng-container *ngIf="!item.equipped">
             <span *ngIf="item.type == 'ring' || item.type == 'weapon'">
               <div class="select-equip" >
-                <span (click)="showButtons(i)"><i class="fa-regular fa-circle-up"></i>Equip</span>
+                <span class="green-btn btn" (click)="showButtons(i)"><i class="fa-regular fa-circle-up"></i>Equip</span>
                 <div class="" *ngIf="item.show">
-                  <span (click)="equipHand(item, 1)">Right hand</span>
-                  <span (click)="equipHand(item, 2)">Left hand</span>
+                  <span class="yellow-btn btn" (click)="equipHand(item, 1)">Right hand</span>
+                  <span class="yellow-btn btn" (click)="equipHand(item, 2)">Left hand</span>
                 </div>
               </div>
             </span>
@@ -93,7 +93,12 @@
         <div class="spinner" *ngIf="item.spinner">
             <span><i class="fa-solid fa-spinner"></i></span>
         </div>
-        <div class="error-mess" *ngIf="errorMess">{{errorMess}}</div>
       </div>
+  </div>
+  <div *ngIf="popUp" class="pop-up">
+    <div class="pop-up-body">
+      <span class="close-popup" (click)="closePopUp()"><i class="fa-solid fa-xmark"></i></span>
+      <div class="error-mess">{{errorMess}}</div>
+    </div>
   </div>
 </div>

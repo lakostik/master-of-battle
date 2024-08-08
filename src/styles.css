@@ -504,5 +504,15 @@ body {
   border: 1px solid #78b31d;
 }
 
+/*-- Shields items --*/
+.warrior\'s_shield {
+  background-image: url('./assets/img/items/shield.jpg');
+  width: 100%;
+  height: 100%;
+  background-position: 82px 88px;
+  background-size: 670px;
+  border: 1px solid #78b31d;
+}
+
 
 
