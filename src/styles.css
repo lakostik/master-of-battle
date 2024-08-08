@@ -438,6 +438,12 @@ body {
   background-size: 670px;
   border: 1px solid #555;
 }
+.eq-rings .ring_of_power {
+  border: none;
+  background-size: 340px;
+  background-position: 292px 169px;
+}
+
 .guardian\'s_ring {
   background-image: url('./assets/img/items/Jewelry.jpg');
   width: 100%;
@@ -446,6 +452,12 @@ body {
   background-size: 670px;
   border: 1px solid #2a615a;
 }
+.eq-rings .guardian\'s_ring {
+  background-size: 340px;
+  border: none;
+  background-position: 323px 168px;
+}
+
 .ring_of_fire {
   background-image: url('./assets/img/items/Jewelry.jpg');
   width: 100%;
@@ -454,6 +466,12 @@ body {
   background-size: 670px;
   border: 1px solid #b07510;
 }
+.eq-rings .ring_of_fire {
+  border: none;
+  background-size: 340px;
+  background-position: -16px 435px;
+}
+
 .endurance_ring {
   background-image: url('./assets/img/items/Jewelry.jpg');
   width: 100%;
@@ -462,7 +480,29 @@ body {
   background-size: 670px;
   border: 1px solid #b31d30;
 }
+.eq-rings .endurance_ring {
+  background-size: 340px;
+  background-position: 229px 210px;
+  border: none;
+}
 
+/*-- weapons - items --*/
+.warrior\'s_sword {
+  background-image: url('./assets/img/items/sword.jpg');
+  width: 100%;
+  height: 100%;
+  background-position: 393px 417px;
+  background-size: 670px;
+  border: 1px solid #93b31d;
+}
+.trickster\'s_axe {
+  background-image: url('./assets/img/items/axe.jpg');
+  width: 100%;
+  height: 100%;
+  background-position: 146px 418px;
+  background-size: 670px;
+  border: 1px solid #78b31d;
+}
 
 
 

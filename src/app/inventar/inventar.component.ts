@@ -2,12 +2,15 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {CommonModule, Location} from "@angular/common";
 import {AuthService} from "../services/auth.service";
+import {FormsModule} from "@angular/forms";
+
 
 @Component({
   selector: 'app-inventar',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   templateUrl: './inventar.component.html',
   styleUrl: './inventar.component.css'
@@ -19,6 +22,7 @@ export class InventarComponent implements OnInit{
     user: any;
     itemsData: any;
     router = inject(Router);
+    errorMess = '';
 
     ngOnInit() {
       this.authService.currentUser.subscribe((data: any) => {
@@ -37,16 +41,14 @@ export class InventarComponent implements OnInit{
         }
         return 0;
       });
+      console.log(this.itemsData)
     }
 
     sellItem(item: any){
       item.spinner = true;
       this.authService.deleteUserItems(item.user_id, item.id).then((res) => {
         item.spinner = false;
-        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar + (item.price - (item.level*3))}).then(()=>{
-
-        })
-
+        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar + (item.price - (item.level*3))}).then()
       })
 
     }
@@ -64,16 +66,34 @@ export class InventarComponent implements OnInit{
         })
       })
     }
-
-    equipRing(item: any) {
-
+    showButtons(i:number){
+      this.itemsData.filter((el:any, index: any) => {
+        if(index == i) el.show = !el.show
+        else el.show = false
+      })
+    }
+    equipHand(item: any, slot:any) {
+      item.spinner = true;
+      this.itemsData.filter((el: any) => {
+        if(el.type == item.type && el.id !== item.id) {
+          if(el.slot == slot) {
+            this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false, 'slot': null}).then();
+          }
+        }
+      })
+      this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped, 'slot': slot}).then(()=> {
+        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then(()=>{
+          item.spinner = false;
+        })
+      });
     }
 
     lvlUpItem(item: any){
-      // item.spinner = true;
+      item.spinner = true;
+      this.errorMess = '';
       if((this.user.kar - ((item.level*2) + 3)) >= 0){
         if(this.user.user_exp[0].curr_lvl > item.level) {
-          let opt = this.addRandomOpt(item);
+          let opt = Object.assign({}, this.addRandomOpt(item));
           opt.price += (item.level*2) + 3;
           opt.defence += 2;
           if((opt.level+1) % 10 === 0) {
@@ -85,6 +105,8 @@ export class InventarComponent implements OnInit{
           }
           opt.level += 1;
           this.user.kar -= (item.level*2) + 3;
+          if(opt.spinner) delete opt.spinner
+          if(opt.show) delete opt.show
           this.authService.patchUserItems(this.user.user_id, item.id, opt).then(data => {
             this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then(() => {
               item.spinner = false
@@ -92,10 +114,10 @@ export class InventarComponent implements OnInit{
             console.log(data)
           })
         } else {
-          alert('Max level')
+          this.errorMess = 'The maximum allowable item level at your level'
           item.spinner = false
         }
-      } else { alert('You don`t have money'); item.spinner = false}
+      } else { this.errorMess = 'You don`t have money'; item.spinner = false}
     }
 
     addRandomOpt(item: any) {
@@ -114,8 +136,6 @@ export class InventarComponent implements OnInit{
         item[randomKey] += 2;
       } else { item[randomKey] += 5; }
 
-      console.log(`Вибрано ключ: ${randomKey}, нове значення: ${item[randomKey]}`);
-      console.log(item);
       return item
     }
 
