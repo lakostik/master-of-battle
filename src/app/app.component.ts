@@ -12,7 +12,7 @@ import {AuthService} from "./services/auth.service";
 export class AppComponent implements OnInit{
   title = 'Master of Battle';
 
-  userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id ? window?.Telegram?.WebApp?.initDataUnsafe?.user?.id : 1392895447;
+  userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id ? window?.Telegram?.WebApp?.initDataUnsafe?.user?.id : 7340248041;
 
   constructor(
               private authService: AuthService,

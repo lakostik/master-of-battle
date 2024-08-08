@@ -154,7 +154,7 @@ export class AuthService {
   }
   async createUserQuests(opt: {}) {
     const { data, error } = await this.supabase
-      .from('telegram_users')
+      .from('user_quests')
       .insert(opt)
       .select()
     if (error) {

@@ -50,7 +50,7 @@ export class RegistrationComponent implements OnInit {
         forkJoin({
           createSpec: from(this.authService.createUserSpec(this.userId).then()),
           createExp: from(this.authService.createUserExp({user_id: this.userId, exp: 0, curr_lvl: 0, next_lvl: 1})),
-          createQuests: from(this.authService.createUserQuests({user_id: this.userId}))
+          createQuests: from(this.authService.createUserQuests({user_id: this.userId, arr_d: [], arr_s: []}))
         }).subscribe(() => {
           this.router.navigate(['home']);
         })
