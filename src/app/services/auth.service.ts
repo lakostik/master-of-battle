@@ -11,6 +11,7 @@ import {BehaviorSubject} from "rxjs";
 export class AuthService {
 
   private supabase: SupabaseClient;
+  userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id ? window?.Telegram?.WebApp?.initDataUnsafe?.user?.id : 7340248041;
 
   constructor() {
     this.supabase = createClient(environment.supa_url, environment.supa_anon_key);
@@ -24,7 +25,7 @@ export class AuthService {
 
   handleUserChange(payload: any) {
     this.checkUserById(payload.old.user_id).then(user => {
-      localStorage.setItem('userData', JSON.stringify(user));
+      localStorage.setItem(this.userId, JSON.stringify(user));
     })
   }
   // Get user
@@ -32,7 +33,7 @@ export class AuthService {
     const { data, error } = await this.supabase
       .from('telegram_users')
       .select('* , user_spec(*), user_quests(*), user_exp(*), user_items(*)')
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .order('id', { ascending: true });
     if (error) {
       return null;
@@ -55,7 +56,7 @@ export class AuthService {
     const {data, error} = await this.supabase
       .from('telegram_users')
       .update(opt)
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .select()
     if (error) {
       return error.message;
@@ -66,7 +67,7 @@ export class AuthService {
     const { data, error } = await this.supabase
       .from('user_spec')
       .select('*')
-      .eq('user_id', userId);
+      .eq('user_id', this.userId);
     if (error) {
       return null;
     }
@@ -77,7 +78,7 @@ export class AuthService {
     const { data, error } = await this.supabase
       .from('user_spec')
       .insert([
-        { user_id: userId,
+        { user_id: this.userId,
           str: 3,
           agi: 3,
           int: 3,
@@ -97,7 +98,7 @@ export class AuthService {
     const {data, error} = await this.supabase
       .from('user_spec')
       .update(opt)
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .select()
     if (error) {
       return error.message;
@@ -133,7 +134,7 @@ export class AuthService {
     const { data, error } = await this.supabase
       .from('user_quests')
       .select('*')
-    .eq('user_id', userId);
+    .eq('user_id', this.userId);
     if (error) {
       return null;
     }
@@ -143,7 +144,7 @@ export class AuthService {
     const {data, error} = await this.supabase
       .from('user_quests')
       .update(opt)
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .select()
     if (error) {
       return error.message;
@@ -165,7 +166,7 @@ export class AuthService {
     const { data, error } = await this.supabase
       .from('quests_action')
       .select('*')
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .eq('quest_id', qqId);
     if (error) {
       return null;
@@ -176,7 +177,7 @@ export class AuthService {
     const {data, error} = await this.supabase
       .from('quests_action')
       .update(opt)
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .select()
     if (error) {
       return error.message;
@@ -197,7 +198,7 @@ export class AuthService {
     const { error } = await this.supabase
       .from('quests_action')
       .delete()
-      .eq('user_id',userId)
+      .eq('user_id',this.userId)
       .eq('quest_id', qqId)
     if (error) {
       return null;
@@ -210,7 +211,7 @@ export class AuthService {
     const { data, error } = await this.supabase
       .from('user_exp')
       .select('*')
-      .eq('user_id', userId);
+      .eq('user_id', this.userId);
     if (error) {
       return error.message;
     }
@@ -220,7 +221,7 @@ export class AuthService {
     const {data, error} = await this.supabase
       .from('user_exp')
       .update(opt)
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .select()
     if (error) {
       return error.message;
@@ -263,7 +264,7 @@ export class AuthService {
     const { data, error } = await this.supabase
       .from('user_items')
       .update(opt)
-      .eq('user_id', userId)
+      .eq('user_id', this.userId)
       .eq('id', itemId)
       .select()
       .order('id', { ascending: true });
@@ -286,7 +287,7 @@ export class AuthService {
     const { error } = await this.supabase
       .from('user_items')
       .delete()
-      .eq('user_id',userId)
+      .eq('user_id',this.userId)
       .eq('id', itemId)
     if (error) {
       return null;

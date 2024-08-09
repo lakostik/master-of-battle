@@ -35,7 +35,7 @@ export class CharacteristicsComponent implements OnInit {
     const data = this.user.user_spec;
     this.authService.patchUserSpec(this.user.user_id, data).then((spec) => {
       this.user.user_spec[0] = spec;
-      localStorage.setItem('userData', JSON.stringify(this.user));
+      localStorage.setItem(this.user.user_id, JSON.stringify(this.user));
       this.charShowBnt = false;
     })
   }
@@ -43,7 +43,7 @@ export class CharacteristicsComponent implements OnInit {
   cancelChr() {
     this.authService.getUserSpec(this.user.user_id).then((spec) => {
       this.user.user_spec[0] = spec;
-      localStorage.setItem('userData', JSON.stringify(this.user));
+      localStorage.setItem(this.user.user_id, JSON.stringify(this.user));
       this.charShowBnt = false;
     })
   }

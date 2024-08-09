@@ -27,7 +27,8 @@ export class InventarComponent implements OnInit{
     popUpData: any;
 
     ngOnInit() {
-      let data = localStorage.getItem('userData') ? ''+localStorage.getItem('userData') : '';
+      let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+      let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
       this.user = JSON.parse(data);
       if(this.user?.user_id) {
         this.sortData(this.user.user_items);
@@ -69,7 +70,7 @@ export class InventarComponent implements OnInit{
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped}).then(() => {
         this.authService.checkUserById(this.user.user_id).then((user) => {
-          localStorage.setItem('userData', JSON.stringify(user));
+          localStorage.setItem(this.user.user_id, JSON.stringify(user));
           item.spinner = false;
         })
       })
@@ -95,7 +96,7 @@ export class InventarComponent implements OnInit{
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped, 'slot': slot}).then(()=> {
         this.authService.checkUserById(this.user.user_id).then((user) => {
-          localStorage.setItem('userData', JSON.stringify(user));
+          localStorage.setItem(this.user.user_id, JSON.stringify(user));
           item.spinner = false;
         })
       });

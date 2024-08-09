@@ -24,7 +24,8 @@ export class ShopComponent implements OnInit {
 
 
   ngOnInit() {
-    let data = localStorage.getItem('userData') ? ''+localStorage.getItem('userData') : '';
+    let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+    let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
     this.user = JSON.parse(data);
 
     this.getItems()

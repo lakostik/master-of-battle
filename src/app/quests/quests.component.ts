@@ -33,7 +33,8 @@ export class QuestsComponent implements OnInit {
   initQuests(){
     this.authServices.getQuests().then((quests: any) => {
       this.quests = quests;
-      let data = localStorage.getItem('userData') ? ''+localStorage.getItem('userData') : '';
+      let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+      let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
       this.user = JSON.parse(data);
       if(this.user?.user_id) {
         if(!this.user?.user_quests[0]?.time) {

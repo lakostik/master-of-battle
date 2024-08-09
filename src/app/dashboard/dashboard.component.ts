@@ -32,8 +32,8 @@ export class DashboardComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.isLoading = true;
-
-    let data = localStorage.getItem('userData') ? ''+localStorage.getItem('userData') : '';
+    let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+    let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
     this.user = JSON.parse(data);
     if(this.user?.user_id){
           this.userLvl();
