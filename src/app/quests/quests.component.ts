@@ -42,8 +42,8 @@ export class QuestsComponent implements OnInit {
           const oldDay = moment(this.user.user_quests[0].time,'YYYY-MM-DD');
           const currDay = moment(new Date(), 'YYYY-MM-DD');
           const diffDate = currDay.diff(oldDay, 'days');
-
-          if(diffDate > 0) {
+          console.log(diffDate)
+          if(diffDate > 1) {
             this.authServices.patchUserQuests(this.user.user_id, {arr_d: [], time: moment(new Date(), 'YYYY-MM-DD')}).then((data) => {
               this.user.user_quests = data;
               this.initQuests();
@@ -76,9 +76,11 @@ export class QuestsComponent implements OnInit {
 
   start(qq:any){
     qq.status = 'progress';
+    console.log(qq)
     let endDate = qq.interval ? new Date(Date.now() + qq.interval * 60 * 1000) : new Date(Date.now());
     let opt = {user_id: this.user.user_id, quest_id: qq.id, startDate: new Date(Date.now()), timer: qq.interval, endDate: endDate}
     this.authServices.createQuestAction(opt).then(result => {
+      console.log(result)
       if(qq.interval) {
         this.startTimer(qq, result);
       }

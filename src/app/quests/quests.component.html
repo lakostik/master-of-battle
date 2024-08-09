@@ -7,8 +7,8 @@
     <ng-container  *ngFor="let qq of quests">
       <div class="quest" [ngClass]="{'ready': qq.ready, 'progress': qq.status == 'progress'}">
         <div class="qq-img">
-          <img *ngIf="qq.exp > 50 && !qq.special" alt="" src="/assets/img/icon_violet.png">
-          <img *ngIf="qq.exp < 50 && !qq.special" alt="" src="/assets/img/icon_blue.png">
+          <img *ngIf="qq.exp > 10 && !qq.special" alt="" src="/assets/img/icon_violet.png">
+          <img *ngIf="qq.exp < 10 && !qq.special" alt="" src="/assets/img/icon_blue.png">
           <img *ngIf="qq.special" alt="" src="/assets/img/icon_red.png">
         </div>
         <div class="qq-body">
