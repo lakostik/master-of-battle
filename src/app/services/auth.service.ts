@@ -24,7 +24,7 @@ export class AuthService {
 
   handleUserChange(payload: any) {
     this.checkUserById(payload.old.user_id).then(user => {
-      sessionStorage.setItem('userData', JSON.stringify(user));
+      localStorage.setItem('userData', JSON.stringify(user));
     })
   }
   // Get user

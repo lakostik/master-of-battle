@@ -27,7 +27,7 @@ export class InventarComponent implements OnInit{
     popUpData: any;
 
     ngOnInit() {
-      let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+      let data = localStorage.getItem('userData') ? ''+localStorage.getItem('userData') : '';
       this.user = JSON.parse(data);
       if(this.user?.user_id) {
         this.sortData(this.user.user_items);
@@ -69,7 +69,7 @@ export class InventarComponent implements OnInit{
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped}).then(() => {
         this.authService.checkUserById(this.user.user_id).then((user) => {
-          sessionStorage.setItem('userData', JSON.stringify(user));
+          localStorage.setItem('userData', JSON.stringify(user));
           item.spinner = false;
         })
       })
@@ -95,7 +95,7 @@ export class InventarComponent implements OnInit{
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped, 'slot': slot}).then(()=> {
         this.authService.checkUserById(this.user.user_id).then((user) => {
-          sessionStorage.setItem('userData', JSON.stringify(user));
+          localStorage.setItem('userData', JSON.stringify(user));
           item.spinner = false;
         })
       });

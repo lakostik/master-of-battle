@@ -24,7 +24,7 @@ export class ShopComponent implements OnInit {
 
 
   ngOnInit() {
-    let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+    let data = localStorage.getItem('userData') ? ''+localStorage.getItem('userData') : '';
     this.user = JSON.parse(data);
 
     this.getItems()

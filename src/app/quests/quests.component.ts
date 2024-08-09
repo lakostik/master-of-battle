@@ -33,7 +33,7 @@ export class QuestsComponent implements OnInit {
   initQuests(){
     this.authServices.getQuests().then((quests: any) => {
       this.quests = quests;
-      let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+      let data = localStorage.getItem('userData') ? ''+localStorage.getItem('userData') : '';
       this.user = JSON.parse(data);
       if(this.user?.user_id) {
         if(!this.user?.user_quests[0]?.time) {
