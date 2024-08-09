@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.authService.checkUserById(+this.userId).then(user => {
-      if (user.user_id) {
+      if (user?.user_id) {
         this.authService.currentUser.next(user);
         this.router.navigate(['dashboard'])
       } else {
