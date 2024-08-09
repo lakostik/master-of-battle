@@ -43,7 +43,7 @@ export class QuestsComponent implements OnInit {
           const currDay = moment(new Date(), 'YYYY-MM-DD');
           const diffDate = currDay.diff(oldDay, 'days');
           console.log(diffDate)
-          if(diffDate > 1) {
+          if(diffDate > 0) {
             this.authServices.patchUserQuests(this.user.user_id, {arr_d: [], time: moment(new Date(), 'YYYY-MM-DD')}).then((data) => {
               this.user.user_quests = data;
               this.initQuests();
