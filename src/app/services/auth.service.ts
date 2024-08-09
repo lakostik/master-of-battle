@@ -12,8 +12,6 @@ export class AuthService {
 
   private supabase: SupabaseClient;
 
-  currentUser:BehaviorSubject<object> = new BehaviorSubject({})
-
   constructor() {
     this.supabase = createClient(environment.supa_url, environment.supa_anon_key);
     this.supabase
@@ -25,8 +23,8 @@ export class AuthService {
   }
 
   handleUserChange(payload: any) {
-    this.checkUserById(payload.old.user_id).then(data => {
-      this.currentUser.next(data);
+    this.checkUserById(payload.old.user_id).then(user => {
+      sessionStorage.setItem('userData', JSON.stringify(user));
     })
   }
   // Get user

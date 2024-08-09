@@ -33,24 +33,23 @@ export class QuestsComponent implements OnInit {
   initQuests(){
     this.authServices.getQuests().then((quests: any) => {
       this.quests = quests;
-      this.authServices.currentUser.subscribe((user: any) => {
-        this.user = user;
-        if(user?.user_id) {
-          if(!this.user?.user_quests[0]?.time) {
-            this.authServices.patchUserQuests(this.user.user_id, { time: moment(new Date(), 'YYYY-MM-DD')}).then()
-          }
-          const oldDay = moment(this.user.user_quests[0].time,'YYYY-MM-DD');
-          const currDay = moment(new Date(), 'YYYY-MM-DD');
-          const diffDate = currDay.diff(oldDay, 'days');
-          console.log(diffDate)
-          if(diffDate > 0) {
-            this.authServices.patchUserQuests(this.user.user_id, {arr_d: [], time: moment(new Date(), 'YYYY-MM-DD')}).then((data) => {
-              this.user.user_quests = data;
-              this.initQuests();
-            })
-          } else {this.checkQq()}
+      let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+      this.user = JSON.parse(data);
+      if(this.user?.user_id) {
+        if(!this.user?.user_quests[0]?.time) {
+          this.authServices.patchUserQuests(this.user.user_id, { time: moment(new Date(), 'YYYY-MM-DD')}).then()
         }
-      })
+        const oldDay = moment(this.user.user_quests[0].time,'YYYY-MM-DD');
+        const currDay = moment(new Date(), 'YYYY-MM-DD');
+        const diffDate = currDay.diff(oldDay, 'days');
+        console.log(diffDate)
+        if(diffDate > 0) {
+          this.authServices.patchUserQuests(this.user.user_id, {arr_d: [], time: moment(new Date(), 'YYYY-MM-DD')}).then((data) => {
+            this.user.user_quests = data;
+            this.initQuests();
+          })
+        } else {this.checkQq()}
+      }
     })
   }
 

@@ -32,14 +32,14 @@ export class DashboardComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.isLoading = true;
-    this.authService.currentUser.subscribe((data: any) => {
-        if(data?.user_id){
-          this.user = data;
+
+    let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+    this.user = JSON.parse(data);
+    if(this.user?.user_id){
           this.userLvl();
           this.isLoading = false;
           // console.log('dashboard', data, this.isLoading )
         }
-      });
     this.apiService.calcLvl();
   }
 

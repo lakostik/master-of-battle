@@ -37,10 +37,9 @@ export class EquipComponent implements OnInit{
 
 
   ngOnInit() {
-    this.authService.currentUser.subscribe((user: any) => {
-      this.user = user;
-      if(user.user_id) this.filterEquipped(user);
-    });
+    let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+    this.user = JSON.parse(data);
+    if(this.user?.user_id) this.filterEquipped(this.user);
 
   }
 

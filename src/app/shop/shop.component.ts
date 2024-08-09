@@ -18,16 +18,15 @@ export class ShopComponent implements OnInit {
   router = inject(Router);
   shopData: any;
   filterData: any;
-  // @ts-ignore
 
   user: any;
 
 
 
   ngOnInit() {
-    this.authService.currentUser.subscribe((data: any) => {
-      this.user = data;
-    })
+    let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+    this.user = JSON.parse(data);
+
     this.getItems()
     this.sortType(null)
   }

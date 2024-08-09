@@ -34,10 +34,8 @@ export class ApiService implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.currentUser.subscribe((data: any) => {
-      this.user = data;
-      // this.calcLvl()
-    })
+    let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+    this.user = JSON.parse(data);
   }
 
   citySelect(id: number){
@@ -49,11 +47,12 @@ export class ApiService implements OnInit {
   }
 
   calcLvl(){
-    this.authService.currentUser.subscribe((user: any) => {
-      if(user?.user_id){
-        this.logoptLvl(user, user.user_exp)
-      }
-    });
+    // let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+    // this.user = JSON.parse(data);
+
+    if(this.user?.user_id){
+      this.logoptLvl(this.user, this.user.user_exp)
+    }
   }
 
   logoptLvl(serviceUser: any, expData: any){

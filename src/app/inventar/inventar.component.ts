@@ -27,10 +27,11 @@ export class InventarComponent implements OnInit{
     popUpData: any;
 
     ngOnInit() {
-      this.authService.currentUser.subscribe((data: any) => {
-        this.user = data;
-        this.sortData(data.user_items);
-      })
+      let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
+      this.user = JSON.parse(data);
+      if(this.user?.user_id) {
+        this.sortData(this.user.user_items);
+      }
     }
 
     sortData(data: any){
@@ -67,8 +68,8 @@ export class InventarComponent implements OnInit{
         }
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped}).then(() => {
-        this.authService.checkUserById(this.user.user_id).then((data) => {
-          this.authService.currentUser.next(data)
+        this.authService.checkUserById(this.user.user_id).then((user) => {
+          sessionStorage.setItem('userData', JSON.stringify(user));
           item.spinner = false;
         })
       })
@@ -93,8 +94,8 @@ export class InventarComponent implements OnInit{
         }
       })
       this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped, 'slot': slot}).then(()=> {
-        this.authService.checkUserById(this.user.user_id).then((data) => {
-          this.authService.currentUser.next(data)
+        this.authService.checkUserById(this.user.user_id).then((user) => {
+          sessionStorage.setItem('userData', JSON.stringify(user));
           item.spinner = false;
         })
       });
