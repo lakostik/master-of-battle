@@ -34,9 +34,9 @@ export class ApiService implements OnInit {
   }
 
   ngOnInit() {
-    let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-    let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
-    this.user = JSON.parse(data);
+    let userId = this.authService.devUserId(); // devMod
+    let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
+    if(data) this.user = JSON.parse(data);
   }
 
   citySelect(id: number){
@@ -57,11 +57,11 @@ export class ApiService implements OnInit {
   }
 
   logoptLvl(serviceUser: any, expData: any){
-    let oldData = localStorage.getItem(this.user.user_id+'_exp');
+    let oldData = sessionStorage.getItem(this.user.user_id+'_exp');
     if(oldData){                              // перевірка чи є в локалСтореджі запис по досвіду
       let oldExp = JSON.parse(oldData);       // Розпашуємо його в обєкт
       if(oldExp.exp !== expData[0].exp) {     // перевірка чи старий ( записаний досвід ) відрізняється від того що прийшов
-        localStorage.removeItem(this.user.user_id+'_exp');
+        sessionStorage.removeItem(this.user.user_id+'_exp');
         let experienceTable = this.lvlTable.value; // таблиця досвіду
         let currentLevel = expData[0].curr_lvl; // рівень записаний в базі =)
         let experience = expData[0].exp; // досвід користувача
@@ -77,7 +77,7 @@ export class ApiService implements OnInit {
         // Формування даних для відправки на оновлення в таблиці ЕХР
         let opt = {'curr_lvl': currentLevel, 'next_lvl': currentLevel+1, 'exp': experience}
         this.authService.patchUserExp(serviceUser.user_id, opt).then( () => {
-          localStorage.setItem(this.user.user_id+'_exp', JSON.stringify(serviceUser.user_exp[0]));
+          sessionStorage.setItem(this.user.user_id+'_exp', JSON.stringify(serviceUser.user_exp[0]));
         });
 
         // Якщо рівень піднято - добавляємо стати до існуючих і оновлюємо дані
@@ -88,15 +88,9 @@ export class ApiService implements OnInit {
         }
       }
     } else {    // по логіці якщо перша загрузка то ми просто записуємо досвід в локалСторедж
-      localStorage.setItem(this.user.user_id+'_exp', JSON.stringify(serviceUser.user_exp[0]));
+      sessionStorage.setItem(this.user.user_id+'_exp', JSON.stringify(serviceUser.user_exp[0]));
     }
 
-
-
   }
-
-
-
-
 
 }

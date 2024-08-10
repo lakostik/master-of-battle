@@ -74,7 +74,7 @@
         <div class="item-bottom">
           <button (click)="lvlUpItem(item)" [ngClass]="{'noactive': item.spinner}" class="lvl-btn btn"><i class="fa-solid fa-plus"></i> Up {{(item.level*2) + 3}}kar</button>
           <span [ngClass]="{'ring': item.type == 'ring', 'weapon': item.type == 'weapon'}" >
-            <button (click)="equipItem(item)" *ngIf="!item.equipped" class="gray-btn btn"><i class="fa-regular fa-circle-up"></i> equip</button>
+            <button (click)="equipHand(item)" *ngIf="!item.equipped" class="green-btn btn"><i class="fa-regular fa-circle-up"></i> equip</button>
           </span>
           <ng-container *ngIf="!item.equipped">
             <span *ngIf="item.type == 'ring' || item.type == 'weapon'">
@@ -87,7 +87,7 @@
               </div>
             </span>
           </ng-container>
-          <button (click)="equipItem(item)" *ngIf="item.equipped" class="gray-btn btn"><i class="fa-regular fa-circle-down"></i> unequipped</button>
+          <button (click)="unequipItem(item)" *ngIf="item.equipped" class="gray-btn btn"><i class="fa-regular fa-circle-down"></i> unequipped</button>
           <button (click)="sellItem(item)" class="red-btn btn"><i class="fa-solid fa-hand-holding-dollar"></i> sell {{item.price - (item.level*3)}}</button>
         </div>
         <div class="spinner" *ngIf="item.spinner">

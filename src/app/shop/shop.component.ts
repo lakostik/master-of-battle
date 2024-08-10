@@ -18,15 +18,16 @@ export class ShopComponent implements OnInit {
   router = inject(Router);
   shopData: any;
   filterData: any;
-
+  errorMess = '';
   user: any;
+  popUp = false;
 
 
 
   ngOnInit() {
-    let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-    let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
-    this.user = JSON.parse(data);
+    let userId = this.authService.devUserId(); // devMod
+    let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
+    if(data) this.user = JSON.parse(data);
 
     this.getItems()
     this.sortType(null)
@@ -45,13 +46,11 @@ export class ShopComponent implements OnInit {
   }
   getItems(){
       this.authService.getShopItems().then(items => {
-        console.log(items);
         this.shopData = items;
         this.filterData = this.shopData;
       })
   }
   buyItem(item: any){
-    // console.log(item, this.user)
     if((this.user.kar - item.price) >= 0) {
       let opt = {
         'user_id': this.user.user_id,
@@ -74,15 +73,19 @@ export class ShopComponent implements OnInit {
         'men': item.men ? item.men : null
       }
       this.authService.createUserItems(opt).then(data => {
-        console.log(data)
         this.user.kar -= item.price
-
         this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then()
       })
     } else {
-      alert('You don\'t have Kar')
+      this.errorMess = 'You don\'t have Kar';
+      this.popUp = true;
     }
 
+  }
+
+  closePopUp(){
+    this.popUp = false;
+    this.errorMess = '';
   }
 
   back(){

@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.authService.checkUserById(+this.userId).then(user => {
       if (user?.user_id) {
-        localStorage.setItem(user.user_id, JSON.stringify(user));
+        sessionStorage.setItem(user.user_id, JSON.stringify(user));
         this.router.navigate(['dashboard'])
       } else {
         this.router.navigate(['registration'])

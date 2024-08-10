@@ -30,16 +30,18 @@ export class DashboardComponent implements OnInit, OnDestroy{
   popUp = false;
   inputUserName = false;
 
+
   ngOnInit() {
     this.isLoading = true;
-    let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-    let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
-    this.user = JSON.parse(data);
-    if(this.user?.user_id){
-          this.userLvl();
-          this.isLoading = false;
-          // console.log('dashboard', data, this.isLoading )
-        }
+    let userId = this.authService.devUserId(); // devMod
+    let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
+    if(data){
+      this.user = JSON.parse(data);
+      if(this.user?.user_id){
+        this.userLvl();
+        this.isLoading = false;
+      }
+    }
     this.apiService.calcLvl();
   }
 

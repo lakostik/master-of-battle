@@ -23,7 +23,7 @@
       <div *ngFor="let item of filterData" class="shop-item">
         <div class="item-img">
           <div class="{{(item.name.replaceAll(' ','_')).toLowerCase()}}"></div>
-          <span class="{{item.klas}}">{{item.klas}}</span>
+<!--          <span class="{{item.klas}}">{{item.klas}}</span>-->
         </div>
         <div class="item-text">
           <div class="s-item-name">{{item.name}}</div>
@@ -101,6 +101,12 @@
 
         </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="popUp" class="pop-up">
+    <div class="pop-up-body">
+      <span class="close-popup" (click)="closePopUp()"><i class="fa-solid fa-xmark"></i></span>
+      <p>{{errorMess}}</p>
     </div>
   </div>
 

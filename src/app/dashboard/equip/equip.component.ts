@@ -37,10 +37,12 @@ export class EquipComponent implements OnInit{
 
 
   ngOnInit() {
-    let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-    let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
-    this.user = JSON.parse(data);
-    if(this.user?.user_id) this.filterEquipped(this.user);
+    let userId = this.authService.devUserId(); // devMod
+    let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
+    if(data){
+      this.user = JSON.parse(data);
+      if(this.user?.user_id) this.filterEquipped(this.user);
+    }
 
   }
 

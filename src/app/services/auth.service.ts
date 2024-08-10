@@ -21,11 +21,16 @@ export class AuthService {
         this.handleUserChange(payload);
       })
       .subscribe();
+
+  }
+
+  devUserId(){
+    return window?.Telegram?.WebApp?.initDataUnsafe?.user?.id ? window?.Telegram?.WebApp?.initDataUnsafe?.user?.id : 7340248041;
   }
 
   handleUserChange(payload: any) {
     this.checkUserById(payload.old.user_id).then(user => {
-      localStorage.setItem(this.userId, JSON.stringify(user));
+      sessionStorage.setItem(this.userId, JSON.stringify(user));
     })
   }
   // Get user

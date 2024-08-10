@@ -24,23 +24,26 @@ export class InventarComponent implements OnInit{
     router = inject(Router);
     errorMess = '';
     popUp = false;
-    popUpData: any;
 
     ngOnInit() {
-      let userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-      let data = localStorage.getItem(userId) ? ''+localStorage.getItem(userId) : '';
-      this.user = JSON.parse(data);
-      if(this.user?.user_id) {
-        this.sortData(this.user.user_items);
+      this.initData();
+    }
+
+    initData(){
+      let userId = this.authService.devUserId(); // devMod
+      let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
+      if(data) {
+        this.user = JSON.parse(data);
+        if(this.user?.user_id) this.sortData(this.user.user_items);
       }
     }
 
     sortData(data: any){
       this.itemsData = data.sort((a:any, b:any) => {
-        if (a.name < b.name) {
+        if (a.id < b.id) {
           return -1;
         }
-        if (a.name > b.name) {
+        if (a.id > b.id) {
           return 1;
         }
         return 0;
@@ -56,50 +59,46 @@ export class InventarComponent implements OnInit{
 
     }
 
-    equipItem(item: any) {
-      item.spinner = true;
-      this.itemsData.filter((el: any) => {
-        if(el.type == item.type && el.id !== item.id) {
-          this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false}).then();
-        }
-        if(item.type == 'shield'){
-          if(el.type == 'weapon' && el.slot == 2) {
-            this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false, 'slot': null}).then();
-          }
-        }
-      })
-      this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped}).then(() => {
-        this.authService.checkUserById(this.user.user_id).then((user) => {
-          localStorage.setItem(this.user.user_id, JSON.stringify(user));
-          item.spinner = false;
-        })
-      })
-    }
     showButtons(i:number){
       this.itemsData.filter((el:any, index: any) => {
         if(index == i) el.show = !el.show
         else el.show = false
       })
     }
-    equipHand(item: any, slot:any) {
+    equipHand(item: any, slot:any = null) {
       item.spinner = true;
-      this.itemsData.filter((el: any) => {
-        if(el.type == item.type && el.id !== item.id) {
-          if(el.slot == slot) {
-            this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false, 'slot': null}).then();
-          }
-        } else if(el.type == 'shield' && el.id !== item.id) {
-          if(slot == 2) {
-            this.authService.patchUserItems(this.user.user_id, el.id, {'equipped': false, 'slot': null}).then();
-          }
-        }
-      })
-      this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': !item.equipped, 'slot': slot}).then(()=> {
-        this.authService.checkUserById(this.user.user_id).then((user) => {
-          localStorage.setItem(this.user.user_id, JSON.stringify(user));
-          item.spinner = false;
-        })
+      this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': true, 'slot': slot}).then(()=> {
+        this.swichItem(item, slot);
       });
+    }
+    swichItem(item: any, slot: any){
+      this.itemsData.filter((el: any, i:any) => {
+        if(item.type !== 'shield' && item.type == el.type && el.id !== item.id && !slot) {this.unequipItem(el)}
+        else if(item.type == 'weapon' && item.type == el.type && el.slot == slot && el.id !== item.id){this.unequipItem(el)}
+        else if(item.type == 'weapon' && el.type == 'shield' && slot == 2 && el.id !== item.id){this.unequipItem(el)}
+        else if (item.type == 'shield' && el.type == 'shield' && el.id !== item.id) {this.unequipItem(el)}
+        else if (item.type == 'shield' && el.type == 'weapon' && el.id !== item.id && el.slot == 2) {this.unequipItem(el)}
+        else if(item.type == 'ring' && el.id !== item.id) {
+          if(el.type == item.type && el.slot == slot) this.unequipItem(el)
+        }
+        else {
+          if(this.itemsData.length - 1 == i) this.updateItems(item)
+        }
+      });
+    }
+    updateItems(item: any){
+      this.authService.checkUserById(this.user.user_id).then((user) => {
+        sessionStorage.setItem(this.user.user_id, JSON.stringify(user));
+        this.initData();
+        item.spinner = false;
+      })
+    }
+    unequipItem(item: any, slot:any = null) {
+      if(item.equipped){
+        this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': false, 'slot': null}).then(()=> {
+          this.updateItems(item)
+        });
+      }
     }
 
     lvlUpItem(item: any){
@@ -126,7 +125,6 @@ export class InventarComponent implements OnInit{
             this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then(() => {
               item.spinner = false
             })
-            console.log(data)
           })
         } else {
           this.popUp = true;
