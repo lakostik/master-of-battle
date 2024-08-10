@@ -98,7 +98,9 @@
             <span>{{item.price}}</span>
             <span>kar</span>
           </div>
-
+        </div>
+        <div class="spinner" *ngIf="item.spinner">
+          <span><i class="fa-solid fa-spinner"></i></span>
         </div>
       </div>
     </div>

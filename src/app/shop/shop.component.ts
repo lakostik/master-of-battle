@@ -51,6 +51,7 @@ export class ShopComponent implements OnInit {
       })
   }
   buyItem(item: any){
+    item.spinner = true;
     if((this.user.kar - item.price) >= 0) {
       let opt = {
         'user_id': this.user.user_id,
@@ -74,10 +75,11 @@ export class ShopComponent implements OnInit {
       }
       this.authService.createUserItems(opt).then(data => {
         this.user.kar -= item.price
-        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then()
+        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then(() => item.spinner = false)
       })
     } else {
       this.errorMess = 'You don\'t have Kar';
+      item.spinner = false;
       this.popUp = true;
     }
 

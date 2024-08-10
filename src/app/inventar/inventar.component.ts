@@ -53,8 +53,7 @@ export class InventarComponent implements OnInit{
     sellItem(item: any){
       item.spinner = true;
       this.authService.deleteUserItems(item.user_id, item.id).then((res) => {
-        item.spinner = false;
-        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar + (item.price - (item.level*3))}).then()
+        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar + (item.price - (item.level*3))}).then(() => this.initData())
       })
 
     }
