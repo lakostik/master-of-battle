@@ -36,15 +36,12 @@ export class DashboardComponent implements OnInit, OnDestroy{
     let userId = this.authService.devUserId(); // devMod
     let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
     if(data){
-      console.log('data', data)
       this.user = JSON.parse(data);
       if(this.user?.user_id){
         setTimeout(() => this.isLoading = false, 300)
         this.userLvl();
-        console.log('new data')
       }
     } else {
-      console.log('need reload')
       setTimeout(() => this.ngOnInit(), 500)
     }
     this.apiService.calcLvl();

@@ -48,7 +48,6 @@ export class InventarComponent implements OnInit{
         }
         return 0;
       });
-      console.log(this.itemsData)
     }
 
     sellItem(item: any){

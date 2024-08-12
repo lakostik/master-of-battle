@@ -12,14 +12,15 @@ import {AuthService} from "../services/auth.service";
 })
 export class UserInfoComponent implements OnInit {
 
-  title = 'user info'
+  title = 'Characteristics'
   location = inject(Location);
   apiService = inject(ApiService);
-  authServices = inject(AuthService);
+  authService = inject(AuthService);
   user: any;
+  charShowBnt = false
 
   ngOnInit(){
-    let userId = this.authServices.devUserId(); // devMod
+    let userId = this.authService.devUserId(); // devMod
     let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
     if(data) {
       this.user = JSON.parse(data);
@@ -27,6 +28,32 @@ export class UserInfoComponent implements OnInit {
       setTimeout(() => this.ngOnInit(), 500)
     }
 
+  }
+
+
+  addStat(name: string){
+    if(this.user.user_spec[0].points > 0) {
+      this.charShowBnt = true;
+      this.user.user_spec[0][name] = this.user.user_spec[0][name] + 1;
+      this.user.user_spec[0].points = this.user.user_spec[0].points - 1;
+    }
+  }
+
+  saveChr(){
+    const data = this.user.user_spec;
+    this.authService.patchUserSpec(this.user.user_id, data).then((spec) => {
+      this.user.user_spec[0] = spec;
+      sessionStorage.setItem(this.user.user_id, JSON.stringify(this.user));
+      this.charShowBnt = false;
+    })
+  }
+
+  cancelChr() {
+    this.authService.getUserSpec(this.user.user_id).then((spec) => {
+      this.user.user_spec[0] = spec;
+      sessionStorage.setItem(this.user.user_id, JSON.stringify(this.user));
+      this.charShowBnt = false;
+    })
   }
 
   addExp(exp: any){
