@@ -60,6 +60,9 @@ img {
   position: relative;
   width: 50%;
 }
+.equip > span:has( > .item-img) {
+  border-color: darkgoldenrod !important;
+}
 .hp-blok, .mp-blok {
   margin: 5px 0;
   position: relative;

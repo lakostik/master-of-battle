@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, input, Input, OnInit} from '@angular/core';
 import {CommonModule, NgForOf} from "@angular/common";
 import {ItemOptPipe} from "../../pipe/item-opt.pipe";
 import {AuthService} from "../../services/auth.service";
@@ -16,8 +16,9 @@ import {AuthService} from "../../services/auth.service";
 })
 export class EquipComponent implements OnInit{
 
+  @Input() user: any;
+
   authService = inject(AuthService);
-  user: any;
   popUp = false;
   popUpData: any;
 
@@ -37,13 +38,7 @@ export class EquipComponent implements OnInit{
 
 
   ngOnInit() {
-    let userId = this.authService.devUserId(); // devMod
-    let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
-    if(data){
-      this.user = JSON.parse(data);
-      if(this.user?.user_id) this.filterEquipped(this.user);
-    }
-
+    if(this.user?.user_id) this.filterEquipped(this.user);
   }
 
   filterEquipped(user: any){

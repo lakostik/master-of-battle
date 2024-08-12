@@ -48,6 +48,7 @@ export class InventarComponent implements OnInit{
         }
         return 0;
       });
+      console.log(this.itemsData)
     }
 
     sellItem(item: any){
@@ -122,15 +123,17 @@ export class InventarComponent implements OnInit{
           if(opt.show) delete opt.show
           this.authService.patchUserItems(this.user.user_id, item.id, opt).then(data => {
             this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar}).then(() => {
-              item.spinner = false
+              setTimeout(()=> {this.initData(); item.spinner = false},750);
             })
           })
         } else {
           this.popUp = true;
           this.errorMess = 'The maximum allowable item level at your level'
           item.spinner = false
+          this.initData();
         }
       } else { this.popUp = true; this.errorMess = 'You don`t have money'; item.spinner = false}
+
     }
 
     addRandomOpt(item: any) {
@@ -155,6 +158,7 @@ export class InventarComponent implements OnInit{
     closePopUp(){
         this.popUp = false;
         this.errorMess = '';
+        this.initData();
     }
 
     back(){

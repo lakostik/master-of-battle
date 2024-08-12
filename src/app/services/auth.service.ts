@@ -31,6 +31,7 @@ export class AuthService {
   handleUserChange(payload: any) {
     this.checkUserById(payload.old.user_id).then(user => {
       sessionStorage.setItem(this.userId, JSON.stringify(user));
+      sessionStorage.setItem(this.userId+'_exp', JSON.stringify(user.user_exp[0]));
     })
   }
   // Get user

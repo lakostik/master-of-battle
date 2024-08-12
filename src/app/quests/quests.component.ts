@@ -4,6 +4,7 @@ import {AuthService} from '../services/auth.service';
 import {SafeHtmlPipe} from "../pipe/safe-html.pipe";
 import moment from 'moment'
 import {forkJoin, from, take} from "rxjs";
+import {ApiService} from "../services/api.service";
 
 
 
@@ -18,7 +19,8 @@ export class QuestsComponent implements OnInit {
 
   title = 'Quests'
   location = inject(Location);
-  authServices = inject(AuthService)
+  apiService = inject(ApiService);
+  authServices = inject(AuthService);
   quests:any[] = [];
   user: any;
 
@@ -39,20 +41,24 @@ export class QuestsComponent implements OnInit {
         this.user = JSON.parse(data);
         if(this.user?.user_id) {
           if(!this.user?.user_quests[0]?.time) {
-            this.authServices.patchUserQuests(this.user.user_id, { time: moment(new Date(), 'YYYY-MM-DD')}).then()
+            this.authServices.patchUserQuests(this.user.user_id, { time: moment(new Date(), 'YYYY-MM-DD')}).then((data) => {
+              this.user.user_quests = data;
+              sessionStorage.setItem(this.user.user_id, JSON.stringify(this.user))
+            })
           }
-          const oldDay = moment(this.user.user_quests[0].time,'YYYY-MM-DD');
-          const currDay = moment(new Date(), 'YYYY-MM-DD');
-          const diffDate = currDay.diff(oldDay, 'days');
-          console.log(diffDate)
+          let oldDay = moment(this.user.user_quests[0].time,'YYYY-MM-DD');
+          let currDay = moment(new Date(), 'YYYY-MM-DD');
+          let diffDate = currDay.diff(oldDay, 'days');
+
           if(diffDate > 0) {
             this.authServices.patchUserQuests(this.user.user_id, {arr_d: [], time: moment(new Date(), 'YYYY-MM-DD')}).then((data) => {
               this.user.user_quests = data;
+              sessionStorage.setItem(this.user.user_id, JSON.stringify(this.user))
               this.initQuests();
             })
           } else {this.checkQq()}
         }
-      }
+      } else {setTimeout(() => this.ngOnInit(), 500)}
     })
   }
 
@@ -137,13 +143,12 @@ export class QuestsComponent implements OnInit {
     // Обєднав всі запити в один
     forkJoin({
       userQuest: from(this.authServices.patchUserQuests(this.user.user_id, opt)),
-      userData: from(this.authServices.patchUserData(this.user.user_id, {'kar': this.user.kar})),
-      userExp: from(this.authServices.patchUserExp(this.user.user_id, {'exp': this.user.user_exp[0].exp})),
-      clearQuest: from(this.authServices.deleteQuestAction(this.user.user_id, qq.id))
+      clearQuest: from(this.authServices.deleteQuestAction(this.user.user_id, qq.id)),
+      userData: from(this.authServices.patchUserData(this.user.user_id, {'kar': this.user.kar}))
     }).subscribe({
-      next: ({userQuest, userData, userExp, clearQuest}) => {
+      next: ({userQuest, userData, clearQuest}) => {
         qq.ready = true;                            // добавляю квесту маркер про його закінчення
-        // this.authServices.currentUser.next(this.user)  // Оновлення актуально інформації в загальнову обєкті Користувача
+        this.apiService.calcLvl(this.user.user_exp[0].exp);
       }
 
     })

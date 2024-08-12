@@ -30,6 +30,7 @@ export class ApiService implements OnInit {
       }
       levels.push({level: i-10, exp: newresult});
     }
+    console.log(levels)
     this.lvlTable.next(levels);
   }
 
@@ -47,50 +48,41 @@ export class ApiService implements OnInit {
     else return 'Nocity'
   }
 
-  calcLvl(){
-    // let data = sessionStorage.getItem('userData') ? ''+sessionStorage.getItem('userData') : '';
-    // this.user = JSON.parse(data);
-
-    if(this.user?.user_id){
-      this.logoptLvl(this.user, this.user.user_exp)
+  async calcLvl(newExp: any = 0){
+    let user: any;
+    let userId = this.authService.devUserId(); // devMod
+    let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
+    if(data) {
+      user = JSON.parse(data);
     }
-  }
-
-  logoptLvl(serviceUser: any, expData: any){
-    let oldData = sessionStorage.getItem(this.user.user_id+'_exp');
-    if(oldData){                              // перевірка чи є в локалСтореджі запис по досвіду
-      let oldExp = JSON.parse(oldData);       // Розпашуємо його в обєкт
-      if(oldExp.exp !== expData[0].exp) {     // перевірка чи старий ( записаний досвід ) відрізняється від того що прийшов
-        sessionStorage.removeItem(this.user.user_id+'_exp');
+    if(user?.user_id && (newExp > 0)){
         let experienceTable = this.lvlTable.value; // таблиця досвіду
-        let currentLevel = expData[0].curr_lvl; // рівень записаний в базі =)
-        let experience = expData[0].exp; // досвід користувача
+        let currentLevel = user.user_exp[0].curr_lvl; // рівень записаний в базі =)
+        let experience = user.user_exp[0].exp + newExp; // досвід користувача
         let levelsGained = 0; // Змінна для відстеження кількості рівнів, на які підвищився користувач
         let money = 0; // Змінна для грошей
 
-        // // Підвищення рівня на основі накопиченого досвіду
+        //  Підвищення рівня на основі накопиченого досвіду
         while (currentLevel < experienceTable.length - 1 && experience >= experienceTable[currentLevel + 1].exp) {
           currentLevel++;
           levelsGained++;
           money += currentLevel*5 + 10;
         }
-        // Формування даних для відправки на оновлення в таблиці ЕХР
         let opt = {'curr_lvl': currentLevel, 'next_lvl': currentLevel+1, 'exp': experience}
-        this.authService.patchUserExp(serviceUser.user_id, opt).then( () => {
-          sessionStorage.setItem(this.user.user_id+'_exp', JSON.stringify(serviceUser.user_exp[0]));
-        });
+        try {
+          await this.authService.patchUserExp(user.user_id, opt);
 
-        // Якщо рівень піднято - добавляємо стати до існуючих і оновлюємо дані
-        if(levelsGained) {
-          serviceUser.user_spec[0].points += levelsGained;
-          this.authService.patchUserSpec(serviceUser.user_id, {'points': serviceUser.user_spec[0].points}).then()
-          this.authService.patchUserData(serviceUser.user_id, {'kar': serviceUser.kar + money}).then()
+          if (levelsGained) {
+            user.user_spec[0].points += levelsGained;
+            await this.authService.patchUserSpec(user.user_id, { 'points': user.user_spec[0].points });
+            await this.authService.patchUserData(user.user_id, { 'kar': user.kar + money });
+          } else {
+            await this.authService.patchUserData(user.user_id, { 'kar': user.kar + money }).then()
+          }
+        } catch (error) {
+          console.error('Error updating user data:', error);
         }
-      }
-    } else {    // по логіці якщо перша загрузка то ми просто записуємо досвід в локалСторедж
-      sessionStorage.setItem(this.user.user_id+'_exp', JSON.stringify(serviceUser.user_exp[0]));
     }
-
   }
 
 }
