@@ -53,73 +53,73 @@
       <h4>Characteristic</h4>
       <div class="chr-blok">
         <div class="chr-field">
-          <div class="chr-f-name">Strength {{user?.user_spec[0]?.str}}</div>
+          <div class="chr-f-name">Strength {{user?.user_spec[0]?.str}} <span class="add-opt">+{{itemData.str}}</span></div>
           <div class="chr-f-opt">
             <span>Damage:</span>
-            <span>{{user.user_spec[0]?.str}} - {{user.user_spec[0]?.str * 2}}</span>
+            <span>{{user.user_spec[0]?.str + itemData.str}} - {{(user.user_spec[0]?.str + itemData.str) * 2}} + {{itemData.attack}}</span>
           </div>
           <div class="chr-f-opt">
             <span>Extra damage:</span>
-            <span>{{user.user_spec[0]?.str}} %</span>
+            <span>{{user.user_spec[0]?.str}} + {{itemData.str + itemData.extra_damage}} + {{itemData.bonus_str}} %</span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Vitality {{user.user_spec[0]?.vit}}</div>
+          <div class="chr-f-name">Vitality {{user.user_spec[0]?.vit}} <span class="add-opt">+{{itemData.vit}}</span></div>
           <div class="chr-f-opt">
             <span>Hit point:</span>
-            <span>{{user.user_spec[0]?.vit * 10}}</span>
+            <span>{{user.user_spec[0]?.vit * 10}} + {{(itemData.vit * 10) + itemData.hp}} + ({{itemData.bonus_vit}}%)</span>
           </div>
           <div class="chr-f-opt">
             <span>Resist damage:</span>
-            <span>{{user.user_spec[0]?.vit}} %</span>
+            <span>{{user.user_spec[0]?.vit}} + {{itemData.damage_resistant}} + {{itemData.bonus_vit - 2}}%</span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Agility {{user.user_spec[0]?.agi}}</div>
+          <div class="chr-f-name">Agility {{user.user_spec[0]?.agi}} <span class="add-opt">+{{itemData.agi}}</span></div>
           <div class="chr-f-opt">
             <span>Evasion:</span>
-            <span>{{user.user_spec[0]?.agi * 7}}</span>
+            <span>{{user.user_spec[0]?.agi * 7}} + {{itemData.evasion + itemData.agi*7}} + ({{itemData.bonus_agi}}%)</span>
           </div>
           <div class="chr-f-opt">
             <span>Accuracy:</span>
-            <span>{{user.user_spec[0]?.agi * 5}}</span>
+            <span>{{user.user_spec[0]?.agi * 5}} + {{itemData.accuracy + itemData.agi*5}} + ({{itemData.bonus_agi}}%)</span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Energy {{user.user_spec[0]?.ene}}</div>
+          <div class="chr-f-name">Energy {{user.user_spec[0]?.ene}} <span class="add-opt">+{{itemData.ene}}</span></div>
           <div class="chr-f-opt">
             <span>Elemental damage:</span>
-            <span>{{user.user_spec[0]?.ene}}</span>
+            <span>{{user.user_spec[0]?.ene}} + {{itemData.ene}} +<span class="add-opt">({{itemData.bonus_ene}}%)</span></span>
           </div>
           <div class="chr-f-opt">
             <span>Debuff chance:</span>
-            <span>{{user.user_spec[0]?.ene}} %</span>
+            <span>{{user.user_spec[0]?.ene}} + {{itemData.debuff_change}} +({{itemData.bonus_ene}})%</span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Meditation {{user.user_spec[0]?.men}}</div>
+          <div class="chr-f-name">Meditation {{user.user_spec[0]?.men}} <span class="add-opt">+{{itemData.men}}</span></div>
           <div class="chr-f-opt">
             <span>Manna points:</span>
-            <span>{{user.user_spec[0]?.men * 10}}</span>
+            <span>{{user.user_spec[0]?.men * 10}} + {{itemData.men * 10 + itemData.mp}} + ({{itemData.bonus_men}}%)</span>
           </div>
           <div class="chr-f-opt">
             <span>Debuff resistant:</span>
-            <span>{{user.user_spec[0]?.men}} %</span>
+            <span>{{user.user_spec[0]?.men}} + {{itemData.debuff_resistant}} +(<span>{{itemData.bonus_res}}</span><span *ngIf="itemData.bonus_men"> + {{itemData.bonus_men - 2}}</span>)%</span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Intuition {{user.user_spec[0]?.int}}</div>
+          <div class="chr-f-name">Intuition {{user.user_spec[0]?.int}}<span class="add-opt">+{{itemData.int}}</span></div>
           <div class="chr-f-opt">
             <span>Critical change:</span>
-            <span>{{user.user_spec[0]?.int * 7}}</span>
+            <span>{{user.user_spec[0]?.int * 7}} + {{itemData.int * 7 + itemData.critical_chance}} + ({{itemData.bonus_int}}%)</span>
           </div>
           <div class="chr-f-opt">
             <span>Critical resistant:</span>
-            <span>{{user.user_spec[0]?.int * 5}}</span>
+            <span>{{user.user_spec[0]?.int * 5}} + {{itemData.int * 5 + itemData.critical_resistant}} + ({{itemData.bonus_res + itemData.bonus_int}}%)</span>
           </div>
           <div class="chr-f-opt">
             <span>Critical damage:</span>
-            <span>{{user.user_spec[0]?.int * 6}} %</span>
+            <span>{{user.user_spec[0]?.int * 6}} + {{itemData.int * 6}}% + {{itemData.critical_damage}}</span>
           </div>
         </div>
       </div>

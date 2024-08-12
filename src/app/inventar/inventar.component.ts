@@ -110,10 +110,34 @@ export class InventarComponent implements OnInit{
           if(opt.defence != null) opt.defence += 2;
           if(opt.attack != null) opt.attack += 2;
           if((opt.level+1) % 10 === 0) {
-            if(opt.klas == 'atk' || opt.klas == 'def') {
-              opt.bonus += 2
-            } else {
-              opt.bonus += 4
+            if(opt.bonus_atk) {
+              opt.bonus_atk += 2
+            } else if(opt.bonus_atk){
+              opt.bonus_def += 2
+            } else if(opt.bonus_mag) {
+              opt.bonus_mag += 2
+            } else if(opt.bonus_bos){
+              opt.bonus_bos += 1
+            } else if(opt.bonus_boss){
+              opt.bonus_boss += 1
+            } else if(opt.bonus_bosss){
+              opt.bonus_bosss += 1
+            } else if(opt.bonus_bossss){
+              opt.bonus_bossss += 1
+            } else if(opt.bonus_str){
+              opt.bonus_str += 3
+            } else if(opt.bonus_agi){
+              opt.bonus_agi += 3
+            } else if(opt.bonus_vit){
+              opt.bonus_vit += 3
+            } else if(opt.bonus_int){
+              opt.bonus_int += 3
+            } else if(opt.bonus_men){
+              opt.bonus_men += 3
+            } else if(opt.bonus_ene){
+              opt.bonus_ene += 3
+            } else if(opt.bonus_res){
+              opt.bonus_res += 3
             }
           }
           opt.level += 1;
@@ -137,7 +161,7 @@ export class InventarComponent implements OnInit{
 
     addRandomOpt(item: any) {
       // Виключити певні ключі з можливих для вибору
-      const excludeKeys = ["klas", "name", "type", "bonus", "level", "price", "defence", "attack", "item_id", "user_id", "equipped", "created_at", "set", "id", "slot", "spinner"];
+      const excludeKeys = ["klas", "name", "type", "bonus_bossss","bonus_bosss","bonus_boss","bonus_bos","bonus_res","bonus_ene","bonus_men","bonus_int","bonus_vit","bonus_agi","bonus_str","bonus_def","bonus_atk","bonus_mag", "level", "price", "defence", "attack", "item_id", "user_id", "equipped", "created_at", "set", "id", "slot", "spinner"];
       const availableKeys = Object.keys(item).filter(key => !excludeKeys.includes(key));  // Отримати масив ключів об'єкта, виключаючи певні ключі
       const randomIndex = Math.floor(Math.random() * availableKeys.length);   // Вибрати рандомний індекс з масиву ключів
       const randomKey = availableKeys[randomIndex];                               // Вибрати рандомний ключ
@@ -147,7 +171,7 @@ export class InventarComponent implements OnInit{
         item[randomKey] += 1;
       } else if(randomKey == 'hp'|| randomKey == 'mp') {
         item[randomKey] += 10;
-      } else if(randomKey == 'extra_damage'|| randomKey == 'extra_defence' || randomKey == 'damage_resistant') {
+      } else if(randomKey == 'extra_damage'|| randomKey == 'reff'|| randomKey == 'extra_defence' || randomKey == 'damage_resistant') {
         item[randomKey] += 2;
       } else { item[randomKey] += 5; }
 

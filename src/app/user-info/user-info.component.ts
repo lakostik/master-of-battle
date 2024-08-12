@@ -17,13 +17,15 @@ export class UserInfoComponent implements OnInit {
   apiService = inject(ApiService);
   authService = inject(AuthService);
   user: any;
-  charShowBnt = false
+  charShowBnt = false;
+  itemData: any;
 
   ngOnInit(){
     let userId = this.authService.devUserId(); // devMod
     let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
     if(data) {
       this.user = JSON.parse(data);
+      this.itemData = this.apiService.calcUserItemsParameters(this.user);
     } else {
       setTimeout(() => this.ngOnInit(), 500)
     }

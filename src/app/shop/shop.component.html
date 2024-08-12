@@ -30,48 +30,69 @@
           <div class="item-base" *ngIf="item?.atk"><span>Attack: </span><span> {{item.atk}}</span></div>
           <div class="item-base" *ngIf="item?.def"><span>Defence: </span><span> {{item.def}}</span></div>
           <div class="item-opt">
-            <ng-container *ngIf="item.klas == 'agi'">
-              <div>Evasion: {{item.bonus}}%</div>
-              <div>Accuracy: {{item.bonus}}%</div>
+            <ng-container *ngIf="item.bonus_agi">
+              <div>Evasion: {{item.bonus_agi}}%</div>
+              <div>Accuracy: {{item.bonus_agi}}%</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'ene'">
-              <div>Elemental damage: {{item.bonus - 2}}%</div>
-              <div>Defuff chance: {{item.bonus - 2}}%</div>
+            <ng-container *ngIf="item.bonus_ene">
+              <div>Elemental damage: {{item.bonus_ene - 2}}%</div>
+              <div>Defuff chance: {{item.bonus_ene - 2}}%</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'str'">
-              <div>Extra damage: {{item.bonus}}%</div>
-<!--              <div>Accuracy: {{item.bonus}}%</div>-->
+            <ng-container *ngIf="item.bonus_str">
+              <div>Extra damage: {{item.bonus_str}}%</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'vit'">
-              <div>Hit points: {{item.bonus}}%</div>
-              <div>Resist damage: {{item.bonus - 2}}%</div>
+            <ng-container *ngIf="item.bonus_vit">
+              <div>Hit points: {{item.bonus_vit}}%</div>
+              <div>Resist damage: {{item.bonus_vit - 2}}%</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'men'">
-              <div>Debuff resistant: {{item.bonus -2}}%</div>
-              <div>Mana point: {{item.bonus}}%</div>
+            <ng-container *ngIf="item.bonus_men">
+              <div>Debuff resistant: {{item.bonus_men -2}}%</div>
+              <div>Mana point: {{item.bonus_men}}%</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'int'">
-              <div>Critical chance: {{item.bonus}}%</div>
-              <div>Critical resist: {{item.bonus}}%</div>
+            <ng-container *ngIf="item.bonus_int">
+              <div>Critical chance: {{item.bonus_int}}%</div>
+              <div>Critical resist: {{item.bonus_int}}%</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'res'">
-              <div>Accuracy: {{item.bonus - 2}}%</div>
-              <div>Critical resist: {{item.bonus -2}}%</div>
-              <div>Debuff resistant: {{item.bonus -2}}%</div>
+            <ng-container *ngIf="item.bonus_res">
+              <div>Accuracy: {{item.bonus_res}}%</div>
+              <div>Critical resist: {{item.bonus_res}}%</div>
+              <div>Debuff resistant: {{item.bonus_res}}%</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'atk'">
-              <div>Damage: {{item.bonus}}%</div>
-              <div>Hit point: {{item.bonus}}%</div>
+            <ng-container *ngIf="item.bonus_atk">
+              <div>Damage: {{item.bonus_atk * 5}}</div>
+              <div>Hit point: {{item.bonus_atk * 5}}</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'def'">
-              <div>Defence: {{item.bonus}}%</div>
-              <div>Hit point: {{item.bonus}}%</div>
+            <ng-container *ngIf="item.bonus_def">
+              <div>Defence: {{item.bonus_def * 5}}</div>
+              <div>Hit point: {{item.bonus_def * 5}}</div>
             </ng-container>
-            <ng-container *ngIf="item.klas == 'mag'">
-              <div>Magic damage: {{item.bonus}}</div>
-              <div>Hit point: {{item.bonus - 3}}%</div>
+            <ng-container *ngIf="item.bonus_mag">
+              <div>Magic damage: {{item.bonus_mag * 5}}</div>
+              <div>Hit point: {{item.bonus_mag * 5}}</div>
+              <div>Mana point: {{item.bonus_mag * 5}}</div>
+            </ng-container>
+            <ng-container *ngIf="item.bonus_bos">
+              <div>All stat: {{item.bonus_bos * 3}}</div>
+              <div>Hit point: {{item.bonus_mag * 25}}</div>
+              <div>Mana point: {{item.bonus_mag * 25}}</div>
+            </ng-container>
+            <ng-container *ngIf="item.bonus_boss">
+              <div>All stat: {{item.bonus_boss * 5}}</div>
+              <div>Hit point: {{item.bonus_boss * 50}}</div>
+              <div>Mana point: {{item.bonus_boss * 50}}</div>
+            </ng-container>
+            <ng-container *ngIf="item.bonus_bosss">
+              <div>All stat: {{item.bonus_bosss * 7}}</div>
+              <div>Hit point: {{item.bonus_bosss * 75}}</div>
+              <div>Mana point: {{item.bonus_bosss * 75}}</div>
+            </ng-container>
+            <ng-container *ngIf="item.bonus_bossss">
+              <div>All stat: {{item.bonus_bossss * 9}}</div>
+              <div>Hit point: {{item.bonus_bossss * 100}}</div>
+              <div>Mana point: {{item.bonus_bossss * 100}}</div>
             </ng-container>
           </div>
+          <div class="other-opt" *ngIf="item.reff">Reflect: {{item.reff}}</div>
           <div class="other-opt" *ngIf="item.hp">HP: {{item.hp}}</div>
           <div class="other-opt" *ngIf="item.mp">MP: {{item.mp}}</div>
           <div class="other-opt" *ngIf="item.str">STR: {{item.str}}</div>
