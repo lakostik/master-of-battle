@@ -139,7 +139,19 @@ h4 {
   letter-spacing: .5px;
   font-size: 13px;
 }
-.chr-f-opt span:last-child {
+.chr-f-opt > span:last-child {
   font-weight: 300;
   padding-left: 6px;
+}
+
+span.add-stat {
+  padding-left: 0px;
+}
+span.add-opt {
+  color: #e9e932;
+  padding-left: 3px !important;
+}
+span.add-opt-2 {
+  color: #2de72d;
+  padding-left: 3px !important;
 }

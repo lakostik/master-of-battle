@@ -84,11 +84,9 @@ export class QuestsComponent implements OnInit {
 
   start(qq:any){
     qq.status = 'progress';
-    console.log(qq)
     let endDate = qq.interval ? new Date(Date.now() + qq.interval * 60 * 1000) : new Date(Date.now());
     let opt = {user_id: this.user.user_id, quest_id: qq.id, startDate: new Date(Date.now()), timer: qq.interval, endDate: endDate}
     this.authServices.createQuestAction(opt).then(result => {
-      console.log(result)
       if(qq.interval) {
         this.startTimer(qq, result);
       }
@@ -139,7 +137,9 @@ export class QuestsComponent implements OnInit {
 
     let opt = qq.special ? {arr_s: arr_s} : {arr_d: arr_d}    // формування оновлення данних для Юзер квестів
     this.user.kar += qq.kar + this.user.user_exp[0].curr_lvl;                         // Додаю нагороду за квест (Кар)
-    this.user.user_exp[0].exp += qq.exp + (5 * this.user.user_exp[0].curr_lvl);       // Додаю нагороду за квест (ЕХР)
+
+    let addition = qq.exp + (5 * this.user.user_exp[0].curr_lvl);  // Додаю нагороду за квест (ЕХР)
+
     // Обєднав всі запити в один
     forkJoin({
       userQuest: from(this.authServices.patchUserQuests(this.user.user_id, opt)),
@@ -148,7 +148,7 @@ export class QuestsComponent implements OnInit {
     }).subscribe({
       next: ({userQuest, userData, clearQuest}) => {
         qq.ready = true;                            // добавляю квесту маркер про його закінчення
-        this.apiService.calcLvl(this.user.user_exp[0].exp);
+        this.apiService.calcLvl(addition);
       }
 
     })
