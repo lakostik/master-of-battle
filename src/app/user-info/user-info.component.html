@@ -50,119 +50,170 @@
           <button class="save-btn" (click)="saveChr()">Save</button>
         </div>
       </div>
+      <h4>Defence</h4>
+      <div class="chr-blok">
+        <div class="chr-f-opt">
+          <span>Defence Helm: </span>
+          <span>{{itemData.helm_def}}</span>
+          <span class="add-opt"> + {{itemData.extra_defence}}</span>
+        </div>
+        <div class="chr-f-opt">
+          <span>Defence Armor: </span>
+          <span>{{itemData.armor_def}}</span>
+          <span class="add-opt"> + {{itemData.extra_defence}}</span>
+        </div>
+        <div class="chr-f-opt">
+          <span>Defence Pants: </span>
+          <span>{{itemData.pants_def}}</span>
+          <span class="add-opt"> + {{itemData.extra_defence}}</span>
+        </div>
+        <div class="chr-f-opt">
+          <span>Defence Boots: </span>
+          <span>{{itemData.boots_def}}</span>
+          <span class="add-opt"> + {{itemData.extra_defence}}</span>
+        </div>
+        <div class="chr-f-opt">
+          <span>Defence Gloves: </span>
+          <span>{{itemData.gloves_def}}</span>
+          <span class="add-opt"> + {{itemData.extra_defence}}</span>
+        </div>
+      </div>
       <h4>Characteristic</h4>
       <div class="chr-blok">
         <div class="chr-field">
           <div class="chr-f-name">Strength {{user?.user_spec[0]?.str}}
             <span class="add-stat" *ngIf="itemData?.str">+ {{itemData.str}}</span>
+            <span class="add-boss" *ngIf="itemData.bonus_bos || itemData.bonus_boss || itemData.bonus_bosss || itemData.bonus_bossss"> + {{itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
           </div>
           <div class="chr-f-opt">
             <span>Damage:</span>
-            <span>{{user.user_spec[0]?.str + itemData.str}} - {{(user.user_spec[0]?.str + itemData.str) * 2}}
+            <span>{{user.user_spec[0]?.str + itemData.str + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}} - {{(user.user_spec[0]?.str + itemData.str + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9) * 2}}
               <span class="add-opt" *ngIf="itemData?.attack"> + {{itemData.attack}}</span>
             </span>
           </div>
           <div class="chr-f-opt">
             <span>Extra damage:</span>
             <span>{{user.user_spec[0]?.str}}%
-              <span class="add-opt"> + {{itemData.str + itemData.extra_damage}}%</span>
+              <span class="add-opt"> + {{itemData.str + itemData.extra_damage + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}%</span>
               <span class="add-opt-2"> + {{itemData.bonus_str}}%</span>
             </span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Vitality {{user.user_spec[0]?.vit}} <span class="add-stat"> + {{itemData.vit}}</span></div>
+          <div class="chr-f-name">Vitality {{user.user_spec[0]?.vit}}
+            <span class="add-stat"> + {{itemData.vit}}</span>
+            <span class="add-boss" *ngIf="itemData.bonus_bos || itemData.bonus_boss || itemData.bonus_bosss || itemData.bonus_bossss"> + {{itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
+          </div>
           <div class="chr-f-opt">
             <span>Hit point:</span>
             <span>{{user.user_spec[0]?.vit * 10}}
-              <span class="add-opt"> + {{(itemData.vit * 10) + itemData.hp}}</span>
+              <span class="add-opt"> + {{(itemData.vit * 10) + itemData.hp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10}}</span>
               <span class="add-opt-2" *ngIf="itemData.bonus_vit"> + {{itemData.bonus_vit}}%</span>
             </span>
           </div>
           <div class="chr-f-opt">
             <span>Resist damage:</span>
             <span>{{user.user_spec[0]?.vit}}%
-              <span class="add-opt"> + {{itemData.damage_resistant}}%</span>
+              <span class="add-opt"> + {{itemData.damage_resistant + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}%</span>
               <span class="add-opt-2" *ngIf="itemData?.bonus_vit"> + {{itemData.bonus_vit - 2}}%</span>
             </span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Agility {{user.user_spec[0]?.agi}} <span class="add-stat"> + {{itemData.agi}}</span></div>
+          <div class="chr-f-name">Agility {{user.user_spec[0]?.agi}}
+            <span class="add-stat"> + {{itemData.agi}}</span>
+            <span class="add-boss" *ngIf="itemData.bonus_bos || itemData.bonus_boss || itemData.bonus_bosss || itemData.bonus_bossss"> + {{itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
+          </div>
           <div class="chr-f-opt">
             <span>Evasion:</span>
             <span>{{user.user_spec[0]?.agi * 7}}
-              <span class="add-opt"> + {{itemData.evasion + itemData.agi*7}}</span>
+              <span class="add-opt"> + {{itemData.evasion + itemData.agi*7 + (itemData.bonus_bos * 3 * 7) + (itemData.bonus_boss * 5 * 7) + (itemData.bonus_bosss * 7 * 7) + (itemData.bonus_bossss * 9 * 7)}}</span>
               <span class="add-opt-2" *ngIf="itemData?.bonus_agi"> + {{itemData.bonus_agi}}%</span>
             </span>
           </div>
           <div class="chr-f-opt">
             <span>Accuracy:</span>
             <span>{{user.user_spec[0]?.agi * 5}}
-              <span class="add-opt"> + {{itemData.accuracy + itemData.agi*5}}</span>
+              <span class="add-opt"> + {{itemData.accuracy + itemData.agi*5 + (itemData.bonus_bos * 3 * 5) + (itemData.bonus_boss * 5 * 5) + (itemData.bonus_bosss * 7 * 5) + (itemData.bonus_bossss * 9 * 5)}}</span>
               <span class="add-opt-2" *ngIf="itemData.bonus_agi || itemData.bonus_res"> + {{itemData.bonus_res + itemData.bonus_agi}}%</span>
             </span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Energy {{user.user_spec[0]?.ene}} <span class="add-stat"> + {{itemData.ene}}</span></div>
+          <div class="chr-f-name">Energy {{user.user_spec[0]?.ene}}
+            <span class="add-stat"> + {{itemData.ene}}</span>
+            <span class="add-boss" *ngIf="itemData.bonus_bos || itemData.bonus_boss || itemData.bonus_bosss || itemData.bonus_bossss"> + {{itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
+          </div>
           <div class="chr-f-opt">
             <span>Elemental damage:</span>
             <span>{{user.user_spec[0]?.ene}}
-              <span class="add-opt"> + {{itemData.ene}}</span>
+              <span class="add-opt"> + {{itemData.ene + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
               <span class="add-opt-2" *ngIf="itemData.bonus_ene"> + {{itemData.bonus_ene}}%</span></span>
           </div>
           <div class="chr-f-opt">
             <span>Debuff chance:</span>
             <span>{{user.user_spec[0]?.ene}}
-              <span class="add-opt"> + {{itemData.ene + itemData.debuff_change}}</span>
+              <span class="add-opt"> + {{itemData.ene + itemData.debuff_change + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
               <span class="add-opt-2" *ngIf="itemData.bonus_ene"> + {{itemData.bonus_ene}}%</span>
             </span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Meditation {{user.user_spec[0]?.men}} <span class="add-stat"> + {{itemData.men}}</span></div>
+          <div class="chr-f-name">Meditation {{user.user_spec[0]?.men}}
+            <span class="add-stat"> + {{itemData.men}}</span>
+            <span class="add-boss" *ngIf="itemData.bonus_bos || itemData.bonus_boss || itemData.bonus_bosss || itemData.bonus_bossss"> + {{itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
+          </div>
           <div class="chr-f-opt">
             <span>Manna points:</span>
             <span>{{user.user_spec[0]?.men * 10}}
-              <span class="add-opt"> + {{itemData.men * 10 + itemData.mp}}</span>
+              <span class="add-opt"> + {{itemData.men * 10 + itemData.mp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10}}</span>
               <span class="add-opt-2" *ngIf="itemData.bonus_men"> + {{itemData.bonus_men}}%</span>
             </span>
           </div>
           <div class="chr-f-opt">
             <span>Debuff resistant:</span>
             <span>{{user.user_spec[0]?.men}}
-              <span class="add-opt"> + {{itemData.men + itemData.debuff_resistant}} </span>
+              <span class="add-opt"> + {{itemData.men + itemData.debuff_resistant + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}} </span>
               <span class="add-opt-2" *ngIf="itemData.bonus_res || itemData.bonus_men"> + <span>{{itemData.bonus_res + itemData.bonus_men - 2}}</span>%</span>
             </span>
           </div>
         </div>
         <div class="chr-field">
-          <div class="chr-f-name">Intuition {{user.user_spec[0]?.int}}<span class="add-stat"> + {{itemData.int}}</span></div>
+          <div class="chr-f-name">Intuition {{user.user_spec[0]?.int}}
+            <span class="add-stat"> + {{itemData.int}}</span>
+            <span class="add-boss" *ngIf="itemData.bonus_bos || itemData.bonus_boss || itemData.bonus_bosss || itemData.bonus_bossss"> + {{itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}</span>
+          </div>
           <div class="chr-f-opt">
             <span>Critical change:</span>
             <span>{{user.user_spec[0]?.int * 7}}
-              <span class="add-opt"> + {{itemData.int * 7 + itemData.critical_chance}}</span>
+              <span class="add-opt"> + {{itemData.int * 7 + itemData.critical_chance + itemData.bonus_bos * 3 * 7 + itemData.bonus_boss * 5 * 7 + itemData.bonus_bosss * 7 * 7 + itemData.bonus_bossss * 9 * 7}}</span>
               <span class="add-opt-2" *ngIf="itemData.bonus_int"> + {{itemData.bonus_int}}%</span>
             </span>
           </div>
           <div class="chr-f-opt">
             <span>Critical resistant:</span>
             <span>{{user.user_spec[0]?.int * 5}}
-              <span class="add-opt"> + {{itemData.int * 5 + itemData.critical_resistant}}</span>
+              <span class="add-opt"> + {{itemData.int * 5 + itemData.critical_resistant + itemData.bonus_bos * 3 * 5 + itemData.bonus_boss * 5 * 5 + itemData.bonus_bosss * 7 * 5 + itemData.bonus_bossss * 9 * 5}}</span>
               <span class="add-opt-2" *ngIf="itemData.bonus_int || itemData.bonus_res"> + {{itemData.bonus_res + itemData.bonus_int}}%</span>
             </span>
           </div>
           <div class="chr-f-opt">
             <span>Critical damage:</span>
             <span>{{user.user_spec[0]?.int * 6}}%
-              <span class="add-opt"> + {{itemData.int * 6}}%</span>
+              <span class="add-opt"> + {{itemData.int * 6 + itemData.bonus_bos * 3 * 6 + itemData.bonus_boss * 5 * 6 + itemData.bonus_bosss * 7 * 6 + itemData.bonus_bossss * 9 * 6}}%</span>
               <span class="add-opt-2" *ngIf="itemData.critical_damage"> + {{itemData.critical_damage}}</span>
             </span>
           </div>
         </div>
       </div>
+    <h4>Other params</h4>
+    <div class="chr-blok">
+      <div class="chr-f-opt">
+        <span>Reflect: </span>
+        <span> + {{itemData.reff}}</span>
+      </div>
 
+    </div>
 
   </div>
 </div>

@@ -179,6 +179,11 @@ export class ApiService implements OnInit {
           if(item.int)newDataCharacteristic['int'] += item.int
           if(item.men)newDataCharacteristic['men'] += item.men
           if(item.ene)newDataCharacteristic['ene'] += item.ene
+          if(item.bonus_bos)newDataCharacteristic['bonus_bos'] += item.bonus_bos
+          if(item.bonus_boss)newDataCharacteristic['bonus_boss'] += item.bonus_boss
+          if(item.bonus_bosss)newDataCharacteristic['bonus_bosss'] += item.bonus_bosss
+          if(item.bonus_bossss)newDataCharacteristic['bonus_bossss'] += item.bonus_bossss
+
         }
       })
     // newDataCharacteristic = this.updateCharacteristicsFromItems(newDataCharacteristic, itemsData);

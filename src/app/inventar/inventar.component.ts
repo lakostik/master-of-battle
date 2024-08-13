@@ -107,7 +107,8 @@ export class InventarComponent implements OnInit{
         if(this.user.user_exp[0].curr_lvl > item.level) {
           let opt = Object.assign({}, this.addRandomOpt(item));
           opt.price += (item.level*2) + 3;
-          if(opt.defence != null) opt.defence += 2;
+          if(opt.defence != null && opt.type !== 'shield') opt.defence += 2;
+          if(opt.defence != null && opt.type == 'shield') opt.defence += 1;
           if(opt.attack != null) opt.attack += 2;
           if((opt.level+1) % 10 === 0) {
             if(opt.bonus_atk) {

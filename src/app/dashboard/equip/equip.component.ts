@@ -1,7 +1,8 @@
-import {Component, inject, input, Input, OnInit} from '@angular/core';
-import {CommonModule, NgForOf} from "@angular/common";
+import {Component, inject, Input, OnInit} from '@angular/core';
+import {CommonModule} from "@angular/common";
 import {ItemOptPipe} from "../../pipe/item-opt.pipe";
 import {AuthService} from "../../services/auth.service";
+import {ApiService} from "../../services/api.service";
 
 
 @Component({
@@ -19,6 +20,7 @@ export class EquipComponent implements OnInit{
   @Input() user: any;
 
   authService = inject(AuthService);
+  apiService = inject(ApiService);
   popUp = false;
   popUpData: any;
 
@@ -34,11 +36,22 @@ export class EquipComponent implements OnInit{
   shield: any;
   earrings: any;
   necklaces: any;
-
+  itemData: any;
+  userHP: any;
+  userMP: any;
 
 
   ngOnInit() {
     if(this.user?.user_id) this.filterEquipped(this.user);
+    this.itemData = this.apiService.calcUserItemsParameters(this.user);
+    this.calcPoints(this.user, this.itemData)
+  }
+
+  calcPoints(user: any, itemData: any){
+    let hp = user.user_spec[0].vit * 10 + itemData.vit * 10 + itemData.hp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10;
+    this.userHP = hp + Math.round(itemData.bonus_vit * (hp / 100));
+    let mp = user.user_spec[0].men * 10 + itemData.men * 10 + itemData.mp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10;
+    this.userMP = mp + Math.round(itemData.bonus_men * (mp / 100));
   }
 
   filterEquipped(user: any){

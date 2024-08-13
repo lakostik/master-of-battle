@@ -145,7 +145,7 @@ h4 {
 }
 
 span.add-stat {
-  padding-left: 0px;
+  padding-left: 1px;
 }
 span.add-opt {
   color: #e9e932;
@@ -154,4 +154,8 @@ span.add-opt {
 span.add-opt-2 {
   color: #2de72d;
   padding-left: 3px !important;
+}
+span.add-boss {
+  color: #d83737;
+  padding-left: 2px;
 }

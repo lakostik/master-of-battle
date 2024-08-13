@@ -84,7 +84,8 @@ export class ShopComponent implements OnInit {
         'int': item.int ? item.int : null,
         'vit': item.vit ? item.vit : null,
         'ene': item.ene ? item.ene : null,
-        'men': item.men ? item.men : null
+        'men': item.men ? item.men : null,
+        'reff': item.reff ? item.reff : null
       }
       this.authService.createUserItems(opt).then(data => {
         this.user.kar -= item.price
