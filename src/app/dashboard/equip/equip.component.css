@@ -82,7 +82,7 @@ img {
   width: 100%;
 }
 .hp-line span {
-  background: #a42525;
+  background: linear-gradient(to left, rgb(231 34 93) 0%, rgb(230 14 25) 100%);
   width: 100%;
   display: block;
   height: 100%;
@@ -94,7 +94,7 @@ img {
   width: 100%;
 }
 .mp-line span {
-  background: #1e3ba3;
+  background: linear-gradient(to left, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);
   width: 100%;
   display: block;
   height: 100%;

@@ -112,34 +112,61 @@
     <span class="close-popup" (click)="closePopUp()"><i class="fa-solid fa-xmark"></i></span>
     <div *ngIf="popUpData as item">
       <div class="item-name" *ngIf="item.name">{{item.name}}</div>
+      <div class="other-opt" *ngIf="item.level">Level: {{item.level}}</div>
       <div class="item-def-atk" *ngIf="item.defence">Defence: {{item.defence}}</div>
-      <div class="item-base-opt" *ngIf="item.klas == 'agi'">
-        <div>Evasion: {{item.bonus}}%</div>
-        <div>Accuracy: {{item.bonus}}%</div>
+      <div class="item-def-atk" *ngIf="item.attack">Attack: {{item.attack}}</div>
+      <div class="item-base-opt" *ngIf="item.bonus_agi">
+        <div>Evasion: {{item.bonus_agi}}%</div>
+        <div>Accuracy: {{item.bonus_agi}}%</div>
       </div>
-      <div class="item-base-opt" *ngIf="item.klas == 'ene'">
-        <div>Elemental damage: {{item.bonus - 2}}%</div>
-        <div>Defuff chance: {{item.bonus - 2}}%</div>
+      <div class="item-base-opt" *ngIf="item.bonus_ene">
+        <div>Elemental damage: {{item.bonus_ene}}%</div>
+        <div>Defuff chance: {{item.bonus_ene}}%</div>
       </div>
-      <div class="item-base-opt" *ngIf="item.klas == 'str'">
-        <div>Extra damage: {{item.bonus}}%</div>
+      <div class="item-base-opt" *ngIf="item.bonus_str">
+        <div>Extra damage: {{item.bonus_str}}%</div>
       </div>
-      <div class="item-base-opt"*ngIf="item.klas == 'vit'">
-        <div>Hit points: {{item.bonus}}%</div>
-        <div>Resist damage: {{item.bonus - 2}}%</div>
+      <div class="item-base-opt"*ngIf="item.bonus_vit">
+        <div>Hit points: {{item.bonus_vit}}%</div>
+        <div>Resist damage: {{item.bonus_vit - 2}}%</div>
       </div>
-      <div class="item-base-opt" *ngIf="item.klas == 'men'">
-        <div>Debuff resistant: {{item.bonus -2}}%</div>
-        <div>Mana point: {{item.bonus}}%</div>
+      <div class="item-base-opt" *ngIf="item.bonus_men">
+        <div>Debuff resistant: {{item.bonus_men -2}}%</div>
+        <div>Mana point: {{item.bonus_men}}%</div>
       </div>
-      <div class="item-base-opt" *ngIf="item.klas == 'int'">
-        <div>Critical chance: {{item.bonus}}%</div>
-        <div>Critical resist: {{item.bonus}}%</div>
+      <div class="item-base-opt" *ngIf="item.bonus_int">
+        <div>Critical chance: {{item.bonus_int}}%</div>
+        <div>Critical resist: {{item.bonus_int}}%</div>
       </div>
-      <div class="item-base-opt" *ngIf="item.klas == 'res'">
-        <div>Accuracy: {{item.bonus - 2}}%</div>
-        <div>Critical resist: {{item.bonus -2}}%</div>
-        <div>Debuff resistant: {{item.bonus -2}}%</div>
+      <div class="item-base-opt" *ngIf="item.bonus_res">
+        <div>Accuracy: {{item.bonus_res}}%</div>
+        <div>Critical resist: {{item.bonus_res}}%</div>
+        <div>Debuff resistant: {{item.bonus_res}}%</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.bonus_atk">
+        <div>Damage: {{item.bonus_atk * 5}}</div>
+        <div>Hit point: {{item.bonus_atk * 5}}</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.bonus_def">
+        <div>Defence: {{item.bonus_def * 5}}</div>
+        <div>Hit point: {{item.bonus_def * 5}}</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.bonus_mag">
+        <div>Magic damage: {{item.bonus_mag * 5}}</div>
+        <div>Hit point: {{item.bonus_mag * 5}}</div>
+        <div>Mana point: {{item.bonus_mag * 5}}</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.bonus_bos">
+        <div>All stat: {{item.bonus_bos * 3}}</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.bonus_boss">
+        <div>All stat: {{item.bonus_boss * 5}}</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.bonus_bosss">
+        <div>All stat: {{item.bonus_bosss * 7}}</div>
+      </div>
+      <div class="item-base-opt" *ngIf="item.bonus_bossss">
+        <div>All stat: {{item.bonus_bossss * 9}}</div>
       </div>
       <div class="other-opt" *ngIf="item.str">STR: {{item.str}}</div>
       <div class="other-opt" *ngIf="item.agi">AGI: {{item.agi}}</div>
@@ -149,10 +176,10 @@
       <div class="other-opt" *ngIf="item.men">MEN: {{item.men}}</div>
       <div class="other-opt" *ngIf="item.hp">HP: {{item.hp}}</div>
       <div class="other-opt" *ngIf="item.mp">MP: {{item.mp}}</div>
+      <div class="other-opt" *ngIf="item.reff">Reflect: {{item.reff}}</div>
       <div class="other-opt" *ngIf="item.damage_resistant">Damage resist: {{item.damage_resistant}}</div>
       <div class="other-opt" *ngIf="item.debuff_change">Debuff chance: {{item.debuff_change}}</div>
       <div class="other-opt" *ngIf="item.debuff_resistant">Debuff resist: {{item.debuff_resistant}}</div>
-      <div class="other-opt" *ngIf="item.attack">Attack: {{item.attack}}</div>
       <div class="other-opt" *ngIf="item.evasion">Evasion: {{item.evasion}}</div>
       <div class="other-opt" *ngIf="item.accuracy">Accuracy: {{item.accuracy}}</div>
       <div class="other-opt" *ngIf="item.extra_damage">Extra damage: {{item.extra_damage}}</div>
@@ -160,7 +187,6 @@
       <div class="other-opt" *ngIf="item.critical_chance">Critical chance: {{item.critical_chance}}</div>
       <div class="other-opt" *ngIf="item.critical_damage">Critical damage: {{item.critical_damage}}</div>
       <div class="other-opt" *ngIf="item.critical_resistant">Critical resist: {{item.critical_resistant}}</div>
-
     </div>
   </div>
 </div>
