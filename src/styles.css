@@ -193,6 +193,96 @@ body {
   background-size: 670px;
   border: 1px solid #2a615a;
 }
+
+/*-- Nightmare set --*/
+.nightmare_boots {
+  background-image: url(./assets/img/items/boots.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 87px 89px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+.nightmare_pants {
+  background-image: url(./assets/img/items/pants.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 274px 170px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+.nightmare_armor {
+  background-image: url(./assets/img/items/armor.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 397px 334px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+.nightmare_helm {
+  background-image: url(./assets/img/items/helm.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 645px 338px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+.nightmare_gloves {
+  background-image: url(./assets/img/items/gloves.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 86px 332px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+.nightmare_ring {
+  background-image: url(./assets/img/items/Jewelry.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 334px 334px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+.nightmare_earrings {
+  background-image: url(./assets/img/items/Jewelry.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 149px 90px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+.nightmare_necklaces {
+  background-image: url(./assets/img/items/Jewelry.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: 580px 252px;
+  background-size: 670px;
+  border: 1px solid #53868b;
+}
+
+.eq-rings .nightmare_ring {
+  background-size: 340px;
+  border: none;
+  background-position: 168px 168px;
+}
+.equip .nightmare_necklaces {
+  background-position: 580px 244px;
+  border: none;
+}
+.equip .nightmare_earrings {
+  background-position: 149px 79px;
+  border: none;
+}
+
+.eq-necklaces.equip,
+.eq-earrings.equip {
+  overflow: hidden;
+}
+.eq-necklaces.equip:has( > .item-img),
+.eq-earrings.equip:has( > .item-img) {
+  border-color: darkgoldenrod !important;
+}
+.item-lvl {display: none;}
 /*-- Helm - items --*/
 .helm_of_speed {
   background-image: url('./assets/img/items/helm.jpg');
@@ -522,5 +612,13 @@ body {
   border: 1px solid #78b31d;
 }
 
-
+/*-- Wings - symbol --*/
+.angel_wings {
+  background-image: url('./assets/img/items/wings.jpg');
+  width: 100%;
+  height: 100%;
+  background-position: 580px 417px;
+  background-size: 670px;
+  border: 1px solid #e0e6d6;
+}
 

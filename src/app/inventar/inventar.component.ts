@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {CommonModule, Location} from "@angular/common";
 import {AuthService} from "../services/auth.service";
 import {FormsModule} from "@angular/forms";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 
 @Component({
@@ -53,7 +54,7 @@ export class InventarComponent implements OnInit{
     sellItem(item: any){
       item.spinner = true;
       this.authService.deleteUserItems(item.user_id, item.id).then((res) => {
-        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar + (item.price - (item.level*3))}).then(() => this.initData())
+        this.authService.patchUserData(this.user.user_id, {'kar': this.user.kar + (item.price - (item.level*3))}).then(() => this.updateItems())
       })
 
     }
@@ -65,14 +66,15 @@ export class InventarComponent implements OnInit{
       })
     }
     equipHand(item: any, slot:any = null) {
+      console.log(item)
       item.spinner = true;
-      this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': true, 'slot': slot}).then(()=> {
-        this.swichItem(item, slot);
+      this.authService.patchUserItems(this.user.user_id, item.id, {'equipped': true, 'slot': slot}).then((data)=> {
+        if(data) this.swichItem(data[0], slot);
       });
     }
     swichItem(item: any, slot: any){
       this.itemsData.filter((el: any, i:any) => {
-        if(item.type !== 'shield' && item.type == el.type && el.id !== item.id && !slot) {this.unequipItem(el)}
+        if(item.type !== 'shield' && item.type == el.type && el.id !== item.id && !slot && el.equipped) {this.unequipItem(el)}
         else if(item.type == 'weapon' && item.type == el.type && el.slot == slot && el.id !== item.id){this.unequipItem(el)}
         else if(item.type == 'weapon' && el.type == 'shield' && slot == 2 && el.id !== item.id){this.unequipItem(el)}
         else if (item.type == 'shield' && el.type == 'shield' && el.id !== item.id) {this.unequipItem(el)}
@@ -85,11 +87,11 @@ export class InventarComponent implements OnInit{
         }
       });
     }
-    updateItems(item: any){
+    updateItems(item: any = null){
       this.authService.checkUserById(this.user.user_id).then((user) => {
         sessionStorage.setItem(this.user.user_id, JSON.stringify(user));
         this.initData();
-        item.spinner = false;
+        if(item) item.spinner = false;
       })
     }
     unequipItem(item: any, slot:any = null) {
@@ -113,31 +115,44 @@ export class InventarComponent implements OnInit{
           if((opt.level+1) % 10 === 0) {
             if(opt.bonus_atk) {
               opt.bonus_atk += 2
-            } else if(opt.bonus_atk){
+            }
+            if(opt.bonus_atk){
               opt.bonus_def += 2
-            } else if(opt.bonus_mag) {
+            }
+            if(opt.bonus_mag) {
               opt.bonus_mag += 2
-            } else if(opt.bonus_bos){
+            }
+            if(opt.bonus_bos){
               opt.bonus_bos += 1
-            } else if(opt.bonus_boss){
+            }
+            if(opt.bonus_boss){
               opt.bonus_boss += 1
-            } else if(opt.bonus_bosss){
+            }
+            if(opt.bonus_bosss){
               opt.bonus_bosss += 1
-            } else if(opt.bonus_bossss){
+            }
+            if(opt.bonus_bossss){
               opt.bonus_bossss += 1
-            } else if(opt.bonus_str){
+            }
+            if(opt.bonus_str){
               opt.bonus_str += 3
-            } else if(opt.bonus_agi){
+            }
+            if(opt.bonus_agi){
               opt.bonus_agi += 3
-            } else if(opt.bonus_vit){
+            }
+            if(opt.bonus_vit){
               opt.bonus_vit += 3
-            } else if(opt.bonus_int){
+            }
+            if(opt.bonus_int){
               opt.bonus_int += 3
-            } else if(opt.bonus_men){
+            }
+            if(opt.bonus_men){
               opt.bonus_men += 3
-            } else if(opt.bonus_ene){
+            }
+            if(opt.bonus_ene){
               opt.bonus_ene += 3
-            } else if(opt.bonus_res){
+            }
+            if(opt.bonus_res){
               opt.bonus_res += 3
             }
           }

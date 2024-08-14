@@ -142,7 +142,7 @@ export class ApiService implements OnInit {
             newDataCharacteristic['armor_def'] += item.defence;
           }else if (item.type == 'gloves'){
             newDataCharacteristic['gloves_def'] += item.defence;
-          }else if (item.type == 'shield'){
+          }else if (item.type == 'shield' || item.type == 'symbol'){
             newDataCharacteristic['helm_def'] += item.defence;
             newDataCharacteristic['armor_def'] += item.defence;
             newDataCharacteristic['pants_def'] += item.defence;
