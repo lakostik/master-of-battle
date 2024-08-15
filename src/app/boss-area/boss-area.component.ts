@@ -38,13 +38,12 @@ export class BossAreaComponent implements OnInit{
     })
   }
 
-
-
   switchBoss(side: any){
-    console.log(side)
     this.setActiveBoss(side);
   }
-
+  fight(boss: any){
+    console.log(boss)
+  }
   back(){
       this.location.back();
   }

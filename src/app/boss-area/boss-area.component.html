@@ -15,7 +15,21 @@
         <span class="left-arr" (click)="switchBoss(i-1)"><i class="fa-solid fa-arrow-left"></i></span>
         <span class="right-arr" (click)="switchBoss(i+1)"><i class="fa-solid fa-arrow-right"></i></span>
       </div>
-      <div class="boss-desc"></div>
+      <div class="boss-desc">
+        <div style="letter-spacing: .5px;">{{boss.desc}}</div>
+        <hr>
+        <div class="attr">
+          <div><span>STR:</span><span>{{boss.str}}</span></div>
+          <div><span>VIT:</span><span>{{boss.vit}}</span></div>
+          <div><span>AGI:</span><span>{{boss.agi}}</span></div>
+          <div><span>INT:</span><span>{{boss.int}}</span></div>
+          <div><span>ENE:</span><span>{{boss.ene}}</span></div>
+          <div><span>MEN:</span><span>{{boss.men}}</span></div>
+        </div>
+        <div class="boss-button">
+          <button class="boss-btn" (click)="fight(boss)">Fight</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
