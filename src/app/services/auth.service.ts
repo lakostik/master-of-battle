@@ -301,4 +301,17 @@ export class AuthService {
     return 'complete delete'
   }
 
+  /*-- Bosses --*/
+  async getAllBosses() {
+    const { data, error } = await this.supabase
+      .from('bosses')
+      .select('*')
+      .order('id', { ascending: true });
+    if (error) {
+      return null;
+    }
+    return data.length ? data : null;
+  }
+
+
 }

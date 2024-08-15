@@ -9,6 +9,8 @@ import {BattleArenaComponent} from "./battle-arena/battle-arena.component";
 import {InventarComponent} from "./inventar/inventar.component";
 import {QuestsComponent} from "./quests/quests.component";
 import {ShopComponent} from "./shop/shop.component";
+import {BossAreaComponent} from "./boss-area/boss-area.component";
+import {BossBattleComponent} from "./boss-area/boss-battle/boss-battle.component";
 
 export const routes: Routes = [
   {path: 'home', component: AppComponent},
@@ -21,5 +23,7 @@ export const routes: Routes = [
   {path: 'inventar', component: InventarComponent},
   {path: 'quests', component: QuestsComponent},
   {path: 'shop', component: ShopComponent},
+  {path: 'boss', component: BossAreaComponent},
+  {path: 'boss-battle', component: BossBattleComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

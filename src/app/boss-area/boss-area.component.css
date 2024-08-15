@@ -1,0 +1,206 @@
+.container {
+  background: #1b1c22;
+  position: relative;
+  height: 100%;
+}
+.header-nav {
+  width: calc(100% - 20px);
+  background: #35363f;
+  padding: 4px 10px;
+  display: flex;
+  height: 44px;
+  border-radius: 20px;
+  margin: 0px auto;
+  box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, .5);
+  transform: translateY(10px);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 5;
+}
+.back-btn {
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 100%;
+  background: #0000004a;
+  margin-top: 2px;
+  font-size: 12px;
+}
+.header-nav h3 {
+  display: inline-flex;
+  width: calc(100% - 30px);
+  font-weight: 100;
+  color: gold;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  padding-right: 30px;
+}
+.user-kar {
+  width: 80px;
+  height: 30px;
+  color: gold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background: #0000004a;
+  margin-top: 2px;
+  font-size: 14px;
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  font-weight: 300;
+}
+
+.boss-container {
+  height: calc(100% - 70px);
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+.ice-dedmont {
+  background: url('./../../assets/img/bosses/ice-guard.jpg') no-repeat center / cover transparent;
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+.fire-horror {
+  background: url('./../../assets/img/bosses/Fire-demon.jpg') no-repeat center / cover transparent;
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  left: 100vw;
+}
+.shadow-reaper {
+  background: url('./../../assets/img/bosses/Shadow-reaper.jpg') no-repeat center / cover transparent;
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  left: 100vw;
+}
+.deathly-lich {
+  background: url('./../../assets/img/bosses/lich-2.jpg') no-repeat center / cover transparent;
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  left: 100vw;
+}
+.boss-container .active {
+  left: 0 !important;
+  z-index: 2;
+}
+
+/* -- boss name --*/
+
+.boss-name:after ,
+.boss-name:before {
+  position: absolute;
+  content: "";
+  width: 19px;
+  height: 19px;
+  transform: rotate(45deg);
+  background: #35363f;
+  top: 9px;
+}
+.boss-name:before {
+  left: -11px;
+  border-left: 2px solid #D09C60;
+  border-bottom: 2px solid #D09C60;
+}
+.boss-name:after {
+  right: -11px;
+  border-right: 2px solid #D09C60;
+  border-top: 2px solid #D09C60;
+}
+
+.boss-name {
+  width: max-content;
+  margin: 0px auto;
+  position: relative;
+  top: 40px;
+  background: #35363f;
+  color: #fff;
+  font-weight: 300;
+  padding: 10px 30px;
+  border: 2px solid #D09C60;
+  height: 42px;
+  z-index: 2;
+}
+.boss-hp {
+  background: linear-gradient(to left, rgb(231 34 93) 0%, rgb(230 14 25) 100%);
+  color: #bcb3b3;
+  font-size: 16px;
+  padding: 4px;
+  width: 160px;
+  height: 25px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #D09C60;
+  box-shadow: 0 0 15px #000;
+  transform: matrix(1, 0, 1, 1, 0, 0);
+  top: 10px;
+  position: absolute;
+  left: 30px;
+  z-index: 2;
+}
+.boss-mp {
+  background: linear-gradient(to left, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);
+  color: #bcb3b3;
+  font-size: 16px;
+  padding: 4px;
+  width: 170px;
+  height: 26px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #D09C60;
+  box-shadow: 0 0 15px #000;
+  transform: matrix(1, 0, -1, 1, 0, 0);
+  top: 10px;
+  position: absolute;
+  right: 30px;
+}
+.boss-hp span {
+  transform: skew(-45deg);
+}
+.boss-mp span {
+  transform: skew(45deg);
+}
+
+
+
+/* -- nav arrow -- */
+.boss-nav {
+  top: 40%;
+  position: absolute;
+}
+.boss-nav .left-arr {left: 15px;}
+.boss-nav .right-arr {left: calc(100vw - 55px);}
+
+span.right-arr,
+span.left-arr {
+  position: absolute;
+  border: 2px solid #D09C60;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  border-radius: 100%;
+  background: #2A2830;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px #000;
+  opacity: 0.7;
+}

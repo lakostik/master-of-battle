@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="header-nav">
+    <span class="back-btn" (click)="back()"><i class="fa-solid fa-chevron-left"></i></span>
+    <h3>{{title}}</h3>
+    <div class="user-kar">1/1 key</div>
+  </div>
+  <div class="boss-container">
+    <div [ngClass]="{'active': boss.active}" [class]="boss.name.toLocaleLowerCase().replace(' ','-')" *ngFor="let boss of bosses; let i = index">
+      <div class="boss-info">
+        <div class="boss-name"><span>{{boss.name}}</span></div>
+        <div class="boss-hp"><span>{{boss.hp + boss.vit * 10}}</span></div>
+        <div class="boss-mp"><span>{{boss.mp + boss.men * 10}}</span></div>
+      </div>
+      <div class="boss-nav">
+        <span class="left-arr" (click)="switchBoss(i-1)"><i class="fa-solid fa-arrow-left"></i></span>
+        <span class="right-arr" (click)="switchBoss(i+1)"><i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+      <div class="boss-desc"></div>
+    </div>
+  </div>
+</div>

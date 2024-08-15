@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {CommonModule, Location} from "@angular/common";
 import {AuthService} from "../services/auth.service";
 import {FormsModule} from "@angular/forms";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 
 @Component({
@@ -75,11 +74,11 @@ export class InventarComponent implements OnInit{
     swichItem(item: any, slot: any){
       this.itemsData.filter((el: any, i:any) => {
         if(item.type !== 'shield' && item.type == el.type && el.id !== item.id && !slot && el.equipped) {this.unequipItem(el)}
-        else if(item.type == 'weapon' && item.type == el.type && el.slot == slot && el.id !== item.id){this.unequipItem(el)}
-        else if(item.type == 'weapon' && el.type == 'shield' && slot == 2 && el.id !== item.id){this.unequipItem(el)}
-        else if (item.type == 'shield' && el.type == 'shield' && el.id !== item.id) {this.unequipItem(el)}
-        else if (item.type == 'shield' && el.type == 'weapon' && el.id !== item.id && el.slot == 2) {this.unequipItem(el)}
-        else if(item.type == 'ring' && el.id !== item.id) {
+        else if(item.type == 'weapon' && item.type == el.type && el.slot == slot && el.id !== item.id && el.equipped){this.unequipItem(el)}
+        else if(item.type == 'weapon' && el.type == 'shield' && slot == 2 && el.id !== item.id && el.equipped){this.unequipItem(el)}
+        else if (item.type == 'shield' && el.type == 'shield' && el.id !== item.id && el.equipped) {this.unequipItem(el)}
+        else if (item.type == 'shield' && el.type == 'weapon' && el.id !== item.id && el.slot == 2 && el.equipped) {this.unequipItem(el)}
+        else if(item.type == 'ring' && el.id !== item.id && el.equipped) {
           if(el.type == item.type && el.slot == slot) this.unequipItem(el)
         }
         else {
