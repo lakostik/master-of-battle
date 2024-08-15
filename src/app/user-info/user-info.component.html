@@ -114,7 +114,7 @@
           <div class="chr-f-opt">
             <span>Resist damage:</span>
             <span>{{user.user_spec[0]?.vit}}%
-              <span class="add-opt"> + {{itemData.damage_resistant + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}%</span>
+              <span class="add-opt"> + {{itemData.damage_resistant + itemData.vit + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}}%</span>
               <span class="add-opt-2" *ngIf="itemData?.bonus_vit"> + {{itemData.bonus_vit - 2}}%</span>
             </span>
           </div>
