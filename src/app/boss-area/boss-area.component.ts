@@ -16,11 +16,22 @@ export class BossAreaComponent implements OnInit{
     authService = inject(AuthService)
     router = inject(Router);
     bosses: any;
+    user: any;
 
   constructor() {
   }
 
   ngOnInit() {
+    let userId = this.authService.devUserId(); // devMod
+    let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
+    if(data) {
+      this.user = JSON.parse(data);
+      this.authService.getUserBoss().then((boss:any) => {
+        if(boss) this.router.navigate(['boss-battle'])
+      })
+    } else {
+      setTimeout(() => this.ngOnInit(), 500)
+    }
     this.getBosses();
   }
 
@@ -43,6 +54,14 @@ export class BossAreaComponent implements OnInit{
   }
   fight(boss: any){
     console.log(boss)
+    let opt = {
+      user_id: this.user.user_id,
+      boss_id: boss.id,
+      status: 'start'
+    }
+    this.authService.createUserBoss(opt).then(() => {
+      this.router.navigate(['boss-battle'])
+    })
   }
   back(){
       this.location.back();

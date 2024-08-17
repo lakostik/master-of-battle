@@ -1,1 +1,31 @@
-<p>boss-battle works!</p>
+<div class="container">
+  <div class="users-info" *ngIf="firstUser && secondUser">
+    <div class="user-1">
+      <div class="user-avatar">
+        <div class="user-img">
+          <img src="./../../../assets/img/free-avatar.png">
+        </div>
+        <div class="user-level">{{firstUser.level}}</div>
+      </div>
+      <div class="">
+        <div class="user-name">{{firstUser.name}}</div>
+        <div class="user-hp">{{firstUser.hp}}</div>
+        <div class="user-mp">{{firstUser.mp}}</div>
+      </div>
+    </div>
+    <div class="timer"></div>
+    <div class="user-2">
+      <div class="">
+        <div class="user-name">{{secondUser.name}}</div>
+        <div class="user-hp">{{secondUser.hp}}</div>
+        <div class="user-mp">{{secondUser.mp}}</div>
+      </div>
+      <div class="user-avatar">
+        <div class="user-img">
+          <img src="./../../../assets/img/free-avatar.png">
+        </div>
+        <div class="user-level">{{secondUser.level}}</div>
+      </div>
+    </div>
+  </div>
+</div>

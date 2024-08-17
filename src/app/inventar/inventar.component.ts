@@ -115,7 +115,7 @@ export class InventarComponent implements OnInit{
             if(opt.bonus_atk) {
               opt.bonus_atk += 2
             }
-            if(opt.bonus_atk){
+            if(opt.bonus_def){
               opt.bonus_def += 2
             }
             if(opt.bonus_mag) {

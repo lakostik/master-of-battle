@@ -302,16 +302,40 @@ export class AuthService {
   }
 
   /*-- Bosses --*/
-  async getAllBosses() {
-    const { data, error } = await this.supabase
+  async getAllBosses(id: any = null) {
+    let query = this.supabase
       .from('bosses')
       .select('*')
-      .order('id', { ascending: true });
+      .order('id', { ascending: true })
+    if (id !== null) { query = query.eq('id', id); }
+    const { data, error } = await query;
     if (error) {
       return null;
     }
     return data.length ? data : null;
   }
+  async getUserBoss() {
+    const { data, error } = await this.supabase
+      .from('user_boss')
+      .select('*')
+      .eq('user_id', this.userId)
+      .eq('status', 'start')
+    if (error) {
+      return null;
+    }
+    return data.length ? data : null;
+  }
+  async createUserBoss(opt: any) {
+    const { data, error } = await this.supabase
+      .from('user_boss')
+      .insert(opt)
+      .select()
+    if (error) {
+      return null;
+    }
+    return data.length ? data[0] : null;
+  }
+
 
 
 }

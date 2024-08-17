@@ -272,3 +272,5 @@ span.left-arr {
   left: 50%;
   transform: translateX(-50%);
 }
+.two-col {width: 48% !important;}
+.two-col span:first-child {width: 45%}

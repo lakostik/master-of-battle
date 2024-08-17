@@ -89,6 +89,8 @@
             <span>Damage:</span>
             <span>{{user.user_spec[0]?.str + itemData.str + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9}} - {{(user.user_spec[0]?.str + itemData.str + itemData.bonus_bos * 3 + itemData.bonus_boss * 5 + itemData.bonus_bosss * 7 + itemData.bonus_bossss * 9) * 2}}
               <span class="add-opt" *ngIf="itemData?.attack"> + {{itemData.attack}}</span>
+              <span class="add-opt" *ngIf="itemData?.attack_1"> R + {{itemData.attack_1}}</span>
+              <span class="add-opt" *ngIf="itemData?.attack_2"> L + {{itemData.attack_2}}</span>
             </span>
           </div>
           <div class="chr-f-opt">

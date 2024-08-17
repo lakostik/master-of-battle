@@ -90,30 +90,18 @@ export class ApiService implements OnInit {
       let itemsData: any;
       let newDataCharacteristic = {
         accuracy: 0,
+        evasion: 0,
         attack: 0,
+        attack_1: 0,
+        attack_2: 0,
         defence: 0,
         reff: 0,
-        bonus_agi: 0,
-        bonus_str: 0,
-        bonus_vit: 0,
-        bonus_int: 0,
-        bonus_ene: 0,
-        bonus_men: 0,
-        bonus_atk: 0,
-        bonus_def: 0,
-        bonus_mag: 0,
-        bonus_res: 0,
-        bonus_bos: 0,
-        bonus_boss: 0,
-        bonus_bosss: 0,
-        bonus_bossss: 0,
         critical_chance: 0,
         critical_damage: 0,
         critical_resistant: 0,
         damage_resistant: 0,
         debuff_change: 0,
         debuff_resistant: 0,
-        evasion: 0,
         extra_damage: 0,
         extra_defence: 0,
         helm_def: 0,
@@ -128,7 +116,21 @@ export class ApiService implements OnInit {
         ene: 0,
         men: 0,
         str: 0,
-        vit: 0
+        vit: 0,
+        bonus_agi: 0,
+        bonus_str: 0,
+        bonus_vit: 0,
+        bonus_int: 0,
+        bonus_ene: 0,
+        bonus_men: 0,
+        bonus_atk: 0,
+        bonus_def: 0,
+        bonus_mag: 0,
+        bonus_res: 0,
+        bonus_bos: 0,
+        bonus_boss: 0,
+        bonus_bosss: 0,
+        bonus_bossss: 0
       }
       itemsData = user.user_items.filter((item: any) => {
         if(item.equipped) {
@@ -148,7 +150,7 @@ export class ApiService implements OnInit {
             newDataCharacteristic['pants_def'] += item.defence;
             newDataCharacteristic['boots_def'] += item.defence;
             newDataCharacteristic['gloves_def'] += item.defence;
-          } else if(item.type == 'ring') {
+          } else if(item.type == 'ring' || item.type == 'earrings' || item.type == 'necklaces') {
             newDataCharacteristic['helm_def'] += item.defence;
             newDataCharacteristic['armor_def'] += item.defence;
             newDataCharacteristic['pants_def'] += item.defence;
@@ -157,7 +159,8 @@ export class ApiService implements OnInit {
             newDataCharacteristic['attack'] += item.attack;
           }
           if(item.accuracy)newDataCharacteristic['accuracy'] += item.accuracy
-          if(item.attack)newDataCharacteristic['attack'] += item.attack
+          if(item.attack && item.slot == 1 && item.type == 'weapon')newDataCharacteristic['attack_1'] += item.attack
+          if(item.attack && item.slot == 2 && item.type == 'weapon')newDataCharacteristic['attack_2'] += item.attack
           if(item.reff)newDataCharacteristic['reff'] += item.reff
           if(item.bonus_agi)newDataCharacteristic['bonus_agi'] += item.bonus_agi
           if(item.bonus_str)newDataCharacteristic['bonus_str'] += item.bonus_str

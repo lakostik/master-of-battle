@@ -25,6 +25,8 @@
           <div><span>INT:</span><span>{{boss.int}}</span></div>
           <div><span>ENE:</span><span>{{boss.ene}}</span></div>
           <div><span>MEN:</span><span>{{boss.men}}</span></div>
+          <div class="two-col"><span>Damage:</span><span>{{boss.str + boss.attack}} - {{boss.str*2 + boss.attack}}</span></div>
+          <div class="two-col"><span>Defence:</span><span>{{boss.defence}}</span></div>
         </div>
         <div class="boss-button">
           <button class="boss-btn" (click)="fight(boss)">Fight</button>
