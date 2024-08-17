@@ -119,8 +119,13 @@
 .user-2 .user-mp {
   transform: matrix(1, 0, 1, 1, 0, 0);
 }
-.user-2 .user-hp {left: auto; right: -22px;}
-.user-2 .user-mp {left: auto;right: -42px;}
+.user-2 > div.user-point {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.user-2 .user-hp {left: auto; right: -9px;}
+.user-2 .user-mp {left: auto;right: -14px;}
 .user-1 .user-hp span,
 .user-1 .user-mp span{
   transform: skew(45deg);
