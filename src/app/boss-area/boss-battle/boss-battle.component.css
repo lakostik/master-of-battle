@@ -26,8 +26,27 @@
 .user-2 {
   justify-content: flex-end;
 }
+.user-1 > div.user-point, .user-2 > div.user-point {
+  width: calc(100% - 50px);
+}
+.user-name {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+}
+.user-1.user-name {
+  text-align: left;
+}
+.user-2 .user-name {
+  text-align: right;
+}
 .user-avatar {
   position: relative;
+  z-index: 2;
 }
 .user-level {
   background: #333;
@@ -56,4 +75,74 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.user-hp {
+  /*background: linear-gradient(to left, rgb(231 34 93) 0%, rgb(230 14 25) 100%);*/
+  background: #1b1c22;
+  color: #ffffff;
+  font-size: 13px;
+  width: 110px;
+  height: 20px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D09C60;
+  box-shadow: 0 0 10px -5px #000;
+  transform: matrix(1, 0, -1, 1, 0, 0);
+  position: relative;
+  left: -10px;
+  z-index: 1;
+  font-weight: 300;
+  overflow: hidden;
+}
+.user-mp {
+  /*background: linear-gradient(to left, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);*/
+  background: #1b1c22;
+  color: #fff;
+  font-size: 12px;
+  width: 95px;
+  height: 20px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D09C60;
+  box-shadow: 0 0 8px #000;
+  transform: matrix(1, 0, -1, 1, 0, 0);
+  position: relative;
+  left: -14px;
+  font-weight: 300;
+  overflow: hidden;
+}
+.user-2 .user-hp,
+.user-2 .user-mp {
+  transform: matrix(1, 0, 1, 1, 0, 0);
+}
+.user-2 .user-hp {left: auto; right: -22px;}
+.user-2 .user-mp {left: auto;right: -42px;}
+.user-1 .user-hp span,
+.user-1 .user-mp span{
+  transform: skew(45deg);
+}
+.user-2 .user-hp span,
+.user-2 .user-mp span {
+  transform: skew(-45deg);
+}
+.user-1 .user-hp span.progress-hp {background: linear-gradient(to right, rgb(231 34 93) 0%, rgb(230 14 25) 100%);left: 0;}
+.user-2 .user-hp span.progress-hp {background: linear-gradient(to left, rgb(231 34 93) 0%, rgb(230 14 25) 100%);right: 0;}
+.user-1 .user-mp span.progress-mp {background: linear-gradient(to right, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);left: 0;}
+.user-2 .user-mp span.progress-mp {background: linear-gradient(to left, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);right: 0;}
+
+.user-hp span.progress-hp {
+  width: calc(100% + 9px);
+  position: absolute;
+  height: 100%;
+  top: 0;
+}
+.user-mp span.progress-mp {
+  width: calc(100% + 9px);
+  position: absolute;
+  height: 100%;
+  top: 0;
 }

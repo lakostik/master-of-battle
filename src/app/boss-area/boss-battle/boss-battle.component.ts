@@ -29,12 +29,13 @@ export class BossBattleComponent implements OnInit {
       this.firstUser = this.calcService.concatParameters(data.user_spec[0], firstCalc);
       this.firstUser.name = data.username;
       this.firstUser.level = data.user_exp[0].curr_lvl;
+      this.firstUser.mp = Math.floor(this.firstUser.mp);
+      this.firstUser.hp = Math.floor(this.firstUser.hp);
     } else {
       setTimeout(() => this.ngOnInit(), 500)
     }
     this.authService.getUserBoss().then((boss:any) => {
       this.authService.getAllBosses(boss[0].boss_id).then((bossData: any) => {
-        console.log(bossData[0])
         this.secondUser = this.calcService.concatParameters(bossData[0])
         this.secondUser.name = bossData[0].name;
         this.secondUser.level = bossData[0].level;
