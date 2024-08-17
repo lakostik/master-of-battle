@@ -19,12 +19,14 @@ export class BossBattleComponent implements OnInit {
   usersData: any;
   firstUser: any;
   secondUser: any;
+  userItem: any;
+  eQshield = false;
+  eQtwoWeapon = false;
 
   ngOnInit() {
     let userId = this.authService.devUserId(); // devMod
     let data = JSON.parse(''+sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '');
     if(data) {
-      this.firstUser = {}
       let firstCalc= this.apiService.calcUserItemsParameters(data);
       this.firstUser = this.calcService.concatParameters(data.user_spec[0], firstCalc);
       this.firstUser.name = data.username;
@@ -41,6 +43,14 @@ export class BossBattleComponent implements OnInit {
         this.secondUser.level = bossData[0].level;
         console.log(this.secondUser)
       })
+    });
+    this.authService.getUserItems().then((data: any) => {
+      console.log(data)
+      data.find((el:any) => {
+        if(el.type == 'shield' && el.equipped) this.eQshield = true;
+        if(el.type == 'weapon' && el.equipped && el.slot == 2) this.eQtwoWeapon = true;
+      })
+
     })
   }
 

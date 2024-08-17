@@ -13,10 +13,12 @@
 }
 .timer {
   position: absolute;
-  top: 20px;
+  top: 50px;
+  color: honeydew;
   left: 50%;
   transform: translateX(-50%);
 }
+.timer span {font-size: 34px;}
 .user-1, .user-2 {
   display: flex;
   width: 50%;

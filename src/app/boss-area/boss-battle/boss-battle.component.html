@@ -13,7 +13,7 @@
         <div class="user-mp"><span class="progress-mp"></span><span>{{firstUser.mp}}</span></div>
       </div>
     </div>
-    <div class="timer"></div>
+    <div class="timer"><span>59</span> s</div>
     <div class="user-2">
       <div class="user-point">
         <div class="user-name">{{secondUser.name}}</div>
@@ -26,6 +26,24 @@
         </div>
         <div class="user-level">{{secondUser.level}}</div>
       </div>
+    </div>
+  </div>
+  <div class="battle-panel">
+    <div class="attack-panel">
+      <div class="attack-to-lable">Attack to</div>
+      <div class="atk-selection">Head</div>
+      <div class="atk-selection">Body</div>
+      <div class="atk-selection">Groin</div>
+      <div class="atk-selection">Legs</div>
+      <div class="atk-selection">Arms</div>
+    </div>
+    <div class="defence-panel">
+      <div class="attack-to-lable">Block to</div>
+      <div class="def-selection">Head and Body<span *ngIf="eQshield"> and Groin</span></div>
+      <div class="def-selection">Body and Groin<span *ngIf="eQshield"> and Legs</span></div>
+      <div class="def-selection">Groin and Legs<span *ngIf="eQshield"> and Arms</span></div>
+      <div class="def-selection">Legs and Arms<span *ngIf="eQshield"> and Head</span></div>
+      <div class="def-selection">Arms and Head<span *ngIf="eQshield"> and Body</span></div>
     </div>
   </div>
 </div>
