@@ -28,22 +28,112 @@
       </div>
     </div>
   </div>
-  <div class="battle-panel">
-    <div class="attack-panel">
-      <div class="attack-to-lable">Attack to</div>
-      <div class="atk-selection">Head</div>
-      <div class="atk-selection">Body</div>
-      <div class="atk-selection">Groin</div>
-      <div class="atk-selection">Legs</div>
-      <div class="atk-selection">Arms</div>
+  <form [formGroup]="battleForm">
+    <div class="battle-panel">
+      <div class="attack-panel">
+        <div class="attack-to-lable">Attack to</div>
+        <div class="atk-selection">
+          <span class="attack">
+            <input id="atk-11" type="radio" value="1" name="attack1" formControlName="attack1">
+            <label for="atk-11" class=""></label>
+          </span>
+          <span class="attack">
+            <input id="atk-12" type="radio" value="1" name="attack2" formControlName="attack2">
+            <label for="atk-12" class=""></label>
+          </span>
+          <span>Head</span>
+        </div>
+        <div class="atk-selection">
+          <span class="attack">
+            <input id="atk-21" type="radio" value="2" name="attack1" formControlName="attack1">
+            <label for="atk-21" class=""></label>
+          </span>
+          <span class="attack">
+            <input id="atk-22" type="radio" value="2" name="attack2" formControlName="attack2">
+            <label for="atk-22" class=""></label>
+          </span>
+          <span>Body</span>
+        </div>
+        <div class="atk-selection">
+          <span class="attack">
+            <input id="atk-31" type="radio" value="3" name="attack1" formControlName="attack1">
+            <label for="atk-31" class=""></label>
+          </span>
+          <span class="attack">
+            <input id="atk-32" type="radio" value="3" name="attack2" formControlName="attack2">
+            <label for="atk-32" class=""></label>
+          </span>
+          <span>Groin</span>
+        </div>
+        <div class="atk-selection">
+          <span class="attack">
+            <input id="atk-41" type="radio" value="4" name="attack1" formControlName="attack1">
+            <label for="atk-41" class=""></label>
+          </span>
+          <span class="attack">
+            <input id="atk-42" type="radio" value="4" name="attack2" formControlName="attack2">
+            <label for="atk-42" class=""></label>
+          </span>
+          <span>Legs</span>
+        </div>
+        <div class="atk-selection">
+          <span class="attack">
+            <input id="atk-51" type="radio" value="5" name="attack1" formControlName="attack1">
+            <label for="atk-51" class=""></label>
+          </span>
+          <span class="attack">
+            <input id="atk-52" type="radio" value="5" name="attack2" formControlName="attack2">
+            <label for="atk-52" class=""></label>
+          </span>
+          <span>Arms</span>
+        </div>
+      </div>
+      <div class="defence-panel">
+        <div class="attack-to-lable">Block to</div>
+        <div class="def-selection">
+          <span>
+            <input id="def-1" type="radio" value="1" name="defence" formControlName="defence">
+            <label for="def-1" class=""></label>
+          </span>
+          <span>Head and Body<span *ngIf="eQshield"> and Groin</span></span>
+
+        </div>
+        <div class="def-selection">
+          <span>
+            <input id="def-2" type="radio" value="2" name="defence" formControlName="defence">
+            <label for="def-2" class=""></label>
+          </span>
+          <span>Body and Groin<span *ngIf="eQshield"> and Legs</span></span>
+
+        </div>
+        <div class="def-selection">
+          <span>
+            <input id="def-3" type="radio" value="3" name="defence" formControlName="defence">
+            <label for="def-3" class=""></label>
+          </span>
+          <span>Groin and Legs<span *ngIf="eQshield"> and Arms</span></span>
+
+        </div>
+        <div class="def-selection">
+          <span>
+            <input id="def-4" type="radio" value="4" name="defence" formControlName="defence">
+            <label for="def-4" class=""></label>
+          </span>
+          <span>Legs and Arms<span *ngIf="eQshield"> and Head</span></span>
+        </div>
+        <div class="def-selection">
+          <span>
+            <input id="def-5" type="radio" value="5" name="defence" formControlName="defence">
+            <label for="def-5" class=""></label>
+          </span>
+          <span>Arms and Head<span *ngIf="eQshield"> and Body</span></span>
+        </div>
+      </div>
     </div>
-    <div class="defence-panel">
-      <div class="attack-to-lable">Block to</div>
-      <div class="def-selection">Head and Body<span *ngIf="eQshield"> and Groin</span></div>
-      <div class="def-selection">Body and Groin<span *ngIf="eQshield"> and Legs</span></div>
-      <div class="def-selection">Groin and Legs<span *ngIf="eQshield"> and Arms</span></div>
-      <div class="def-selection">Legs and Arms<span *ngIf="eQshield"> and Head</span></div>
-      <div class="def-selection">Arms and Head<span *ngIf="eQshield"> and Body</span></div>
+    <div class="battle-button">
+      <button class="ballte-btn" (click)="startStrike()" [disabled]="!battleForm.valid">
+        Attack
+      </button>
     </div>
-  </div>
+  </form>
 </div>

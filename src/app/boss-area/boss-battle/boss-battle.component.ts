@@ -3,12 +3,13 @@ import {CommonModule} from "@angular/common";
 import {AuthService} from "../../services/auth.service";
 import {ApiService} from "../../services/api.service";
 import {CalculateService} from "../../services/calculate.service";
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 
 @Component({
   selector: 'app-boss-battle',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './boss-battle.component.html',
   styleUrl: './boss-battle.component.css'
 })
@@ -22,6 +23,12 @@ export class BossBattleComponent implements OnInit {
   userItem: any;
   eQshield = false;
   eQtwoWeapon = false;
+  // private fb = inject(FormBuilder)
+  battleForm: FormGroup<any>;
+
+  constructor(private _fb: FormBuilder) {
+    this.battleForm = this._fb.group({})
+  }
 
   ngOnInit() {
     let userId = this.authService.devUserId(); // devMod
@@ -51,7 +58,17 @@ export class BossBattleComponent implements OnInit {
         if(el.type == 'weapon' && el.equipped && el.slot == 2) this.eQtwoWeapon = true;
       })
 
+    });
+    this.battleForm = this._fb.group({
+      attack1: null,
+      attack2: null,
+      defence: null
     })
+
+  }
+
+  startStrike(){
+    console.log(this.battleForm.value)
   }
 
 }
