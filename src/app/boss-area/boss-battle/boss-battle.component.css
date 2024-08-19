@@ -190,6 +190,7 @@
   color: #e0e2ec;
   font-weight: 300;
   justify-content: space-evenly;
+  height: 45px;
 }
 input[name="attack2"],
 input[name="attack1"],
@@ -224,12 +225,14 @@ input[name="defence"]:checked + label:after {
   align-items: center;
   color: #e0e2ec;
   font-weight: 300;
+  height: 45px;
+  font-size: 14px;
 }
-.ballte-btn {
+.battle-btn {
   width: max-content;
   margin: 0px auto;
   position: relative;
-  top: -35px;
+  top: -36px;
   background: linear-gradient(to bottom, rgba(15, 114, 0, 1) 0%, rgba(3, 165, 76, 1) 50%, rgba(15, 114, 0, 1) 100%);
   color: #fff;
   font-weight: 300;
@@ -242,8 +245,8 @@ input[name="defence"]:checked + label:after {
   left: 50%;
   transform: translateX(-50%);
 }
-.ballte-btn:after ,
-.ballte-btn:before {
+.battle-btn:after ,
+.battle-btn:before {
   position: absolute;
   content: "";
   width: 19px;
@@ -252,13 +255,31 @@ input[name="defence"]:checked + label:after {
   background: linear-gradient(135deg, rgba(15, 114, 0, 1) 0%, rgba(3, 165, 76, 1) 50%, rgba(15, 114, 0, 1) 100%);
   top: 3px;
 }
-.ballte-btn:before {
+.battle-btn:before {
   left: -12px;
   border-left: 2px solid #D09C60;
   border-bottom: 2px solid #D09C60;
 }
-.ballte-btn:after {
+.battle-btn:after {
   right: -12px;
   border-right: 2px solid #D09C60;
   border-top: 2px solid #D09C60;
 }
+.battle-desc {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 150px;
+  background: #35363f;
+  color: #fff;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: .5px;
+  padding: 10px;
+}
+.battle-action {
+  border-bottom: 1px solid #D09C60;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+.desc-damage {color: rgb(230 14 25)}

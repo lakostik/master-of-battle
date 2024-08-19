@@ -95,7 +95,7 @@
             <input id="def-1" type="radio" value="1" name="defence" formControlName="defence">
             <label for="def-1" class=""></label>
           </span>
-          <span>Head and Body<span *ngIf="eQshield"> and Groin</span></span>
+          <span>Head, Body<span *ngIf="eQshield"> and Groin</span></span>
 
         </div>
         <div class="def-selection">
@@ -103,7 +103,7 @@
             <input id="def-2" type="radio" value="2" name="defence" formControlName="defence">
             <label for="def-2" class=""></label>
           </span>
-          <span>Body and Groin<span *ngIf="eQshield"> and Legs</span></span>
+          <span>Body, Groin<span *ngIf="eQshield"> and Legs</span></span>
 
         </div>
         <div class="def-selection">
@@ -111,7 +111,7 @@
             <input id="def-3" type="radio" value="3" name="defence" formControlName="defence">
             <label for="def-3" class=""></label>
           </span>
-          <span>Groin and Legs<span *ngIf="eQshield"> and Arms</span></span>
+          <span>Groin, Legs<span *ngIf="eQshield"> and Arms</span></span>
 
         </div>
         <div class="def-selection">
@@ -119,21 +119,32 @@
             <input id="def-4" type="radio" value="4" name="defence" formControlName="defence">
             <label for="def-4" class=""></label>
           </span>
-          <span>Legs and Arms<span *ngIf="eQshield"> and Head</span></span>
+          <span>Legs, Arms<span *ngIf="eQshield"> and Head</span></span>
         </div>
         <div class="def-selection">
           <span>
             <input id="def-5" type="radio" value="5" name="defence" formControlName="defence">
             <label for="def-5" class=""></label>
           </span>
-          <span>Arms and Head<span *ngIf="eQshield"> and Body</span></span>
+          <span>Arms, Head<span *ngIf="eQshield"> and Body</span></span>
         </div>
       </div>
     </div>
     <div class="battle-button">
-      <button class="ballte-btn" (click)="startStrike()" [disabled]="!battleForm.valid">
+      <button class="battle-btn" (click)="startStrike()" [disabled]="!battleForm.valid">
         Attack
       </button>
     </div>
   </form>
+  <div class="battle-desc">
+    <div class="battle-action">
+      <span class="action-data">12:30:59 </span>
+      <span class="initiator-name">User-1</span>
+      <span class="desc-text"> З усього розмаху ударив </span>
+      <span class="target-name">User-2</span>
+      <span class="desc-text"> і наніс </span>
+      <span class="desc-damage"> - 32</span>
+      <span class="desc-text"> шкоди здоров'ю </span>
+    </div>
+  </div>
 </div>

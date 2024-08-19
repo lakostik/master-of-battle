@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {createClient, SupabaseClient, User} from "@supabase/supabase-js";
 import {environment} from "../../environments/environment.development";
 import {BehaviorSubject} from "rxjs";
+import {CalculateService} from "./calculate.service";
 
 
 
@@ -13,6 +14,8 @@ export class AuthService {
   private supabase: SupabaseClient;
   userId = window?.Telegram?.WebApp?.initDataUnsafe?.user?.id ? window?.Telegram?.WebApp?.initDataUnsafe?.user?.id : 7340248041;
 
+  calcService = inject(CalculateService)
+
   constructor() {
     this.supabase = createClient(environment.supa_url, environment.supa_anon_key);
     this.supabase
@@ -21,6 +24,49 @@ export class AuthService {
         this.handleUserChange(payload);
       })
       .subscribe();
+
+    this.supabase
+      .channel('user-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_boss_actions' }, (payload) => {
+        console.log(payload)
+        this.userActions(payload.new)
+      })
+      .subscribe();
+
+  }
+
+  userActions(act: any){
+    console.log(act)
+    this.getUserActions(act.battle_id, act.step).then((data: any) => {
+      console.log(data)
+      let user_1, user_2, user_1_params, user_2_params;
+      if(data.length >= 2) {
+        user_1 = data[data.length - 2];
+        user_2 = data[data.length - 1];
+        console.log(user_1, user_2)
+        // створення масиву захисту
+        if(user_1.def_type){
+          user_1.def = [user_1.action_def, user_1.action_def+1 > 5 ? user_1.action_def+1 - 5 : user_1.action_def+1, user_1.action_def+2 > 5 ? user_1.action_def+2 - 5 : user_1.action_def+2]
+        } else {user_1.def = [user_1.action_def, user_1.action_def+1]}
+        if(user_2.def_type){
+          user_2.def = [user_2.action_def, user_2.action_def+1 > 5 ? user_2.action_def+1 - 5 : user_2.action_def+1, user_2.action_def+2 > 5 ? user_2.action_def+2 - 5 : user_2.action_def+2]
+        } else {user_2.def = [user_2.action_def, user_2.action_def+1]}
+
+        // перевірка на відповідність удар до блоку
+        if(user_1.attack1 && user_2.def.indexOf(user_1.attack1) < 0){
+          console.log('u11',user_1.attack1, user_2.def)
+        }
+        if(user_1.attack2 && user_2.def.indexOf(user_1.attack2) < 0){
+          console.log('u12',user_1.attack2, user_2.def)
+        }
+        if(user_2.attack1 && user_1.def.indexOf(user_2.attack1) < 0){
+          console.log('u21',user_2.attack1, user_1.def)
+        }
+        if(user_2.attack2 && user_1.def.indexOf(user_2.attack2) < 0){
+          console.log('u22',user_2.attack2, user_1.def)
+        }
+      }
+    })
 
   }
 
@@ -334,6 +380,28 @@ export class AuthService {
       return null;
     }
     return data.length ? data[0] : null;
+  }
+
+  async getUserActions(id:any, step: any) {
+    const { data, error } = await this.supabase
+      .from('user_boss_actions')
+      .select('*')
+      .eq('battle_id', id)
+      .eq('step', step)
+    if (error) {
+      return null;
+    }
+    return data.length ? data : null;
+  }
+  async createUserBossAction(opt: any) {
+    const { data, error } = await this.supabase
+      .from('user_boss_actions')
+      .insert(opt)
+      .select()
+    if (error) {
+      return null;
+    }
+    return data.length ? data : null;
   }
 
 

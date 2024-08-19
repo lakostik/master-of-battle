@@ -1,15 +1,22 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
+import {AuthService} from "./auth.service";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculateService {
+  // authService = inject(AuthService)
 
   constructor() { }
   addAttributes(spec: any, ) {
 
   }
+
+
+
+
+
   concatParameters(data: any, items: any = null){
     let step = 0;
     let newArr:any = {
@@ -195,6 +202,8 @@ export class CalculateService {
     console.log(newArr);
     return newArr
   }
+
+
 
 
 }
