@@ -1,10 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {createClient, SupabaseClient, User} from "@supabase/supabase-js";
 import {environment} from "../../environments/environment.development";
-import {BehaviorSubject} from "rxjs";
 import {CalculateService} from "./calculate.service";
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +25,6 @@ export class AuthService {
     this.supabase
       .channel('user-changes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'user_boss_actions' }, (payload) => {
-        console.log(payload)
         this.userActions(payload.new)
       })
       .subscribe();
@@ -36,39 +32,140 @@ export class AuthService {
   }
 
   userActions(act: any){
-    console.log(act)
+    let step = act.step;
     this.getUserActions(act.battle_id, act.step).then((data: any) => {
+      let user_1:any,
+          user_2:any,
+          usersData: any,
+          user_1_params,
+          user_2_params,
+          step: any;
       console.log(data)
-      let user_1, user_2, user_1_params, user_2_params;
-      if(data.length >= 2) {
+      if(data.length == 2 && data[data.length - 2].step == data[data.length - 1].step) {
+        console.log(data);
         user_1 = data[data.length - 2];
         user_2 = data[data.length - 1];
-        console.log(user_1, user_2)
+        step = data[data.length - 1].step;
+        usersData = this.getUsersDataBattle(user_1, user_2);
+
+
         // створення масиву захисту
         if(user_1.def_type){
           user_1.def = [user_1.action_def, user_1.action_def+1 > 5 ? user_1.action_def+1 - 5 : user_1.action_def+1, user_1.action_def+2 > 5 ? user_1.action_def+2 - 5 : user_1.action_def+2]
-        } else {user_1.def = [user_1.action_def, user_1.action_def+1]}
+        } else user_1.def = [user_1.action_def, user_1.action_def+1]
         if(user_2.def_type){
           user_2.def = [user_2.action_def, user_2.action_def+1 > 5 ? user_2.action_def+1 - 5 : user_2.action_def+1, user_2.action_def+2 > 5 ? user_2.action_def+2 - 5 : user_2.action_def+2]
-        } else {user_2.def = [user_2.action_def, user_2.action_def+1]}
+        } else user_2.def = [user_2.action_def, user_2.action_def+1]
 
-        // перевірка на відповідність удар до блоку
-        if(user_1.attack1 && user_2.def.indexOf(user_1.attack1) < 0){
-          console.log('u11',user_1.attack1, user_2.def)
-        }
-        if(user_1.attack2 && user_2.def.indexOf(user_1.attack2) < 0){
-          console.log('u12',user_1.attack2, user_2.def)
-        }
-        if(user_2.attack1 && user_1.def.indexOf(user_2.attack1) < 0){
-          console.log('u21',user_2.attack1, user_1.def)
-        }
-        if(user_2.attack2 && user_1.def.indexOf(user_2.attack2) < 0){
-          console.log('u22',user_2.attack2, user_1.def)
-        }
+        // опрацювання юзерів
+        let interval = setInterval(() => {
+          if(usersData?.length == 2) {
+            clearInterval(interval);
+            let el1: any = this.calcService.calcUserItemsParameters(usersData[0]);
+            let el2: any;
+            if(usersData[1].user_id) el2 = this.calcService.calcUserItemsParameters(usersData[1])
+            user_1_params = this.calcService.concatParameters(usersData[0].user_spec[0], el1)
+            if(!usersData[1].user_id) user_2_params = this.calcService.concatParameters(usersData[1])
+            else user_2_params = this.calcService.concatParameters(usersData[1].user_spec[0], el2)
+            user_1_params.level = usersData[0].user_exp[0].curr_lvl;
+            user_1_params.id = usersData[0].user_id;
+            user_2_params.level = usersData[1]?.user_id ? usersData[1]?.user_id : usersData[1].id;
+
+            console.log('start 1',user_1_params,user_2_params)
+            // перевірка на відповідність удар до блоку
+            if(user_1.attack1 && user_2.def.indexOf(user_1.attack1) < 0){
+              let resultData = this.calcService.battleBegin(user_1_params, user_2_params, 1, user_1?.attack1)
+              let resCalc =this.calcResults(usersData, resultData, 11, user_1_params,user_2_params, step)
+              user_2_params.hp = resCalc;
+            } else {
+              let resCalc = this.calcResults(usersData, null, 11, user_1_params,user_2_params, step)
+              user_2_params.hp = resCalc;
+            }
+            console.log('start 2',user_1_params,user_2_params)
+            if(user_1.attack2 && user_2.def.indexOf(user_1.attack2) < 0){
+                let resultData = this.calcService.battleBegin(user_1_params, user_2_params, 2, user_1?.attack2)
+              let resCalc = this.calcResults(usersData, resultData, 12, user_1_params,user_2_params, step)
+              user_2_params.hp = resCalc;
+            } else if(user_1.attack2) {
+              let resCalc = this.calcResults(usersData, null, 12, user_1_params,user_2_params, step)
+              user_2_params.hp = resCalc;
+            }
+            console.log('start 3',user_1_params,user_2_params)
+            if(user_2.attack1 && user_1.def.indexOf(user_2.attack1) < 0){
+              let resultData = this.calcService.battleBegin(user_2_params, user_1_params, 1, user_2.attack1)
+              let resCalc = this.calcResults(usersData, resultData, 21,user_2_params,user_1_params, step)
+              user_1_params.hp = resCalc;
+            } else {
+              let resCalc = this.calcResults(usersData, null, 21,user_2_params,user_1_params, step)
+              user_1_params.hp = resCalc;
+            }
+            console.log('start 4',user_1_params,user_2_params)
+            if(user_2.attack2 && user_1.def.indexOf(user_2.attack2) < 0){
+              let resultData = this.calcService.battleBegin(user_2_params, user_1_params, 2, user_2.attack2 )
+              let resCalc = this.calcResults(usersData, resultData, 22,user_2_params,user_1_params, step)
+              user_1_params.hp = resCalc;
+            } else if(user_2.attack2){
+              let resCalc = this.calcResults(usersData, null, 22, user_2_params, user_1_params, step)
+              user_1_params.hp = resCalc;
+            }
+          }
+        }, 500); // Перевірка чи завантажились дані користувачів, якщо ні перезапуск 0.5с
       }
     })
 
   }
+
+  calcResults(usersData: any,  resultData:any, hit: any, user_1_params:any, user_2_params:any, step:any){
+    console.log(usersData, resultData, hit, user_1_params, user_2_params)
+    let hp1:any, hp2:any, mp1: any, mp2:any;
+    if(usersData[0].user_id == user_1_params.id) {
+      hp1 = user_1_params.hp;
+      mp1 = user_1_params.mp;
+      hp2 = user_2_params.hp - (resultData ? resultData[2] : 0)
+      mp2 = user_2_params.mp;
+    } else {
+      hp2 = user_1_params.hp;
+      mp2 = user_1_params.mp;
+      hp1 = user_2_params.hp - (resultData ? resultData[2] : 0)
+      mp1 = user_2_params.mp;
+    }
+
+    if(hp1 < 0) hp1 = 0;
+    if(hp2 < 0) hp2 = 0;
+
+    let opt = {
+      user_1: usersData[0].user_id,
+      user_2: usersData[1].user_id ? usersData[1].user_id : usersData[1].id,
+      hp_1: Math.floor(hp1),
+      hp_2: Math.floor(hp2),
+      mp_1: Math.floor(mp1),
+      mp_2: Math.floor(mp2),
+      atk11: hit == 11 && resultData ? 1 : 0,
+      atk12: hit == 12 && resultData ? 1 : 0,
+      atk21: hit == 21 && resultData ? 1 : 0,
+      atk22: hit == 22 && resultData ? 1 : 0,
+      def1: (hit == 21 || hit == 22) && !resultData ? 1 : 0,
+      def2: (hit == 11 || hit == 12) && !resultData ? 1 : 0,
+      cri: resultData ? resultData[3] : 0,
+      evas: resultData ? resultData[4] : 0,
+      damage: resultData ? resultData[2] : 0,
+      step: step
+    }
+    this.createUserActionResult(opt).then()
+    if(usersData[0].user_id == user_1_params.id) return hp2
+    else return hp1
+  }
+
+  getUsersDataBattle(user1: any, user2: any){
+    let users: any = [{}, {}]
+    // Отримати свіжу інформацію про користувача
+    this.checkUserById(user1.user_id).then((data: any) => users[0] = data)
+    if(user2.type == 'boss') this.getAllBosses(user2.user_id).then((data: any) => users[1] = data[0])
+    else this.checkUserById(user2.user_id).then((data: any) => users[1] = data[0])
+    return users
+  }
+
+
 
   devUserId(){
     return window?.Telegram?.WebApp?.initDataUnsafe?.user?.id ? window?.Telegram?.WebApp?.initDataUnsafe?.user?.id : 7340248041;
@@ -81,12 +178,15 @@ export class AuthService {
     })
   }
   // Get user
-  async checkUserById(userId: number): Promise<any> {
-    const { data, error } = await this.supabase
+  async checkUserById(userId:any = null): Promise<any> {
+    let query = this.supabase
       .from('telegram_users')
       .select('* , user_spec(*), user_quests(*), user_exp(*), user_items(*)')
-      .eq('user_id', this.userId)
-      .order('id', { ascending: true });
+    if (userId !== null) { query = query.eq('user_id', userId); }
+    else {
+      query = query.eq('user_id', this.userId);
+    }
+    const { data, error } = await query;
     if (error) {
       return null;
     }
@@ -403,7 +503,17 @@ export class AuthService {
     }
     return data.length ? data : null;
   }
-
+  // user action result //
+  async createUserActionResult(opt: any) {
+    const { data, error } = await this.supabase
+      .from('user_actions_result')
+      .insert(opt)
+      .select()
+    if (error) {
+      return null;
+    }
+    return data.length ? data : null;
+  }
 
 
 }

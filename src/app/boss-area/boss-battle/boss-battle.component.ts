@@ -4,6 +4,8 @@ import {AuthService} from "../../services/auth.service";
 import {ApiService} from "../../services/api.service";
 import {CalculateService} from "../../services/calculate.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {createClient, SupabaseClient} from "@supabase/supabase-js";
+import {environment} from "../../../environments/environment.development";
 
 
 @Component({
@@ -28,16 +30,27 @@ export class BossBattleComponent implements OnInit {
   battle_id: number = 0;
   step: number = 0;
 
+  private supabase: SupabaseClient;
+
   constructor(private _fb: FormBuilder) {
     this.battleForm = this._fb.group({})
+    this.supabase = createClient(environment.supa_url, environment.supa_anon_key);
+    this.supabase
+      .channel('user-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_actions_result' }, (payload) => {
+        console.log(payload.new)
+        this.trackData(payload)
+      })
+      .subscribe();
   }
+
 
   ngOnInit() {
     let userId = this.authService.devUserId(); // devMod
     let data = JSON.parse(''+sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '');
     if(data) {
       this.user = data;
-      let firstCalc= this.apiService.calcUserItemsParameters(data);
+      let firstCalc= this.calcService.calcUserItemsParameters(data);
       this.firstUser = this.calcService.concatParameters(data.user_spec[0], firstCalc);
       this.firstUser.name = data.username;
       this.firstUser.level = data.user_exp[0].curr_lvl;
@@ -89,9 +102,17 @@ export class BossBattleComponent implements OnInit {
       battle_id: this.battle_id,
       def_type: this.eQshield
     }
+
     this.authService.createUserBossAction(opt).then(() => {
-      this.imitationBossAttack();
+      setTimeout(() => {
+        this.imitationBossAttack();
+      }, 500)
+
     })
+  }
+
+  trackData(data: any){
+    console.log(data)
   }
 
   imitationBossAttack(){

@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule, Location} from "@angular/common";
 import {ApiService} from "../services/api.service";
 import {AuthService} from "../services/auth.service";
+import {CalculateService} from "../services/calculate.service";
 
 @Component({
   selector: 'app-user-info',
@@ -16,6 +17,7 @@ export class UserInfoComponent implements OnInit {
   location = inject(Location);
   apiService = inject(ApiService);
   authService = inject(AuthService);
+  calcService = inject(CalculateService)
   user: any;
   charShowBnt = false;
   itemData: any;
@@ -25,7 +27,7 @@ export class UserInfoComponent implements OnInit {
     let data = sessionStorage.getItem(userId) ? ''+sessionStorage.getItem(userId) : '';
     if(data) {
       this.user = JSON.parse(data);
-      this.itemData = this.apiService.calcUserItemsParameters(this.user);
+      this.itemData = this.calcService.calcUserItemsParameters(this.user);
     } else {
       setTimeout(() => this.ngOnInit(), 500)
     }

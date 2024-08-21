@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {ItemOptPipe} from "../../pipe/item-opt.pipe";
 import {AuthService} from "../../services/auth.service";
 import {ApiService} from "../../services/api.service";
+import {CalculateService} from "../../services/calculate.service";
 
 
 @Component({
@@ -21,6 +22,7 @@ export class EquipComponent implements OnInit{
 
   authService = inject(AuthService);
   apiService = inject(ApiService);
+  calcService = inject(CalculateService)
   popUp = false;
   popUpData: any;
 
@@ -43,7 +45,7 @@ export class EquipComponent implements OnInit{
 
   ngOnInit() {
     if(this.user?.user_id) this.filterEquipped(this.user);
-    this.itemData = this.apiService.calcUserItemsParameters(this.user);
+    this.itemData = this.calcService.calcUserItemsParameters(this.user);
     this.calcPoints(this.user, this.itemData)
   }
 
