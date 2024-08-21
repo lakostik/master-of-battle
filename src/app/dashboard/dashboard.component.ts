@@ -51,14 +51,14 @@ export class DashboardComponent implements OnInit, OnDestroy{
       this.apiService.lvlTable.subscribe((data: any) => {
         this.dataLevel = data;
         data.find((el: any) => {
-          if(this.user?.user_exp[0]?.exp >= el.exp) {
+          if(this.user?.user_exp?.exp >= el.exp) {
             this.userlevel = el;
           }
           if(this.userlevel.level+1 === el.level){
             this.userNextLevel = el;
           }
         });
-        this.expWidth = (this.user?.user_exp[0]?.exp - this.userlevel.exp) / ((this.userNextLevel.exp - this.userlevel.exp) / 100 )
+        this.expWidth = (this.user?.user_exp?.exp - this.userlevel.exp) / ((this.userNextLevel.exp - this.userlevel.exp) / 100 )
       });
   }
 

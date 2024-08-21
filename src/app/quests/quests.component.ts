@@ -136,9 +136,9 @@ export class QuestsComponent implements OnInit {
     else arr_d.push(qq.id);                     // в іншому випадку формуємо массив дейлі квестів
 
     let opt = qq.special ? {arr_s: arr_s} : {arr_d: arr_d}    // формування оновлення данних для Юзер квестів
-    this.user.kar += qq.kar + this.user.user_exp[0].curr_lvl;                         // Додаю нагороду за квест (Кар)
+    this.user.kar += qq.kar + this.user.user_exp.curr_lvl;                         // Додаю нагороду за квест (Кар)
 
-    let addition = qq.exp + (5 * this.user.user_exp[0].curr_lvl);  // Додаю нагороду за квест (ЕХР)
+    let addition = qq.exp + (5 * this.user.user_exp.curr_lvl);  // Додаю нагороду за квест (ЕХР)
 
     // Обєднав всі запити в один
     forkJoin({

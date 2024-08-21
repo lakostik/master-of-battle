@@ -64,10 +64,10 @@ export class AuthService {
             let el1: any = this.calcService.calcUserItemsParameters(usersData[0]);
             let el2: any;
             if(usersData[1].user_id) el2 = this.calcService.calcUserItemsParameters(usersData[1])
-            user_1_params = this.calcService.concatParameters(usersData[0].user_spec[0], el1)
+            user_1_params = this.calcService.concatParameters(usersData[0].user_spec, el1)
             if(!usersData[1].user_id) user_2_params = this.calcService.concatParameters(usersData[1])
-            else user_2_params = this.calcService.concatParameters(usersData[1].user_spec[0], el2)
-            user_1_params.level = usersData[0].user_exp[0].curr_lvl;
+            else user_2_params = this.calcService.concatParameters(usersData[1].user_spec, el2)
+            user_1_params.level = usersData[0].user_exp.curr_lvl;
             user_1_params.id = usersData[0].user_id;
             user_2_params.level = usersData[1]?.user_id ? usersData[1]?.user_id : usersData[1].id;
 
@@ -135,7 +135,9 @@ export class AuthService {
 
     let opt = {
       user_1: usersData[0].user_id,
+      user_1_name: usersData[0].username,
       user_2: usersData[1].user_id ? usersData[1].user_id : usersData[1].id,
+      user_2_name: usersData[1].user_id ? usersData[1].username : usersData[1].name,
       hp_1: Math.floor(hp1),
       hp_2: Math.floor(hp2),
       mp_1: Math.floor(mp1),
@@ -174,7 +176,7 @@ export class AuthService {
   handleUserChange(payload: any) {
     this.checkUserById(payload.old.user_id).then(user => {
       sessionStorage.setItem(this.userId, JSON.stringify(user));
-      sessionStorage.setItem(this.userId+'_exp', JSON.stringify(user.user_exp[0]));
+      sessionStorage.setItem(this.userId+'_exp', JSON.stringify(user.user_exp));
     })
   }
   // Get user

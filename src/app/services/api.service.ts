@@ -58,8 +58,8 @@ export class ApiService implements OnInit {
     }
     if(user?.user_id && (newExp > 0)){
         let experienceTable = this.lvlTable.value; // таблиця досвіду
-        let currentLevel = user.user_exp[0].curr_lvl; // рівень записаний в базі =)
-        let experience = user.user_exp[0].exp + newExp; // досвід користувача
+        let currentLevel = user.user_exp.curr_lvl; // рівень записаний в базі =)
+        let experience = user.user_exp.exp + newExp; // досвід користувача
         let levelsGained = 0; // Змінна для відстеження кількості рівнів, на які підвищився користувач
         let money = 0; // Змінна для грошей
 
@@ -74,8 +74,8 @@ export class ApiService implements OnInit {
           await this.authService.patchUserExp(user.user_id, opt);
 
           if (levelsGained) {
-            user.user_spec[0].points += levelsGained;
-            await this.authService.patchUserSpec(user.user_id, { 'points': user.user_spec[0].points });
+            user.user_spec.points += levelsGained;
+            await this.authService.patchUserSpec(user.user_id, { 'points': user.user_spec.points });
             await this.authService.patchUserData(user.user_id, { 'kar': user.kar + money });
           } else {
             await this.authService.patchUserData(user.user_id, { 'kar': user.kar + money }).then()

@@ -9,16 +9,28 @@
       </div>
       <div class="user-point">
         <div class="user-name">{{firstUser.name}}</div>
-        <div class="user-hp"><span class="progress-hp"></span><span>{{firstUser.hp}}</span></div>
-        <div class="user-mp"><span class="progress-mp"></span><span>{{firstUser.mp}}</span></div>
+        <div class="user-hp">
+          <span class="progress-hp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].hp1 / (firstUser.hp/ 100) : 100"></span>
+          <span>{{firstUser.hp}}</span>
+        </div>
+        <div class="user-mp">
+          <span class="progress-mp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].mp1 / (firstUser.mp/ 100) : 100"></span>
+          <span>{{firstUser.mp}}</span>
+        </div>
       </div>
     </div>
     <div class="timer"><span>59</span> s</div>
     <div class="user-2">
       <div class="user-point">
         <div class="user-name">{{secondUser.name}}</div>
-        <div class="user-hp"><span class="progress-hp"></span><span>{{secondUser.hp}}</span></div>
-        <div class="user-mp"><span class="progress-mp"></span><span>{{secondUser.mp}}</span></div>
+        <div class="user-hp">
+          <span class="progress-hp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].hp2 / (secondUser.hp/ 100) : 100"></span>
+          <span>{{secondUser.hp}}</span>
+        </div>
+        <div class="user-mp">
+          <span class="progress-mp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].mp2 / (secondUser.mp/ 100) : 100"></span>
+          <span>{{secondUser.mp}}</span>
+        </div>
       </div>
       <div class="user-avatar">
         <div class="user-img">
@@ -137,14 +149,30 @@
     </div>
   </form>
   <div class="battle-desc">
-    <div class="battle-action">
-      <span class="action-data">12:30:59 </span>
-      <span class="initiator-name">User-1</span>
-      <span class="desc-text"> З усього розмаху ударив </span>
-      <span class="target-name">User-2</span>
-      <span class="desc-text"> і наніс </span>
-      <span class="desc-damage"> - 32</span>
-      <span class="desc-text"> шкоди здоров'ю </span>
+    <ng-container *ngIf="dataBattleTime"></ng-container>
+    <div class="battle-action" *ngFor="let item of dataBattleTime">
+      <span class="action-data">{{item.created_at }}</span>
+      <ng-container *ngIf="item.atk11 || item.atk12">
+        <span class="initiator-name">{{item.user_1_name}}</span>
+      </ng-container>
+      <ng-container *ngIf="item.atk21 || item.atk22">
+        <span class="initiator-name">{{item.user_2_name}}</span>
+      </ng-container>
+      <ng-container *ngIf="item.damage > 0">
+        <span class="desc-text"> З усього розмаху ударив </span>
+        <ng-container *ngIf="item.atk11 || item.atk12">
+          <span class="target-name">{{item.user_2_name}}</span>
+        </ng-container>
+        <ng-container *ngIf="item.atk21 || item.atk22">
+          <span class="target-name">{{item.user_1_name}}</span>
+        </ng-container>
+        <span class="desc-text"> і наніс </span>
+        <span class="desc-damage" [ngClass]="{'crit': item.cri}"> - {{item.damage}}</span>
+        <span class="desc-text"> шкоди здоров'ю </span>
+      </ng-container>
+      <ng-container *ngIf="item.evas > 0">
+
+      </ng-container>
     </div>
   </div>
 </div>

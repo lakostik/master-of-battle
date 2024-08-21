@@ -44,15 +44,18 @@ export class EquipComponent implements OnInit{
 
 
   ngOnInit() {
-    if(this.user?.user_id) this.filterEquipped(this.user);
-    this.itemData = this.calcService.calcUserItemsParameters(this.user);
-    this.calcPoints(this.user, this.itemData)
+    if(this.user?.user_id) {
+      this.filterEquipped(this.user);
+      this.itemData = this.calcService.calcUserItemsParameters(this.user);
+      this.calcPoints(this.user, this.itemData)
+    }
+
   }
 
   calcPoints(user: any, itemData: any){
-    let hp = user.user_spec[0].vit * 10 + itemData.vit * 10 + itemData.hp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10;
+    let hp = user.user_spec?.vit * 10 + itemData?.vit * 10 + itemData.hp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10;
     this.userHP = hp + Math.round(itemData.bonus_vit * (hp / 100));
-    let mp = user.user_spec[0].men * 10 + itemData.men * 10 + itemData.mp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10;
+    let mp = user.user_spec?.men * 10 + itemData.men * 10 + itemData.mp + itemData.bonus_bos * 3 * 10 + itemData.bonus_boss * 5 * 10 + itemData.bonus_bosss * 7 * 10 + itemData.bonus_bossss * 9 * 10;
     this.userMP = mp + Math.round(itemData.bonus_men * (mp / 100));
   }
 

@@ -30,7 +30,10 @@ export class BossBattleComponent implements OnInit {
   battle_id: number = 0;
   step: number = 0;
 
+  dataBattleTime:any = [];
+
   private supabase: SupabaseClient;
+
 
   constructor(private _fb: FormBuilder) {
     this.battleForm = this._fb.group({})
@@ -39,7 +42,8 @@ export class BossBattleComponent implements OnInit {
       .channel('user-changes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'user_actions_result' }, (payload) => {
         console.log(payload.new)
-        this.trackData(payload)
+        this.dataBattleTime.push(payload.new)
+        // this.trackData(payload)
       })
       .subscribe();
   }
@@ -51,9 +55,9 @@ export class BossBattleComponent implements OnInit {
     if(data) {
       this.user = data;
       let firstCalc= this.calcService.calcUserItemsParameters(data);
-      this.firstUser = this.calcService.concatParameters(data.user_spec[0], firstCalc);
+      this.firstUser = this.calcService.concatParameters(data.user_spec, firstCalc);
       this.firstUser.name = data.username;
-      this.firstUser.level = data.user_exp[0].curr_lvl;
+      this.firstUser.level = data.user_exp.curr_lvl;
       this.firstUser.mp = Math.floor(this.firstUser.mp);
       this.firstUser.hp = Math.floor(this.firstUser.hp);
     } else {

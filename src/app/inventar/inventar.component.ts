@@ -105,7 +105,7 @@ export class InventarComponent implements OnInit{
       item.spinner = true;
       this.errorMess = '';
       if((this.user.kar - ((item.level*2) + 3)) >= 0){
-        if(this.user.user_exp[0].curr_lvl > item.level) {
+        if(this.user.user_exp.curr_lvl > item.level) {
           let opt = Object.assign({}, this.addRandomOpt(item));
           opt.price += (item.level*2) + 3;
           if(opt.defence != null && opt.type !== 'shield') opt.defence += 2;

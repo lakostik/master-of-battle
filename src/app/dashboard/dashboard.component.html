@@ -3,7 +3,7 @@
     <div class="user-img" (click)="userInfoPage()">
       <img *ngIf="user?.photo_url" [src]="user?.photo_url">
       <img *ngIf="!user?.photo_url" src="./assets/img/free-avatar.png">
-      <span class="user-lvl">{{user?.user_exp[0]?.curr_lvl}}</span>
+      <span class="user-lvl">{{user?.user_exp?.curr_lvl}}</span>
     </div>
     <div class="user-detail">
       <div class="user-name">
@@ -13,7 +13,7 @@
         <div class="exp-blok">
           <span class="exp-count" [style.width.%]="expWidth"></span>
         </div>
-        <div class="exp-text">Exp: {{user?.user_exp[0]?.exp}} / {{userNextLevel.exp}}</div>
+        <div class="exp-text">Exp: {{user?.user_exp?.exp}} / {{userNextLevel?.exp}}</div>
         <span class="money">{{user?.kar}} kar</span>
       </div>
     </div>

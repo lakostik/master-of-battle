@@ -36,17 +36,17 @@ export class UserInfoComponent implements OnInit {
 
 
   addStat(name: string){
-    if(this.user.user_spec[0].points > 0) {
+    if(this.user.user_spec.points > 0) {
       this.charShowBnt = true;
-      this.user.user_spec[0][name] = this.user.user_spec[0][name] + 1;
-      this.user.user_spec[0].points = this.user.user_spec[0].points - 1;
+      this.user.user_spec[name] = this.user.user_spec[name] + 1;
+      this.user.user_spec.points = this.user.user_spec.points - 1;
     }
   }
 
   saveChr(){
     const data = this.user.user_spec;
     this.authService.patchUserSpec(this.user.user_id, data).then((spec) => {
-      this.user.user_spec[0] = spec;
+      this.user.user_spec = spec;
       sessionStorage.setItem(this.user.user_id, JSON.stringify(this.user));
       this.charShowBnt = false;
     })
@@ -54,7 +54,7 @@ export class UserInfoComponent implements OnInit {
 
   cancelChr() {
     this.authService.getUserSpec(this.user.user_id).then((spec) => {
-      this.user.user_spec[0] = spec;
+      this.user.user_spec = spec;
       sessionStorage.setItem(this.user.user_id, JSON.stringify(this.user));
       this.charShowBnt = false;
     })

@@ -282,4 +282,6 @@ input[name="defence"]:checked + label:after {
   padding-bottom: 2px;
   margin-bottom: 2px;
 }
-.desc-damage {color: rgb(230 14 25)}
+.desc-damage {color: rgb(230, 122, 14)
+}
+.desc-damage,crit {color: rgb(230 14 25)}
