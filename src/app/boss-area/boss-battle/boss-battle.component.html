@@ -10,11 +10,11 @@
       <div class="user-point">
         <div class="user-name">{{firstUser.name}}</div>
         <div class="user-hp">
-          <span class="progress-hp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].hp1 / (firstUser.hp/ 100) : 100"></span>
+          <span class="progress-hp" [style.width.%]="dataBattleTime.length ? dataBattleTime[dataBattleTime.length -1].hp_1 / (firstUser.hp/ 100) : 100"></span>
           <span>{{firstUser.hp}}</span>
         </div>
         <div class="user-mp">
-          <span class="progress-mp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].mp1 / (firstUser.mp/ 100) : 100"></span>
+          <span class="progress-mp" [style.width.%]="dataBattleTime.length ? dataBattleTime[dataBattleTime.length -1].mp_1 / (firstUser.mp/ 100) : 100"></span>
           <span>{{firstUser.mp}}</span>
         </div>
       </div>
@@ -24,11 +24,11 @@
       <div class="user-point">
         <div class="user-name">{{secondUser.name}}</div>
         <div class="user-hp">
-          <span class="progress-hp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].hp2 / (secondUser.hp/ 100) : 100"></span>
+          <span class="progress-hp" [style.width.%]="dataBattleTime.length ? dataBattleTime[dataBattleTime.length -1].hp_2 / (secondUser.hp/ 100) : 100"></span>
           <span>{{secondUser.hp}}</span>
         </div>
         <div class="user-mp">
-          <span class="progress-mp" [style.width.%]="dataBattleTime ? dataBattleTime[dataBattleTime.length -1].mp2 / (secondUser.mp/ 100) : 100"></span>
+          <span class="progress-mp" [style.width.%]="dataBattleTime.length ? dataBattleTime[dataBattleTime.length -1].mp_2 / (secondUser.mp/ 100) : 100"></span>
           <span>{{secondUser.mp}}</span>
         </div>
       </div>
@@ -148,10 +148,12 @@
       </button>
     </div>
   </form>
+  <div class="damage-result">{{damageresult}}</div>
   <div class="battle-desc">
     <ng-container *ngIf="dataBattleTime"></ng-container>
-    <div class="battle-action" *ngFor="let item of dataBattleTime">
-      <span class="action-data">{{item.created_at }}</span>
+    <div class="battle-action" *ngFor="let item of dataBattleTime;">
+      <span class="action-data">{{item.created_at | date: 'hh:mm:ss'}}</span>
+
       <ng-container *ngIf="item.atk11 || item.atk12">
         <span class="initiator-name">{{item.user_1_name}}</span>
       </ng-container>
@@ -170,8 +172,37 @@
         <span class="desc-damage" [ngClass]="{'crit': item.cri}"> - {{item.damage}}</span>
         <span class="desc-text"> шкоди здоров'ю </span>
       </ng-container>
-      <ng-container *ngIf="item.evas > 0">
 
+      <ng-container *ngIf="item.evas > 0">
+        <ng-container *ngIf="item.atk11 || item.atk12">
+          <span class="target-name">{{item.user_2_name}}</span>
+        </ng-container>
+        <ng-container *ngIf="item.atk21 || item.atk22">
+          <span class="target-name">{{item.user_1_name}}</span>
+        </ng-container>
+        <span class="desc-text">Посміхнувся і відпригнув в сторону від</span>
+        <ng-container *ngIf="item.atk11 || item.atk12">
+          <span class="initiator-name">{{item.user_1_name}}</span>
+        </ng-container>
+        <ng-container *ngIf="item.atk21 || item.atk22">
+          <span class="initiator-name">{{item.user_2_name}}</span>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="item.evas == 0 && item.damage == 0">
+        <ng-container *ngIf="item.def2">
+          <span class="target-name">{{item.user_2_name}}</span>
+        </ng-container>
+        <ng-container *ngIf="item.def1">
+          <span class="target-name">{{item.user_1_name}}</span>
+        </ng-container>
+      </ng-container>
+      <span class="desc-text">Оцінив ситуацію і заблокував удар </span>
+      <ng-container *ngIf="item.def2">
+        <span class="initiator-name">{{item.user_1_name}}</span>
+      </ng-container>
+      <ng-container *ngIf="item.def1">
+        <span class="initiator-name">{{item.user_2_name}}</span>
       </ng-container>
     </div>
   </div>

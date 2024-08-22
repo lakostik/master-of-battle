@@ -75,37 +75,37 @@ export class AuthService {
             // перевірка на відповідність удар до блоку
             if(user_1.attack1 && user_2.def.indexOf(user_1.attack1) < 0){
               let resultData = this.calcService.battleBegin(user_1_params, user_2_params, 1, user_1?.attack1)
-              let resCalc =this.calcResults(usersData, resultData, 11, user_1_params,user_2_params, step)
+              let resCalc =this.calcResults(usersData, resultData, 11, user_1_params,user_2_params, step, act.battle_id)
               user_2_params.hp = resCalc;
             } else {
-              let resCalc = this.calcResults(usersData, null, 11, user_1_params,user_2_params, step)
+              let resCalc = this.calcResults(usersData, null, 11, user_1_params,user_2_params, step, act.battle_id)
               user_2_params.hp = resCalc;
             }
             console.log('start 2',user_1_params,user_2_params)
             if(user_1.attack2 && user_2.def.indexOf(user_1.attack2) < 0){
                 let resultData = this.calcService.battleBegin(user_1_params, user_2_params, 2, user_1?.attack2)
-              let resCalc = this.calcResults(usersData, resultData, 12, user_1_params,user_2_params, step)
+              let resCalc = this.calcResults(usersData, resultData, 12, user_1_params,user_2_params, step, act.battle_id)
               user_2_params.hp = resCalc;
             } else if(user_1.attack2) {
-              let resCalc = this.calcResults(usersData, null, 12, user_1_params,user_2_params, step)
+              let resCalc = this.calcResults(usersData, null, 12, user_1_params,user_2_params, step, act.battle_id)
               user_2_params.hp = resCalc;
             }
             console.log('start 3',user_1_params,user_2_params)
             if(user_2.attack1 && user_1.def.indexOf(user_2.attack1) < 0){
               let resultData = this.calcService.battleBegin(user_2_params, user_1_params, 1, user_2.attack1)
-              let resCalc = this.calcResults(usersData, resultData, 21,user_2_params,user_1_params, step)
+              let resCalc = this.calcResults(usersData, resultData, 21,user_2_params,user_1_params, step, act.battle_id)
               user_1_params.hp = resCalc;
             } else {
-              let resCalc = this.calcResults(usersData, null, 21,user_2_params,user_1_params, step)
+              let resCalc = this.calcResults(usersData, null, 21,user_2_params,user_1_params, step, act.battle_id)
               user_1_params.hp = resCalc;
             }
             console.log('start 4',user_1_params,user_2_params)
             if(user_2.attack2 && user_1.def.indexOf(user_2.attack2) < 0){
               let resultData = this.calcService.battleBegin(user_2_params, user_1_params, 2, user_2.attack2 )
-              let resCalc = this.calcResults(usersData, resultData, 22,user_2_params,user_1_params, step)
+              let resCalc = this.calcResults(usersData, resultData, 22,user_2_params,user_1_params, step, act.battle_id)
               user_1_params.hp = resCalc;
             } else if(user_2.attack2){
-              let resCalc = this.calcResults(usersData, null, 22, user_2_params, user_1_params, step)
+              let resCalc = this.calcResults(usersData, null, 22, user_2_params, user_1_params, step, act.battle_id)
               user_1_params.hp = resCalc;
             }
           }
@@ -115,7 +115,7 @@ export class AuthService {
 
   }
 
-  calcResults(usersData: any,  resultData:any, hit: any, user_1_params:any, user_2_params:any, step:any){
+  calcResults(usersData: any,  resultData:any, hit: any, user_1_params:any, user_2_params:any, step:any, battle_id: any){
     console.log(usersData, resultData, hit, user_1_params, user_2_params)
     let hp1:any, hp2:any, mp1: any, mp2:any;
     if(usersData[0].user_id == user_1_params.id) {
@@ -151,8 +151,10 @@ export class AuthService {
       cri: resultData ? resultData[3] : 0,
       evas: resultData ? resultData[4] : 0,
       damage: resultData ? resultData[2] : 0,
-      step: step
+      step: step,
+      battle_id: battle_id
     }
+    console.log(opt)
     this.createUserActionResult(opt).then()
     if(usersData[0].user_id == user_1_params.id) return hp2
     else return hp1
@@ -511,6 +513,16 @@ export class AuthService {
       .from('user_actions_result')
       .insert(opt)
       .select()
+    if (error) {
+      return null;
+    }
+    return data.length ? data : null;
+  }
+  async getUserActionsResult(id:any) {
+    const { data, error } = await this.supabase
+      .from('user_actions_result')
+      .select('*')
+      .eq('battle_id', id)
     if (error) {
       return null;
     }

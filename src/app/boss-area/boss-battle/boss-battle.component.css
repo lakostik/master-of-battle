@@ -136,10 +136,10 @@
 .user-2 .user-mp span {
   transform: skew(-45deg);
 }
-.user-1 .user-hp span.progress-hp {background: linear-gradient(to right, rgb(231 34 93) 0%, rgb(230 14 25) 100%);left: 0;}
-.user-2 .user-hp span.progress-hp {background: linear-gradient(to left, rgb(231 34 93) 0%, rgb(230 14 25) 100%);right: 0;}
-.user-1 .user-mp span.progress-mp {background: linear-gradient(to right, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);left: 0;}
-.user-2 .user-mp span.progress-mp {background: linear-gradient(to left, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);right: 0;}
+.user-1 .user-hp span.progress-hp {background: linear-gradient(to right, rgb(231 34 93) 0%, rgb(230 14 25) 100%);left: 0;transform: skew(0);}
+.user-2 .user-hp span.progress-hp {background: linear-gradient(to left, rgb(231 34 93) 0%, rgb(230 14 25) 100%);right: 0;transform: skew(0);}
+.user-1 .user-mp span.progress-mp {background: linear-gradient(to right, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);left: 0;transform: skew(0);}
+.user-2 .user-mp span.progress-mp {background: linear-gradient(to left, rgb(34, 126, 231) 0%, rgb(14, 57, 230) 100%);right: 0;transform: skew(0);}
 
 .user-hp span.progress-hp {
   width: calc(100% + 9px);
@@ -276,6 +276,10 @@ input[name="defence"]:checked + label:after {
   font-size: 13px;
   letter-spacing: .5px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
 }
 .battle-action {
   border-bottom: 1px solid #D09C60;

@@ -31,19 +31,21 @@ export class BossBattleComponent implements OnInit {
   step: number = 0;
 
   dataBattleTime:any = [];
-
+  damageresult: number = 0;
   private supabase: SupabaseClient;
 
 
   constructor(private _fb: FormBuilder) {
     this.battleForm = this._fb.group({})
     this.supabase = createClient(environment.supa_url, environment.supa_anon_key);
+  }
+
+  supaSubs(){
     this.supabase
       .channel('user-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_actions_result' }, (payload) => {
-        console.log(payload.new)
-        this.dataBattleTime.push(payload.new)
-        // this.trackData(payload)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_actions_result', filter: 'battle_id=eq.'+this.battle_id }, (payload) => {
+        this.dataBattleTime.unshift(payload.new)
+        this.damageResult()
       })
       .subscribe();
   }
@@ -65,29 +67,34 @@ export class BossBattleComponent implements OnInit {
     }
     this.authService.getUserBoss().then((battle:any) => {
       this.battle_id = battle[0].id;
+      this.supaSubs();
+      this.authService.getUserActionsResult(battle[0].id).then((data:any) => {
+        if(data) this.dataBattleTime = data;this.damageResult();this.step = this.dataBattleTime.length ? this.dataBattleTime[this.dataBattleTime.length - 1].step : 0;
+      })
       this.authService.getAllBosses(battle[0].boss_id).then((bossData: any) => {
         this.secondUser = this.calcService.concatParameters(bossData[0])
         this.secondUser.name = bossData[0].name;
         this.secondUser.level = bossData[0].level;
         this.secondUser.boss_id = battle[0].boss_id;
-
-        console.log(this.secondUser)
       })
     });
     this.authService.getUserItems().then((data: any) => {
-      console.log(data)
       data.find((el:any) => {
         if(el.type == 'shield' && el.equipped) this.eQshield = 1;
         if(el.type == 'weapon' && el.equipped && el.slot == 2) this.eQtwoWeapon = 1;
       })
-
     });
     this.battleForm = this._fb.group({
       attack1: [null, Validators.required],
       attack2: [null, Validators.required],
       defence: [null, Validators.required]
     })
+  }
 
+  damageResult(){
+    this.dataBattleTime.filter((el:any) => {
+      this.damageresult += el.damage
+    })
   }
 
   startStrike(){
