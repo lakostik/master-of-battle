@@ -92,6 +92,7 @@ export class BossBattleComponent implements OnInit {
   }
 
   damageResult(){
+    this.damageresult = 0;
     this.dataBattleTime.filter((el:any) => {
       this.damageresult += el.damage
     })

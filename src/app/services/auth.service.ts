@@ -41,7 +41,7 @@ export class AuthService {
           user_2_params,
           step: any;
       console.log(data)
-      if(data.length == 2 && data[data.length - 2].step == data[data.length - 1].step) {
+      if(data?.length == 2 && data[data.length - 2].step == data[data.length - 1].step) {
         console.log(data);
         user_1 = data[data.length - 2];
         user_2 = data[data.length - 1];

@@ -148,7 +148,7 @@
       </button>
     </div>
   </form>
-  <div class="damage-result">{{damageresult}}</div>
+  <div class="damage-result"><span>{{firstUser.name}}</span> dealt <b>{{damageresult}}</b> damage</div>
   <div class="battle-desc">
     <ng-container *ngIf="dataBattleTime"></ng-container>
     <div class="battle-action" *ngFor="let item of dataBattleTime;">
