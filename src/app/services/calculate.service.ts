@@ -334,16 +334,18 @@ export class CalculateService {
         damage += Math.floor(Math.random() * (userAtk.damage * 2 - userAtk.damage + 1)) + userAtk.damage;
         damage += userAtk.attack;
         damage += type == 1 ? userAtk.attack_1 : userAtk.attack_2;
+
     let extra = userAtk.extra_damage - userDef.damage_resistant;
 
     if(extra > 0) damage += Math.floor((damage / 100) * extra);
     else damage = damage - Math.floor((damage / 100) * extra);
-
+    console.log(damage)
     if(atk == 1) damage -= userDef.helm_def + userDef.defence
     if(atk == 2) damage -= userDef.armor_def + userDef.defence
     if(atk == 3) damage -= userDef.pants_def + userDef.defence
     if(atk == 4) damage -= userDef.boots_def + userDef.defence
     if(atk == 5) damage -= userDef.gloves_def + userDef.defence
+    console.log(damage)
     data = this.criticalFn(damage, userAtk, userDef);
     return data;
   }
@@ -351,17 +353,18 @@ export class CalculateService {
   criticalFn(damage:any, userAtk:any, userDef:any){
     let data: any;
     let critChn = userAtk.critical_chance - userDef.critical_resistant;
+    console.log(critChn)
     if(critChn > 0) {
       let cri = critChn / (userAtk.level / 10);
-      if(cri > 100) {
-        cri = 95;
-        const randomNumber = Math.floor(Math.random() * 101);
-        if (cri >= randomNumber) {
+      console.log(cri)
+      if(cri > 100) cri = 95;
+      const randomNumber = Math.floor(Math.random() * 101);
+      if (cri >= randomNumber) {
           damage = damage * (userAtk.critical_index/100) + userAtk.critical_damage;
           data = [userAtk, userDef, Math.floor(damage), 1, 0];
-        }
-      }
+      } else data = [userAtk, userDef, Math.floor(damage), 0, 0];
     } else data = [userAtk, userDef, damage, 0, 0];
+    console.log(data)
     return data;
   }
 

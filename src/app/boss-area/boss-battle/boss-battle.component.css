@@ -288,4 +288,4 @@ input[name="defence"]:checked + label:after {
 }
 .desc-damage {color: rgb(230, 122, 14)
 }
-.desc-damage,crit {color: rgb(230 14 25)}
+.desc-damage.crit {color: rgb(230 14 25)}

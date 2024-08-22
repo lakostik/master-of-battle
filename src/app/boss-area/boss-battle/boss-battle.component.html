@@ -160,7 +160,7 @@
       <ng-container *ngIf="item.atk21 || item.atk22">
         <span class="initiator-name">{{item.user_2_name}}</span>
       </ng-container>
-      <ng-container *ngIf="item.damage > 0">
+      <ng-container *ngIf="item.damage >= 0">
         <span class="desc-text"> З усього розмаху ударив </span>
         <ng-container *ngIf="item.atk11 || item.atk12">
           <span class="target-name">{{item.user_2_name}}</span>
